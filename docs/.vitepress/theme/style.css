@@ -1,0 +1,836 @@
+/* ===== Learn Harness Engineering — Custom VitePress Styles ===== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap');
+
+/* ---------- CSS Variables (Light) ---------- */
+:root {
+  /* Anthropic / Claude Docs Style Colors */
+  --vp-c-bg: #FAF9F5;
+  --vp-c-bg-alt: #F4F3EE;
+  --vp-c-bg-elv: #FFFFFF;
+  --vp-c-bg-soft: #F4F3EE;
+
+  --vp-c-text-1: #1A1A1A;
+  --vp-c-text-2: #4A4A4A;
+  --vp-c-text-3: #757575;
+  
+  /* Brand - Orange */
+  --vp-c-brand-1: #D95C41;
+  --vp-c-brand-2: #C14E36;
+  --vp-c-brand-3: #A8412B;
+  --vp-c-brand-soft: rgba(217, 92, 65, 0.1);
+
+  /* Sidebar */
+  --vp-sidebar-width: 296px;
+  --vp-sidebar-bg-color: #F4F3EE;
+  --vp-c-divider: rgba(0, 0, 0, 0.08);
+
+  /* Layout tweaks */
+  --vp-nav-bg-color: #FAF9F5;
+  --vp-layout-max-width: 1376px;
+
+  /* Typography */
+  --vp-font-family-base: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --vp-font-family-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+}
+
+/* ---------- Dark mode overrides (Anthropic style dark mode if needed) ---------- */
+.dark {
+  --vp-c-bg: #1A1A1A;
+  --vp-c-bg-alt: #141414;
+  --vp-c-bg-elv: #242424;
+  --vp-c-bg-soft: #141414;
+
+  --vp-c-text-1: #E5E5E5;
+  --vp-c-text-2: #B3B3B3;
+  --vp-c-text-3: #808080;
+  
+  --vp-c-brand-1: #E07A64;
+  --vp-c-brand-2: #D95C41;
+  --vp-c-brand-3: #C14E36;
+  --vp-c-brand-soft: rgba(224, 122, 100, 0.15);
+
+  --vp-sidebar-bg-color: #141414;
+  --vp-nav-bg-color: #1A1A1A;
+  --vp-c-divider: rgba(255, 255, 255, 0.1);
+}
+
+/* ---------- Global typography ---------- */
+.vp-doc {
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.vp-doc h1 {
+  font-family: 'Newsreader', serif;
+  font-size: 3.5rem;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+  color: var(--vp-c-text-1);
+}
+
+.vp-doc h2 {
+  font-family: 'Newsreader', serif;
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-top: 2.5rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+
+.vp-doc h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 2rem;
+}
+
+/* ---------- Links ---------- */
+.vp-doc a {
+  color: var(--vp-c-brand-1);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.vp-doc a:hover {
+  color: var(--vp-c-brand-2);
+  text-decoration: underline;
+}
+
+/* ---------- Blockquotes ---------- */
+.vp-doc blockquote {
+  border-left: 4px solid var(--vp-c-brand-1);
+  background: var(--vp-c-brand-soft);
+  border-radius: 0 8px 8px 0;
+  padding: 12px 20px;
+  margin: 16px 0;
+  font-style: normal;
+}
+
+.vp-doc blockquote p {
+  margin: 0;
+}
+
+/* ---------- Code blocks ---------- */
+.vp-doc code {
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.9em;
+}
+
+.vp-doc div[class*='language-'] {
+  border-radius: 12px;
+  margin: 16px 0;
+  border: 1px solid var(--vp-c-divider);
+  background-color: var(--vp-c-bg-elv);
+}
+
+.vp-doc div[class*='language-'] button.copy {
+  background-color: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 6px;
+}
+
+.vp-doc :not(pre) > code {
+  background: var(--vp-c-bg-alt);
+  color: var(--vp-c-text-1);
+  padding: 3px 6px;
+  border-radius: 6px;
+  border: 1px solid var(--vp-c-divider);
+  font-size: 0.88em;
+}
+
+/* ---------- Lists ---------- */
+.vp-doc ul, .vp-doc ol {
+  padding-left: 1.25rem;
+}
+
+.vp-doc li {
+  margin: 6px 0;
+}
+
+.vp-doc li::marker {
+  color: var(--vp-c-brand-1);
+}
+
+/* ---------- Custom containers / tip blocks ---------- */
+.vp-doc .custom-block {
+  border-radius: 10px;
+  margin: 16px 0;
+}
+
+.vp-doc .custom-block .custom-block-title {
+  font-weight: 600;
+}
+
+/* ---------- Homepage hero ---------- */
+.VPHero .name {
+  font-size: 3.2rem !important;
+}
+
+.VPHero .text {
+  font-size: 1.35rem !important;
+  line-height: 1.5 !important;
+  max-width: 600px !important;
+}
+
+.VPHero .tagline {
+  font-size: 1.1rem !important;
+  line-height: 1.6 !important;
+  max-width: 560px !important;
+}
+
+/* ---------- Feature cards ---------- */
+.VPFeatures .item {
+  padding: 8px;
+}
+
+.VPFeature {
+  border-radius: 12px !important;
+  border: 1px solid var(--vp-c-divider) !important;
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s !important;
+  padding: 20px 24px !important;
+}
+
+.VPFeature:hover {
+  border-color: var(--vp-c-brand-1) !important;
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.1) !important;
+  transform: translateY(-2px) !important;
+}
+
+.VPFeature .title {
+  font-weight: 600 !important;
+  font-size: 1.05rem !important;
+}
+
+.VPFeature .details {
+  line-height: 1.6 !important;
+}
+
+/* ---------- Sidebar ---------- */
+.VPSidebar {
+  width: min(360px, calc(100vw - 24px));
+  max-width: calc(100vw - 24px);
+  padding: 28px 24px 96px;
+  background-color: var(--vp-sidebar-bg-color) !important;
+  border-right: 1px solid var(--vp-c-divider) !important;
+}
+
+.VPSidebar .VPSidebarItem.level-0 > .item > .text {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--vp-c-text-1);
+}
+
+.VPSidebar .VPSidebarItem .item .link {
+  position: relative;
+  align-items: flex-start;
+  border-radius: 8px !important;
+  transition: background-color 0.2s, color 0.2s;
+  color: var(--vp-c-text-2) !important;
+  font-size: 0.9rem;
+  padding: 8px 12px !important;
+  margin: 2px 0;
+}
+
+.VPSidebar .VPSidebarItem .item .text {
+  line-height: 1.55;
+  text-wrap: pretty;
+  line-break: loose;
+}
+
+.VPSidebar .VPSidebarItem .item .link:hover {
+  color: var(--vp-c-text-1) !important;
+  background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+.VPSidebar .VPSidebarItem.is-active > .item > .link {
+  color: var(--vp-c-text-1) !important;
+  font-weight: 600 !important;
+  background-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+.VPSidebar .VPSidebarItem.is-active > .item > .link::before {
+  display: none !important;
+}
+
+.dark .VPSidebar .VPSidebarItem .item .link:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.dark .VPSidebar .VPSidebarItem.is-active > .item > .link {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+@media (min-width: 768px) and (max-width: 959px) {
+  .VPNavBar.has-sidebar .container {
+    max-width: 100%;
+  }
+
+  .VPNavBar.has-sidebar .title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    padding: 0 32px;
+    width: var(--vp-sidebar-width);
+    height: var(--vp-nav-height);
+    background-color: transparent;
+  }
+
+  .VPNavBar.has-sidebar .content {
+    position: relative;
+    z-index: 1;
+    padding-right: 32px;
+    padding-left: var(--vp-sidebar-width);
+  }
+
+  .VPNavBar.has-sidebar .divider {
+    padding-left: var(--vp-sidebar-width);
+  }
+
+  .VPNavBar:not(.home.top) .content-body {
+    position: relative;
+    background-color: var(--vp-nav-bg-color);
+  }
+
+  .VPNavBar:not(.has-sidebar):not(.home.top) .content-body {
+    background-color: transparent;
+  }
+
+  .VPContent {
+    padding-top: var(--vp-nav-height);
+  }
+
+  .VPContent.has-sidebar {
+    margin: var(--vp-layout-top-height, 0px) 0 0;
+    padding-left: var(--vp-sidebar-width);
+  }
+
+  .VPSidebar {
+    z-index: 25;
+    padding-top: var(--vp-nav-height);
+    width: var(--vp-sidebar-width);
+    max-width: 100%;
+    opacity: 1;
+    visibility: visible;
+    box-shadow: none;
+    transform: translateX(0);
+  }
+
+  .VPSidebar .curtain {
+    position: sticky;
+    top: -64px;
+    left: 0;
+    z-index: 1;
+    margin-top: calc(var(--vp-nav-height) * -1);
+    margin-right: -32px;
+    margin-left: -32px;
+    height: var(--vp-nav-height);
+    background-color: var(--vp-sidebar-bg-color);
+  }
+
+  .VPLocalNav {
+    display: none;
+  }
+}
+
+/* ---------- Navigation ---------- */
+.VPNav {
+  background-color: var(--vp-nav-bg-color);
+}
+
+.VPNav .VPNavBar {
+  background-color: transparent;
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+
+.VPNavBarTitle {
+  font-family: 'Newsreader', ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  font-size: 1.45rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--vp-c-text-1);
+}
+
+.VPNavBarTitle .title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Nav Logo Fix */
+.VPNavBarTitle .logo {
+  height: 28px;
+  width: 28px;
+  margin-right: 2px;
+  border-radius: 0;
+}
+
+.VPNavBarMenu {
+  align-items: center;
+}
+
+.VPNavBarMenuLink {
+  position: relative;
+  color: var(--vp-c-text-2) !important;
+  font-weight: 500 !important;
+  padding: 0 2px !important;
+  margin: 0 12px;
+  border-radius: 0 !important;
+  background-color: transparent !important;
+  transition: all 0.2s ease;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+/* Nav Action Button (Try Harness) */
+.VPNavBarMenuLink[href*="learn-harness-engineering/blob/main/docs/"] {
+  background-color: #1A1A1A !important;
+  color: #FFFFFF !important;
+  border-radius: 20px !important;
+  padding: 0 16px !important;
+  margin: 0 4px 0 12px !important;
+  height: 36px !important;
+  line-height: 1 !important;
+  transition: background-color 0.2s ease;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+}
+
+.VPNavBarMenuLink[href*="learn-harness-engineering/blob/main/docs/"]:hover {
+  background-color: #333333 !important;
+  color: #FFFFFF !important;
+}
+
+.dark .VPNavBarMenuLink[href*="learn-harness-engineering/blob/main/docs/"] {
+  background-color: #E5E5E5 !important;
+  color: #1A1A1A !important;
+}
+
+.dark .VPNavBarMenuLink[href*="learn-harness-engineering/blob/main/docs/"]:hover {
+  background-color: #FFFFFF !important;
+  color: #1A1A1A !important;
+}
+
+.VPNavBarMenuLink[href*="learn-harness-engineering/blob/main/docs/"]::after {
+  display: none !important;
+}
+
+.VPNavBarMenuLink:not([href*="learn-harness-engineering/blob/main/docs/"]):hover {
+  color: var(--vp-c-text-1) !important;
+  background-color: transparent !important;
+}
+
+.VPNavBarMenuLink.active:not([href*="learn-harness-engineering/blob/main/docs/"]) {
+  color: var(--vp-c-text-1) !important;
+}
+
+.VPNavBarMenuLink.active:not([href*="learn-harness-engineering/blob/main/docs/"])::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--vp-c-text-1);
+}
+
+.dark .VPNavBarMenuLink.active:not([href*="learn-harness-engineering/blob/main/docs/"]) {
+  background-color: transparent !important;
+}
+
+/* GitHub Black Button */
+.VPNavBarSocialLink {
+  background-color: #1A1A1A !important;
+  color: #FFFFFF !important;
+  border-radius: 20px;
+  padding: 0 16px 0 12px !important;
+  height: 32px !important;
+  width: auto !important;
+  display: flex !important;
+  align-items: center;
+  text-decoration: none;
+  gap: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.VPNavBarSocialLink:hover {
+  background-color: #333333 !important;
+}
+
+.VPNavBarSocialLink::after {
+  content: "GitHub";
+  font-size: 0.85rem;
+  font-weight: 500;
+  font-family: var(--vp-font-family-base);
+  margin-left: 4px;
+}
+
+.dark .VPNavBarSocialLink {
+  background-color: #E5E5E5 !important;
+  color: #1A1A1A !important;
+}
+
+.dark .VPNavBarSocialLink:hover {
+  background-color: #FFFFFF !important;
+}
+
+@media (min-width: 768px) {
+  .VPNavBarSocialLinks {
+    display: flex !important;
+    align-items: center;
+  }
+}
+
+/* ---------- Tables ---------- */
+.vp-doc table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 16px 0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.vp-doc th, .vp-doc td {
+  padding: 10px 16px;
+  border: 1px solid var(--vp-c-divider);
+}
+
+.vp-doc th {
+  background: var(--vp-c-brand-soft);
+  font-weight: 600;
+}
+
+/* ---------- Horizontal rule ---------- */
+.vp-doc hr {
+  border: none;
+  border-top: 1px solid var(--vp-c-divider);
+  margin: 2rem 0;
+}
+
+/* ---------- Scrollbar (Webkit) ---------- */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--vp-c-brand-soft);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--vp-c-brand-1);
+}
+
+/* ---------- Mermaid Charts styling overrides ---------- */
+.vp-doc .mermaid {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 12px 0;
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  overflow-x: visible;
+  overflow-y: visible;
+  cursor: zoom-in;
+  position: relative;
+}
+
+.vp-doc .mermaid svg {
+  display: block;
+  width: auto !important;
+  max-width: 100% !important;
+  min-width: 0;
+  height: auto !important;
+  max-height: min(68vh, 760px) !important;
+  margin: 0 auto;
+}
+
+.vp-doc .mermaid .label,
+.vp-doc .mermaid .nodeLabel,
+.vp-doc .mermaid .edgeLabel {
+  font-size: 16px !important;
+}
+
+.vp-doc .mermaid::after {
+  content: 'Click to expand';
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--vp-c-text-2);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.vp-doc .mermaid:hover::after,
+.vp-doc .mermaid:focus-visible::after {
+  opacity: 1;
+}
+
+html:lang(zh-CN) .vp-doc .mermaid::after {
+  content: '点击放大';
+}
+
+.vp-doc .mermaid:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 6px;
+}
+
+.dark .vp-doc .mermaid::after {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 768px) {
+  .vp-doc .mermaid {
+    padding: 14px 10px;
+  }
+
+  .vp-doc .mermaid svg {
+    width: auto !important;
+    max-width: 100% !important;
+    min-width: 0;
+    max-height: min(56vh, 520px) !important;
+  }
+
+  .vp-doc .mermaid .label,
+  .vp-doc .mermaid .nodeLabel,
+  .vp-doc .mermaid .edgeLabel {
+    font-size: 14px !important;
+  }
+
+  .vp-doc .mermaid::after {
+    content: 'Tap to expand';
+    opacity: 1;
+    top: 0;
+    right: 0;
+  }
+
+  html:lang(zh-CN) .vp-doc .mermaid::after {
+    content: '点击放大';
+  }
+}
+
+html.has-mermaid-viewer,
+html.has-mermaid-viewer body {
+  overflow: hidden;
+}
+
+.mermaid-viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+}
+
+.mermaid-viewer.is-open {
+  display: block;
+}
+
+.mermaid-viewer__backdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--vp-c-bg);
+}
+
+.mermaid-viewer__panel {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.mermaid-viewer__toolbar {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mermaid-viewer__tool,
+.mermaid-viewer__close {
+  border: 0;
+  border-radius: 999px;
+  width: 40px;
+  height: 40px;
+  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-text-1);
+  font-size: 24px;
+  line-height: 1;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.mermaid-viewer__tool:hover,
+.mermaid-viewer__close:hover {
+  background: var(--vp-c-bg-elv);
+}
+
+.mermaid-viewer__tool--label {
+  width: auto;
+  min-width: 72px;
+  padding: 0 14px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.mermaid-viewer__body {
+  flex: 1;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  cursor: zoom-out;
+  background: var(--vp-c-bg);
+}
+
+.mermaid-viewer__stage {
+  flex: 0 0 auto;
+  display: block;
+}
+
+.mermaid-viewer__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  background: transparent;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .mermaid-viewer__panel {
+    inset: 0;
+  }
+
+  .mermaid-viewer__toolbar {
+    top: 8px;
+    right: 8px;
+    gap: 6px;
+  }
+
+  .mermaid-viewer__tool,
+  .mermaid-viewer__close {
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+  }
+
+  .mermaid-viewer__tool--label {
+    min-width: 64px;
+    padding: 0 10px;
+    font-size: 12px;
+  }
+
+  .mermaid-viewer__body {
+    padding: 4px;
+  }
+}
+
+.VPDoc .back-to-top-btn {
+  border-radius: 50%;
+}
+
+/* ---------- Page transition smoothness ---------- */
+.VPContent {
+  transition: background-color 0.3s;
+}
+
+/* ---------- Card components for Index pages ---------- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.card {
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  padding: 20px;
+  background-color: var(--vp-c-bg-elv);
+  transition: all 0.2s ease;
+  text-decoration: none !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  border-color: var(--vp-c-brand-1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transform: translateY(-1px);
+}
+
+.dark .card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card h3 {
+  margin: 0 0 8px 0 !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  color: var(--vp-c-text-1);
+}
+
+.card p {
+  margin: 0 !important;
+  font-size: 0.95rem;
+  color: var(--vp-c-text-2);
+  line-height: 1.5;
+}
+
+/* List styling for index pages */
+.index-list {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 16px 0 !important;
+}
+
+.index-list li {
+  position: relative;
+  padding-left: 24px;
+  margin-bottom: 12px !important;
+  color: var(--vp-c-text-2);
+  line-height: 1.6;
+}
+
+.index-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--vp-c-brand-1);
+}
+
+.index-list strong {
+  color: var(--vp-c-text-1);
+}
+
+.index-list a {
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
