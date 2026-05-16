@@ -1,559 +1,641 @@
-[English](https://walkinglabs.github.io/learn-harness-engineering/en/) · [中文](https://walkinglabs.github.io/learn-harness-engineering/zh/)
+<div align="center">
 
-# Learn Harness Engineering
+# World Action Models: The Next Frontier in Embodied AI
 
-> **A project-based course on building the environment, state management, verification, and control mechanisms that make AI coding agents work reliably.**
+[![arXiv](https://img.shields.io/badge/arXiv-2605.12090-b31b1b.svg)](https://arxiv.org/abs/2605.12090) [![Hugging Face](https://img.shields.io/badge/🤗%20Hugging%20Face-Paper-FFD21E)](https://huggingface.co/papers/2605.12090) [![ProjectPage](https://img.shields.io/badge/Website-Link-blue)](https://openmoss.github.io/Awesome-WAM/)
 
-Learn Harness Engineering is a course dedicated to the engineering of AI coding agents. We have deeply studied and synthesized the most advanced Harness Engineering theories and practices in the industry. Our core references include:
+<p align="center">
+  <a href="https://sinwang20.github.io/">Siyin Wang</a></strong><sup>1,2,*,‡</sup>,  
+  <a href="https://github.com/OpenMOSS/Awesome-WAM">Junhao Shi</a></strong><sup>1,2,*</sup>,  
+  <a href="https://github.com/OpenMOSS/Awesome-WAM">Zhaoyang Fu</a></strong><sup>1,*</sup>, 
+  <a href="https://github.com/OpenMOSS/Awesome-WAM">Xinzhe He</a></strong><sup>1,*</sup>,  
+  <a href="https://github.com/OpenMOSS/Awesome-WAM">Feihong Liu</a></strong><sup>1,*</sup>,<br>
+  <a href="https://github.com/OpenMOSS/Awesome-WAM">Chenchen Yang</a><sup>1,2</sup>, 
+  <a href="https://github.com/OpenMOSS/Awesome-WAM">Yikang Zhou</a><sup>2</sup>, 
+  <a href="https://github.com/OpenMOSS/Awesome-WAM">Zhaoye Fei</a><sup>1</sup>, 
+  <a href="https://scholar.google.com/citations?user=IlNreT4AAAAJ&hl=zh-TW">Jingjing Gong</a><sup>2</sup>, 
+  <a href="https://jinlanfu.github.io/">Jinlan Fu</a><sup>1</sup><br>,
+  <a href="https://sites.google.com/view/showlab">Mike Zheng Shou</a><sup>3</sup> · 
+  <a href="https://xuanjing-huang.github.io/">Xuanjing Huang</a><sup>1,2</sup> · 
+  <a href="https://xpqiu.github.io/">Xipeng Qiu</a><sup>1,2</sup> · 
+  <a href="https://teai.fudan.edu.cn/">Yu-Gang Jiang</a></strong><sup>1,†</sup>
+</p>
 
-- [OpenAI: Harness engineering: leveraging Codex in an agent-first world](https://openai.com/index/harness-engineering/)
-- [Anthropic: Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents)
-- [Anthropic: Harness design for long-running application development](https://www.anthropic.com/engineering/harness-design-long-running-apps)
-- [Awesome Harness Engineering](https://github.com/walkinglabs/awesome-harness-engineering)
+<p align="center">
+  <sup>1</sup>Fudan University, 
+  <sup>2</sup>Shanghai Innovation Institute, 
+  <sup>3</sup>National University of Singapore<br>
+  <sup>*</sup>Equal Contribution,
+  <sup>‡</sup>Project Lead,
+  <sup>†</sup>Corresponding Author
+</p>
 
-> **Quick start?** The [`skills/harness-creator/`](./skills/) skill can help you scaffold a production-grade harness (AGENTS.md, feature lists, init.sh, verification workflows) for your own project in minutes.
+
+
+</div>
+
+
+This repository accompanies our survey on **World Action Models (WAMs)** — the emerging paradigm that unifies predictive world modeling with action generation for embodied AI. We will keep this repo continuously updated as the field evolves.
+
+- 📄 The **first systematic WAM survey**, covering architecture taxonomy (Cascaded & Joint WAMs), training data, evaluation protocols, and world models for VLA learning.
+- 📖 **Reading blogs included**: we also provide a concise, structured summary blog for each paper to help you quickly grasp the key ideas, architecture, and contributions. The summarization skill used to generate them is also open-sourced in this repository.
+- 🤝 Community-driven: found a missing paper or have a suggestion? Feel free to open an issue or submit a pull request!
+
+
+<p align="center">
+  <img src="figs/roadmap.svg" alt="Temporal evolution and taxonomy of representative works on World Action Models (WAMs). " width="100%">
+</p>
+
+
+## 🔔 News
+
+- **[2026-05-13]**  Initial release of the survey paper and repository.
+
+## Contents
+
+- [Tag Legend](#tag-legend)
+- [World Action Model](#world-action-model)
+  - [Cascaded World-Action-Model](#cascaded-world-action-model)
+  - [Joint World-Action-Model](#joint-world-action-model)
+    - [Autoregressive Generation](#autoregressive-generation)
+    - [Diffusion-based Generation](#diffusion--based-generation)
+- [World Model for VLA](#world-model-for-vla)
+  - [Imitation Learning](#imitation-learning)
+  - [Reinforcement Learning](#reinforcement-learning)
+  - [Evaluation](#evaluation)
+- [Training Data](#training-data)
+- [Evaluation](#evaluation)
+
+## Tag Legend
+### World Action Model tags
+- **Cascaded WAM**
+- ![](https://img.shields.io/badge/Explicit-d97706) Pixel-space Representations
+  - ![](https://img.shields.io/badge/Learned-b45309) Learned Action Extraction
+  - ![](https://img.shields.io/badge/Geometric-fbbf24) Geometric Extraction
+- ![](https://img.shields.io/badge/Implicit-ea580c) Implicit Planning via Latent Representations
+
+- **Joint WAM**
+- Autoregressive Generation
+  - ![](https://img.shields.io/badge/Explicit--Decoupled-be185d) Explicit Decoupled Representation
+  - ![](https://img.shields.io/badge/Unified--Discrete-f472b6) Unified Discrete Representations
+  - ![](https://img.shields.io/badge/Predictive--Latent-c026d3) Predictive Latent Representation
+
+- Diffusion-based Generation
+  - ![](https://img.shields.io/badge/Unified--Stream-be123c) Unified Stream
+    - ![](https://img.shields.io/badge/Explicit-f43f5e) Explicit Future Generation
+    - ![](https://img.shields.io/badge/Implicit-fda4af) Implicit Future Prediction
+  - ![](https://img.shields.io/badge/Multi--Stream-9f1239) Multi-Stream
+    - ![](https://img.shields.io/badge/Cross--Attention-f97316) Cross-Attention Coupling
+    - ![](https://img.shields.io/badge/Hidden--State-fb7185) Hidden-State Coupling
+    - ![](https://img.shields.io/badge/Shared--Rep-db2777) Shared Representation
+
+
+## World Action Model
+### Cascaded World-Action-Model
+
+
+- **UniPi**: "Learning Universal Policies via Text-Guided Video Generation", NeurIPS 2023. ![](https://img.shields.io/badge/Explicit-d97706) ![](https://img.shields.io/badge/Learned-b45309)
+  [[📄 Paper](https://arxiv.org/pdf/2302.00111)] [[🌍 Webpage](https://research.google/blog/unipi-learning-universal-policies-via-text-guided-video-generation/)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2302.00111/index.html)]
+
+- **VLP**: "Video Language Planning", ICLR 2024. ![](https://img.shields.io/badge/Explicit-d97706) ![](https://img.shields.io/badge/Learned-b45309)
+  [[📄 Paper](https://arxiv.org/pdf/2310.10625)] [[🌍 Webpage](https://video-language-planning.github.io/)] [[💻 Code](https://github.com/video-language-planning/vlp_code)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2310.10625/index.html)]
+
+- **RoboEnvision**: "RoboEnvision: A Long-Horizon Video Generation Model for Multi-Task Robot Manipulation", IROS 2025. ![](https://img.shields.io/badge/Explicit-d97706) ![](https://img.shields.io/badge/Learned-b45309)
+  [[📄 Paper](https://arxiv.org/pdf/2506.22007)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2506.22007/index.html)]
+
+- **ThisAndThat**: "This&That: Language-Gesture Controlled Video Generation for Robot Planning", ICRA 2025. ![](https://img.shields.io/badge/Explicit-d97706) ![](https://img.shields.io/badge/Learned-b45309)
+  [[📄 Paper](https://arxiv.org/pdf/2407.05530)] [[🌍 Webpage](https://mvandermerwe.github.io/publication/this-and-that/)] [[💻 Code](https://github.com/Kiteretsu77/This_and_That_VDM)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2407.05530/index.html)]
+
+- **TesserAct**: "TesserAct: Learning 4D Embodied World Models", ICCV 2025. ![](https://img.shields.io/badge/Explicit-d97706) ![](https://img.shields.io/badge/Learned-b45309)
+  [[📄 Paper](https://arxiv.org/pdf/2504.20995)] [[🌍 Webpage](https://tesseractworld.github.io/)] [[💻 Code](https://github.com/UMass-Embodied-AGI/TesserAct)] [[🤗 Model](https://huggingface.co/anyeZHY/tesseract)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2504.20995/index.html)]
+
+- **Gen2Act**: "Gen2Act: Human Video Generation in Novel Scenarios Enables Generalizable Robot Manipulation", CoRL 2025. ![](https://img.shields.io/badge/Explicit-d97706) ![](https://img.shields.io/badge/Learned-b45309)
+  [[📄 Paper](https://arxiv.org/pdf/2409.16283)] [[🌍 Webpage](https://homangab.github.io/gen2act/)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2409.16283/index.html)]
+
+- **Vidar**: "Vidar: Embodied Video Diffusion Model for Generalist Bimanual Manipulation", arXiv 2025. ![](https://img.shields.io/badge/Explicit-d97706) ![](https://img.shields.io/badge/Learned-b45309)
+  [[📄 Paper](https://arxiv.org/pdf/2507.12898)] [[🌍 Webpage](https://embodiedfoundation.github.io/vidar_anypos)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2507.12898/index.html)]
+
+- **MVISTA-4D**: "MVISTA-4D: View-Consistent 4D World Model with Test-Time Action Inference for Robotic Manipulation", arXiv 2026. ![](https://img.shields.io/badge/Explicit-d97706) ![](https://img.shields.io/badge/Learned-b45309)
+  [[📄 Paper](https://arxiv.org/pdf/2602.09878)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2602.09878/index.html)]
+
+- **SayDreamAct**: "Say, Dream, and Act: Learning Video World Models for Instruction-Driven Robot Manipulation", arXiv 2026. ![](https://img.shields.io/badge/Explicit-d97706) ![](https://img.shields.io/badge/Learned-b45309)
+  [[📄 Paper](https://arxiv.org/pdf/2602.10717)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2602.10717/index.html)]
+
+- **Veo-Act**: "Veo-Act: How Far Can Frontier Video Models Advance Generalizable Robot Manipulation?", arXiv 2026. ![](https://img.shields.io/badge/Explicit-d97706) ![](https://img.shields.io/badge/Learned-b45309)
+  [[📄 Paper](https://arxiv.org/pdf/2604.04502)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2604.04502/index.html)]
+
+- **VAG**: "VAG: Dual-Stream Video-Action Generation for Embodied Data Synthesis", arXiv 2026. ![](https://img.shields.io/badge/Explicit-d97706) ![](https://img.shields.io/badge/Learned-b45309)
+  [[📄 Paper](https://arxiv.org/pdf/2604.09330)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2604.09330/index.html)]
+
+- **pi0.7**: "pi0.7: a Steerable Generalist Robotic Foundation Model with Emergent Capabilities", arXiv 2026. ![](https://img.shields.io/badge/Explicit-d97706) ![](https://img.shields.io/badge/Learned-b45309)
+  [[📄 Paper](https://arxiv.org/pdf/2604.15483)] [[🌍 Webpage](https://pi.website/pi07)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2604.15483/index.html)]
+
+- **AVDC**: "Learning to Act from Actionless Videos through Dense Correspondences", ICLR 2024. ![](https://img.shields.io/badge/Explicit-d97706) ![](https://img.shields.io/badge/Geometric-fbbf24)
+  [[📄 Paper](https://arxiv.org/pdf/2310.08576)] [[🌍 Webpage](https://flow-diffusion.github.io/)] [[💻 Code](https://github.com/flow-diffusion/AVDC)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2310.08576/index.html)]
+
+- **Im2Flow2Act**: "Flow as the Cross-Domain Manipulation Interface", CoRL 2024. ![](https://img.shields.io/badge/Explicit-d97706) ![](https://img.shields.io/badge/Geometric-fbbf24)
+  [[📄 Paper](https://arxiv.org/pdf/2407.15208)] [[🌍 Webpage](https://im2flow2act.github.io/)] [[💻 Code](https://github.com/real-stanford/im2Flow2Act)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2407.15208/index.html)]
+
+- **Dreamitate**: "Dreamitate: Real-World Visuomotor Policy Learning via Video Generation", CoRL 2024. ![](https://img.shields.io/badge/Explicit-d97706) ![](https://img.shields.io/badge/Geometric-fbbf24)
+  [[📄 Paper](https://arxiv.org/pdf/2406.16862)] [[🌍 Webpage](https://dreamitate.cs.columbia.edu/)] [[💻 Code](https://github.com/cvlab-columbia/dreamitate)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2406.16862/index.html)]
+
+- **3DFlowAction**: "3DFlowAction: Learning Cross-Embodiment Manipulation from 3D Flow World Model", arXiv 2025. ![](https://img.shields.io/badge/Explicit-d97706) ![](https://img.shields.io/badge/Geometric-fbbf24)
+  [[📄 Paper](https://arxiv.org/pdf/2506.06199)] [[💻 Code](https://github.com/Hoyyyaard/3DFlowAction/)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2506.06199/index.html)]
+
+- **NovaFlow**: "NovaFlow: Zero-Shot Manipulation via Actionable Flow from Generated Videos", arXiv 2025. ![](https://img.shields.io/badge/Explicit-d97706) ![](https://img.shields.io/badge/Geometric-fbbf24)
+  [[📄 Paper](https://arxiv.org/pdf/2510.08568)] [[🌍 Webpage](https://novaflow.lhy.xyz/)] [[💻 Code](https://github.com/rai-opensource/NovaFlow)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2510.08568/index.html)]
+
+- **LV-P**: "Large Video Planner Enables Generalizable Robot Control", arXiv 2025. ![](https://img.shields.io/badge/Explicit-d97706) ![](https://img.shields.io/badge/Geometric-fbbf24)
+  [[📄 Paper](https://arxiv.org/pdf/2512.15840)] [[🌍 Webpage](https://www.boyuan.space/large-video-planner/)] [[💻 Code](https://github.com/buoyancy99/large-video-planner)] [[🤗 Model](https://huggingface.co/KempnerInstituteAI/LVP)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2512.15840/index.html)]
+
+- **Dream2Flow**: "Dream2Flow: Bridging Video Generation and Open-World Manipulation with 3D Object Flow", arXiv 2025. ![](https://img.shields.io/badge/Explicit-d97706) ![](https://img.shields.io/badge/Geometric-fbbf24)
+  [[📄 Paper](https://arxiv.org/pdf/2512.24766)] [[🌍 Webpage](https://dream2flow.github.io/)] [[💻 Code](https://github.com/KDharmarajanDev/Dream2Flow/)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2512.24766/index.html)]
+
+- **4DGen**: "Geometry-aware 4D Video Generation for Robot Manipulation", ICLR 2026. ![](https://img.shields.io/badge/Explicit-d97706) ![](https://img.shields.io/badge/Geometric-fbbf24)
+  [[📄 Paper](https://arxiv.org/pdf/2507.01099)] [[🌍 Webpage](https://robot4dgen.github.io/)] [[💻 Code](https://github.com/lzylucy/4dgen)] [[🤗 Model](https://huggingface.co/Zeyi)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2507.01099/index.html)]
+
+- **RIGVid**: "Robotic Manipulation by Imitating Generated Videos Without Physical Demonstrations", ICLR 2026. ![](https://img.shields.io/badge/Explicit-d97706) ![](https://img.shields.io/badge/Geometric-fbbf24)
+  [[📄 Paper](https://arxiv.org/pdf/2507.00990)] [[🌍 Webpage](https://rigvid-robot.github.io/)] [[💻 Code](https://github.com/shivanshpatel35/rigvid)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2507.00990/index.html)]
+
+- **ARDuP**: "ARDuP: Active Region Video Diffusion for Universal Policies", IROS 2024. ![](https://img.shields.io/badge/Implicit-ea580c)
+  [[📄 Paper](https://arxiv.org/pdf/2406.13301)] [[🌍 Webpage](https://rpl.cs.utexas.edu/publications/2024/10/14/huang-iros24-ardup/)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2406.13301/index.html)]
+
+- **VPP**: "Video Prediction Policy: A Generalist Robot Policy with Predictive Visual Representations", ICML 2025. ![](https://img.shields.io/badge/Implicit-ea580c)
+  [[📄 Paper](https://arxiv.org/pdf/2412.14803)] [[🌍 Webpage](https://video-prediction-policy.github.io/)] [[💻 Code](https://github.com/roboterax/video-prediction-policy)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2412.14803/index.html)]
+
+- **VILP**: "VILP: Imitation Learning with Latent Video Planning", RA-L 2025. ![](https://img.shields.io/badge/Implicit-ea580c)
+  [[📄 Paper](https://arxiv.org/pdf/2502.01784)] [[💻 Code](https://github.com/ZhengtongXu/VILP)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2502.01784/index.html)]
+
+- **LaPA**: "Latent Action Pretraining from Videos", ICLR 2025. ![](https://img.shields.io/badge/Implicit-ea580c)
+  [[📄 Paper](https://arxiv.org/pdf/2410.11758)] [[🌍 Webpage](https://latentactionpretraining.github.io/)] [[💻 Code](https://github.com/LatentActionPretraining/LAPA)] [[🤗 Model](https://huggingface.co/latent-action-pretraining/LAPA-7B-openx)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2410.11758/index.html)]
+
+- **VideoPolicy**: "Video Generators are Robot Policies", arXiv 2025. ![](https://img.shields.io/badge/Implicit-ea580c)
+  [[📄 Paper](https://arxiv.org/pdf/2508.00795)] [[🌍 Webpage](https://videopolicy.cs.columbia.edu/)] [[💻 Code](https://github.com/cvlab-columbia/videopolicy)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2508.00795/index.html)]
+
+- **mimic-video**: "mimic-video: Video-Action Models for Generalizable Robot Control Beyond VLAs", arXiv 2025. ![](https://img.shields.io/badge/Implicit-ea580c)
+  [[📄 Paper](https://arxiv.org/pdf/2512.15692)] [[🌍 Webpage](https://mimic-video.github.io/)] [[💻 Code](https://github.com/mimic-video/mimic-video)] [[🤗 Model](https://huggingface.co/jonpai/mimic-video)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2512.15692/index.html)]
+
+- **villa-X**: "villa-X: Enhancing Latent Action Modeling in Vision-Language-Action Models", ICLR 2026. ![](https://img.shields.io/badge/Implicit-ea580c)
+  [[📄 Paper](https://arxiv.org/pdf/2507.23682)] [[🌍 Webpage](https://microsoft.github.io/villa-x/)] [[💻 Code](https://github.com/microsoft/villa-x)] [[🤗 Model](https://huggingface.co/microsoft/villa-x)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2507.23682/index.html)]
+
+- **S-VAM**: "S-VAM: Shortcut Video-Action Model by Self-Distilling Geometric and Semantic Foresight", arXiv 2026. ![](https://img.shields.io/badge/Implicit-ea580c)
+  [[📄 Paper](https://arxiv.org/pdf/2603.16195)] [[🌍 Webpage](https://haodong-yan.github.io/S-VAM/)] [[💻 Code](https://github.com/Haodong-Yan/S-VAM-Code)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2603.16195/index.html)]
+
+- **OmniVTA**: "OmniVTA: Visuo-Tactile World Modeling for Contact-Rich Robotic Manipulation", arXiv 2026. ![](https://img.shields.io/badge/Implicit-ea580c)
+  [[📄 Paper](https://arxiv.org/pdf/2603.19201)] [[🌍 Webpage](https://mrsecant.github.io/OmniVTA)] [[💻 Code](https://github.com/MrSecant/OmniVTA)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2603.19201/index.html)]
+
+- **MWM**: "Mask World Model: Predicting What Matters for Robust Robot Policy Learning", arXiv 2026. ![](https://img.shields.io/badge/Implicit-ea580c)
+  [[📄 Paper](https://arxiv.org/pdf/2604.19683)] [[💻 Code](https://github.com/LYFCLOUDFAN/mask-world-model)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2604.19683/index.html)]
+
+
+
+
+
+
+### Joint World-Action-Model
+### Autoregressive Generation
+
+
+- **GR-1**: "Unleashing Large-Scale Video Generative Pre-training for Visual Robot Manipulation", ICLR 2024. ![](https://img.shields.io/badge/Explicit--Decoupled-be185d)
+  [[📄 Paper](https://arxiv.org/pdf/2312.13139)] [[🌍 Webpage](https://gr1-manipulation.github.io/)] [[💻 Code](https://github.com/bytedance/GR-1)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2312.13139/index.html)]
+
+- **GR-2**: "GR-2: A Generative Video-Language-Action Model with Web-Scale Knowledge for Robot Manipulation", arXiv 2024. ![](https://img.shields.io/badge/Explicit--Decoupled-be185d)
+  [[📄 Paper](https://arxiv.org/pdf/2410.06158)] [[🌍 Webpage](https://gr2-manipulation.github.io/)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2410.06158/index.html)]
+
+- **GR-MG**: "GR-MG: Leveraging Partially-Annotated Data via Multi-Modal Goal-Conditioned Policy", RA-L 2025. ![](https://img.shields.io/badge/Explicit--Decoupled-be185d)
+  [[📄 Paper](https://arxiv.org/pdf/2408.14368)] [[🌍 Webpage](https://gr-mg.github.io/)] [[💻 Code](https://github.com/bytedance/GR-MG)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2408.14368/index.html)]
+
+- **CoT-VLA**: "CoT-VLA: Visual Chain-of-Thought Reasoning for Vision-Language-Action Models", CVPR 2025. ![](https://img.shields.io/badge/Unified--Discrete-f472b6)
+  [[📄 Paper](https://arxiv.org/pdf/2503.22020)] [[🌍 Webpage](https://cot-vla.github.io/)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2503.22020/index.html)]
+
+- **WorldVLA**: "WorldVLA: Towards Autoregressive Action World Model", arXiv 2025. ![](https://img.shields.io/badge/Unified--Discrete-f472b6)
+  [[📄 Paper](https://arxiv.org/pdf/2506.21539)] [[💻 Code](https://github.com/alibaba-damo-academy/WorldVLA)] [[🤗 Model](https://huggingface.co/Alibaba-DAMO-Academy/WorldVLA)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2506.21539/index.html)]
+- **F1**: "F1: A Vision-Language-Action Model Bridging Understanding and Generation to Actions", arXiv 2025. ![](https://img.shields.io/badge/Unified--Discrete-f472b6)
+  [[📄 Paper](https://arxiv.org/pdf/2509.06951)] [[🌍 Webpage](https://aopolin-lv.github.io/F1-VLA/)] [[💻 Code](https://github.com/InternRobotics/F1-VLA)] [[🤗 Model](https://huggingface.co/InternRobotics/F1-VLA)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2509.06951/index.html)]
+
+- **RynnVLA-002**: "RynnVLA-002: A Unified Vision-Language-Action and World Model", arXiv 2025. ![](https://img.shields.io/badge/Unified--Discrete-f472b6)
+  [[📄 Paper](https://arxiv.org/pdf/2511.17502)] [[💻 Code](https://github.com/alibaba-damo-academy/RynnVLA-002)] [[🤗 Model](https://huggingface.co/Alibaba-DAMO-Academy/RynnVLA-002)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2511.17502/index.html)]
+
+- **VLA-JEPA**: "VLA-JEPA: Enhancing Vision-Language-Action Model with Latent World Model", arXiv 2026. ![](https://img.shields.io/badge/Predictive--Latent-c026d3)
+  [[📄 Paper](https://arxiv.org/pdf/2602.10098)] [[🌍 Webpage](https://ginwind.github.io/VLA-JEPA/)] [[💻 Code](https://github.com/ginwind/VLA-JEPA)] [[🤗 Model](https://huggingface.co/ginwind/VLA-JEPA)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2602.10098/index.html)]
+
+
+### Diffusion-based Generation
+
+- **PAD**: "Prediction with Action: Visual Policy Learning via Joint Denoising Process", NeurIPS 2024. ![](https://img.shields.io/badge/Unified--DiT-be123c) ![](https://img.shields.io/badge/Explicit-f43f5e)
+  [[📄 Paper](https://arxiv.org/pdf/2411.18179)] [[🌍 Webpage](https://sites.google.com/view/pad-paper)] [[💻 Code](https://github.com/Robert-gyj/Prediction_with_Action)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2411.18179/index.html)]
+
+- **VideoVLA**: "VideoVLA: Video Generators Can Be Generalizable Robot Manipulators", NeurIPS 2025. ![](https://img.shields.io/badge/Unified--DiT-be123c) ![](https://img.shields.io/badge/Explicit-f43f5e)
+  [[📄 Paper](https://arxiv.org/pdf/2512.06963)] [[🌍 Webpage](https://videovla-nips2025.github.io/)] [[💻 Code](https://github.com/VideoVLA-Project/VideoVLA)] [[🤗 Model](https://huggingface.co/VideoVLA/VideoVLA_Cogvideobase_Pretrained)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2512.06963/index.html)]
+
+- **UWM**: "Unified World Models: Coupling Video and Action Diffusion for Pretraining on Large Robotic Datasets", RSS 2025. ![](https://img.shields.io/badge/Unified--DiT-be123c) ![](https://img.shields.io/badge/Explicit-f43f5e)
+  [[📄 Paper](https://arxiv.org/pdf/2504.02792)] [[🌍 Webpage](https://weirdlabuw.github.io/uwm/)] [[💻 Code](https://github.com/WEIRDLabUW/unified-world-model)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2504.02792/index.html)]
+
+- **Cosmos Policy**: "Cosmos Policy: Fine-Tuning Video Models for Visuomotor Control and Planning", arXiv 2026. ![](https://img.shields.io/badge/Unified--DiT-be123c) ![](https://img.shields.io/badge/Explicit-f43f5e)
+  [[📄 Paper](https://arxiv.org/pdf/2601.16163)] [[🌍 Webpage](https://research.nvidia.com/labs/dir/cosmos-policy/cosmos_policy_index.html)] [[💻 Code](https://github.com/nvlabs/cosmos-policy)] [[🤗 Model](https://huggingface.co/collections/nvidia/cosmos-policy)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2601.16163/index.html)]
+
+- **DreamZero**: "World Action Models are Zero-shot Policies", arXiv 2026. ![](https://img.shields.io/badge/Unified--DiT-be123c) ![](https://img.shields.io/badge/Explicit-f43f5e)
+  [[📄 Paper](https://arxiv.org/pdf/2602.15922)] [[🌍 Webpage](https://dreamzero0.github.io/)] [[💻 Code](https://github.com/dreamzero0/dreamzero)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2602.15922/index.html)]
+
+- **GigaWorld-Policy**: "GigaWorld-Policy: An Efficient Action-Centered World-Action Model", arXiv 2026. ![](https://img.shields.io/badge/Unified--DiT-be123c) ![](https://img.shields.io/badge/Explicit-f43f5e)
+  [[📄 Paper](https://arxiv.org/pdf/2603.17240)] [[🌍 Webpage](https://gigaai-research.github.io/GigaWorld-Policy/)] [[💻 Code](https://github.com/open-gigaai/giga-world-policy)] [[🤗 Model](https://huggingface.co/open-gigaai)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2603.17240/index.html)]
+
+- **X-WAM**: "Unified 4D World Action Modeling from Video Priors with Asynchronous Denoising", arXiv 2026. ![](https://img.shields.io/badge/Unified--DiT-be123c) ![](https://img.shields.io/badge/Explicit-f43f5e)
+  [[📄 Paper](https://arxiv.org/pdf/2604.26694)] [[🌍 Webpage](https://sharinka0715.github.io/X-WAM/)] [[💻 Code](https://github.com/sharinka0715/X-WAM)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2604.26694/index.html)]
+
+- **FLARE**: "FLARE: Robot Learning with Implicit World Modeling", CoRL 2025. ![](https://img.shields.io/badge/Unified--DiT-be123c) ![](https://img.shields.io/badge/Implicit-fda4af)
+  [[📄 Paper](https://arxiv.org/pdf/2505.15659)] [[🌍 Webpage](https://research.nvidia.com/labs/gear/flare/)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2505.15659/index.html)]
+
+- **FRAPPE**: "FRAPPE: Infusing World Modeling into Generalist Policies via Multiple Future Representation Alignment", arXiv 2026. ![](https://img.shields.io/badge/Unified--DiT-be123c) ![](https://img.shields.io/badge/Implicit-fda4af)
+  [[📄 Paper](https://arxiv.org/pdf/2602.17259)] [[🌍 Webpage](https://h-zhao1997.github.io/frappe/)] [[💻 Code](https://github.com/OpenHelix-Team/frappe)] [[🤗 Model](https://huggingface.co/collections/hhhJB/frappe)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2602.17259/index.html)]
+
+- **DUST**: "Dual-Stream Diffusion for World-Model Augmented Vision-Language-Action Model", arXiv 2025. ![](https://img.shields.io/badge/Multi--Dit-9f1239) ![](https://img.shields.io/badge/Cross--Attention-f97316)
+  [[📄 Paper](https://arxiv.org/pdf/2510.27607)] [[🌍 Webpage](https://openreview.net/forum?id=mK1SdO7j3t)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2510.27607/index.html)]
+
+- **UD-VLA**: "Unified Diffusion VLA: Vision-Language-Action Model via Joint Discrete Denoising Diffusion Process", arXiv 2025. ![](https://img.shields.io/badge/Multi--Dit-9f1239) ![](https://img.shields.io/badge/Cross--Attention-f97316)
+  [[📄 Paper](https://arxiv.org/pdf/2511.01718)] [[🌍 Webpage](https://irpn-eai.github.io/UD-VLA.github.io/)] [[💻 Code](https://github.com/OpenHelix-Team/Unified-Diffusion-VLA)] [[🤗 Model](https://huggingface.co/chenpyyy/UD-VLA_CALVIN_ABCD_D)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2511.01718/index.html)]
+
+- **Motus**: "Motus: A Unified Latent Action World Model", arXiv 2025. ![](https://img.shields.io/badge/Multi--Dit-9f1239) ![](https://img.shields.io/badge/Cross--Attention-f97316)
+  [[📄 Paper](https://arxiv.org/pdf/2512.13030)] [[🌍 Webpage](https://motus-robotics.github.io/motus)] [[💻 Code](https://github.com/thu-ml/Motus)] [[🤗 Model](https://huggingface.co/motus-robotics/Motus)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2512.13030/index.html)]
+
+- **CoVAR**: "CoVAR: Co-generation of Video and Action for Robotic Manipulation via Multi-Modal Diffusion", arXiv 2025. ![](https://img.shields.io/badge/Multi--Dit-9f1239) ![](https://img.shields.io/badge/Cross--Attention-f97316)
+  [[📄 Paper](https://arxiv.org/pdf/2512.16023)] [[🌍 Webpage](https://mcml.ai/publications/ybe%2B26/)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2512.16023/index.html)]
+
+- **LingBot-VA**: "Causal World Modeling for Robot Control", arXiv 2026. ![](https://img.shields.io/badge/Multi--Dit-9f1239) ![](https://img.shields.io/badge/Cross--Attention-f97316)
+  [[📄 Paper](https://arxiv.org/pdf/2601.21998)] [[💻 Code](https://github.com/robbyant/lingbot-va)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2601.21998/index.html)]
+
+- **LDA-1B**: "LDA-1B: Scaling Latent Dynamics Action Model via Universal Embodied Data Ingestion", arXiv 2026. ![](https://img.shields.io/badge/Multi--Dit-9f1239) ![](https://img.shields.io/badge/Cross--Attention-f97316)
+  [[📄 Paper](https://arxiv.org/pdf/2602.12215)] [[🌍 Webpage](https://pku-epic.github.io/LDA/)] [[💻 Code](https://github.com/jiangranlv/LDA-1B)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2602.12215/index.html)]
+
+- **AdaWorldPolicy**: "AdaWorldPolicy: World-Model-Driven Diffusion Policy with Online Adaptive Learning for Robotic Manipulation", arXiv 2026. ![](https://img.shields.io/badge/Multi--Dit-9f1239) ![](https://img.shields.io/badge/Cross--Attention-f97316)
+  [[📄 Paper](https://arxiv.org/pdf/2602.20057)] [[🌍 Webpage](https://adaworldpolicy.github.io/)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2602.20057/index.html)]
+
+- **AIM**: "AIM: Intent-Aware Unified world action Modeling with Spatial Value Maps", arXiv 2026. ![](https://img.shields.io/badge/Multi--Dit-9f1239) ![](https://img.shields.io/badge/Cross--Attention-f97316)
+  [[📄 Paper](https://arxiv.org/pdf/2604.11135)] [[💻 Code](https://github.com/Agentic-Intelligence-Lab/AIM)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2604.11135/index.html)]
+
+- **DexWorldModel**: "DexWorldModel: Causal Latent World Modeling towards Automated Learning of Embodied Tasks", arXiv 2026. ![](https://img.shields.io/badge/Multi--Dit-9f1239) ![](https://img.shields.io/badge/Cross--Attention-f97316)
+  [[📄 Paper](https://arxiv.org/pdf/2604.16484)] [[💻 Code](https://github.com/DexForce/EmbodiChain)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2604.16484/index.html)]
+
+- **MotuBrain**: "MotuBrain: An Advanced World Action Model for Robot Control", arXiv 2026. ![](https://img.shields.io/badge/Multi--Dit-9f1239) ![](https://img.shields.io/badge/Cross--Attention-f97316)
+  [[📄 Paper](https://arxiv.org/pdf/2604.27792)] [[🌍 Webpage](https://www.shengshu.com/en/motubrain)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2604.27792/index.html)]
+
+- **Act2Goal**: "Act2Goal: From World Model To General Goal-conditioned Policy", arXiv 2025. ![](https://img.shields.io/badge/Multi--Dit-9f1239) ![](https://img.shields.io/badge/Hidden--State-fb7185)
+  [[📄 Paper](https://arxiv.org/pdf/2512.23541)] [[🌍 Webpage](https://act2goal.github.io/)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2512.23541/index.html)]
+
+- **DiT4DiT**: "DiT4DiT: Jointly Modeling Video Dynamics and Actions for Generalizable Robot Control", arXiv 2026. ![](https://img.shields.io/badge/Multi--Dit-9f1239) ![](https://img.shields.io/badge/Hidden--State-fb7185)
+  [[📄 Paper](https://arxiv.org/pdf/2603.10448)] [[🌍 Webpage](https://dit4dit.github.io/)] [[💻 Code](https://github.com/Mondo-Robotics/DiT4DiT)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2603.10448/index.html)]
+
+- **Fast-WAM**: "Fast-WAM: Do World Action Models Need Test-time Future Imagination?", arXiv 2026. ![](https://img.shields.io/badge/Multi--Dit-9f1239) ![](https://img.shields.io/badge/Hidden--State-fb7185)
+  [[📄 Paper](https://arxiv.org/pdf/2603.16666)] [[🌍 Webpage](https://yuantianyuan01.github.io/FastWAM/)] [[💻 Code](https://github.com/yuantianyuan01/FastWAM)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2603.16666/index.html)]
+
+- **WAV**: "World-Value-Action Model: Implicit Planning for Vision-Language-Action Systems", arXiv 2026. ![](https://img.shields.io/badge/Multi--Dit-9f1239) ![](https://img.shields.io/badge/Hidden--State-fb7185)
+  [[📄 Paper](https://arxiv.org/pdf/2604.14732)] [[🌍 Webpage](https://win-commit.github.io/wavpage/)] [[💻 Code](https://github.com/Win-commit/WAV)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2604.14732/index.html)]
+
+- **UVA**: "Unified Video Action Model", RSS 2025. ![](https://img.shields.io/badge/Multi--Dit-9f1239) ![](https://img.shields.io/badge/Shared--Rep-db2777)
+  [[📄 Paper](https://arxiv.org/pdf/2503.00200)] [[🌍 Webpage](https://unified-video-action-model.github.io/)] [[💻 Code](https://github.com/ShuangLI59/unified_video_action)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2503.00200/index.html)]
+
+- **PhysGen**: "Learning Physics from Pretrained Video Models: A Multimodal Continuous and Sequential World Interaction Models for Robotic Manipulation", arXiv 2026. ![](https://img.shields.io/badge/Multi--Dit-9f1239) ![](https://img.shields.io/badge/Shared--Rep-db2777)
+  [[📄 Paper](https://arxiv.org/pdf/2603.00110)] [[🌟 Blog](https://openmoss.github.io/Awesome-WAM/report/2603.00110/index.html)]
+
+
+
+
+
+
+
+## World Model for VLA
+
+### World Model for Imitation Learning
+
+- **DREMA**: "Dream to Manipulate: Compositional World Models Empowering Robot Imitation Learning with Imagination", ICLR 2025.
+  [[📄 Paper](https://openreview.net/forum?id=3RSLW9YSgk)] [[🌍 Webpage](https://dreamtomanipulate.github.io/)] [[💻 Code](https://github.com/leobarcellona/drema_code)]
+
+- **RoboScape**: "RoboScape: Physics-informed Embodied World Model", arXiv 2025.
+  [[📄 Paper](https://openreview.net/forum?id=wbZCBBrq3W)]
+
+- **Ctrl-World**: "Ctrl-World: A Controllable Generative World Model for Robot", ICLR 2026.
+  [[📄 Paper](https://openreview.net/forum?id=748bHL2BAv)] [[🌍 Webpage](https://ctrl-world.github.io/)] [[💻 Code](https://github.com/Robert-gyj/Ctrl-World)]
+
+### World Model for Reinforcement Learning 
+
+- **PlaNet**: "Learning Latent Dynamics for Planning from Pixels", ICML 2019.
+  [[📄 Paper](https://proceedings.mlr.press/v97/hafner19a/hafner19a.pdf)] [[🌍 Webpage](https://planetrl.github.io/)] [[💻 Code](https://github.com/google-research/planet)]
+
+- **Dream to Control**: "Dream to Control: Learning Behaviors by Latent Imagination", ICLR 2020.
+  [[📄 Paper](https://openreview.net/forum?id=S1lOTC4tDS)] [[🌍 Webpage](https://danijar.com/project/dreamer/)] [[💻 Code](https://github.com/danijar/dreamer)]
+
+- **Dreamer V2**: "Mastering Atari with Discrete World Models", ICLR 2021.
+  [[📄 Paper](https://openreview.net/forum?id=0oabwyZbOu)] [[🌍 Webpage](https://danijar.com/project/dreamerv2/)] [[💻 Code](https://github.com/danijar/dreamerv2)]
+
+- **DayDreamer**: "DayDreamer: World Models for Physical Robot Learning", CoRL 2022.
+  [[📄 Paper](https://proceedings.mlr.press/v205/wu23c/wu23c.pdf)] [[🌍 Webpage](https://danijar.com/project/daydreamer/)] [[💻 Code](https://github.com/danijar/daydreamer)]
+
+- **Dreamer V3**: "Mastering Diverse Domains through World Models", Nature 2025.
+  [[📄 Paper](https://www.nature.com/articles/s41586-025-08744-2)] [[🌍 Webpage](https://danijar.com/project/dreamerv3/)] [[💻 Code](https://github.com/danijar/dreamerv3)]
+
+- **MoDem-V2**: "MoDem-V2: Visuo-Motor World Models for Real-World Robot Manipulation", ICRA 2024.
+  [[📄 Paper](https://ieeexplore.ieee.org/document/10611121/)] [[🌍 Webpage](https://sites.google.com/view/modem-v2)] [[💻 Code](https://github.com/facebookresearch/modemv2)]
+
+- **VIPER**: "Video Prediction Models as Rewards for Reinforcement Learning", NeurIPS 2023.
+  [[📄 Paper](https://proceedings.neurips.cc/paper_files/paper/2023/file/d9042abf40782fbce28901c1c9c0e8d8-Paper-Conference.pdf)] [[🌍 Webpage](https://escontrela.me/viper)] [[💻 Code](https://github.com/Alescontrela/viper_rl)]
+
+- **Diffusion Reward**: "Diffusion Reward: Learning Rewards via Conditional Video Diffusion", ECCV 2024.
+  [[📄 Paper](https://www.ecva.net/papers/eccv_2024/papers_ECCV/papers/05914.pdf)] [[🌍 Webpage](https://diffusion-reward.github.io/)] [[💻 Code](https://github.com/TEA-Lab/diffusion_reward)] [[🤗 Model](https://huggingface.co/tauhuang/diffusion_reward/tree/main)]
+
+- **RWM‑U**: "Uncertainty-Aware Robotic World Model Makes Offline Model-Based Reinforcement Learning Work on Real Robots", arXiv 2025.
+  [[📄 Paper](https://arxiv.org/pdf/2504.16680)] [[🌍 Webpage](https://sites.google.com/view/uncertainty-aware-rwm)] [[💻 Code](https://github.com/leggedrobotics/robotic_world_model)]
+
+- **DiWA**: "DiWA: Diffusion Policy Adaptation with World Models", arXiv 2025.
+  [[📄 Paper](https://arxiv.org/pdf/2508.03645)] [[🌍 Webpage](https://diwa.cs.uni-freiburg.de/)] [[💻 Code](https://github.com/acl21/diwa)]
+
+- **World4RL**: "World4RL: Diffusion World Models for Policy Refinement with Reinforcement Learning for Robotic Manipulation", arXiv 2025.
+  [[📄 Paper](https://arxiv.org/pdf/2509.19080)] [[🌍 Webpage](https://world4rl.github.io/)] [[💻 Code](https://anonymous.4open.science/r/World4RL-0410)]
+
+- **Dreamer 4**: "Training Agents Inside of Scalable World Models", arXiv 2025.
+  [[📄 Paper](https://arxiv.org/pdf/2509.24527)] [[🌍 Webpage](https://danijar.com/project/dreamer4/)]
+
+- **World-Env**: "World-Env: Leveraging World Model as a Virtual Environment for VLA Post-Training", arXiv 2025.
+  [[📄 Paper](https://arxiv.org/pdf/2509.24948)] [[💻 Code](https://github.com/amap-cvlab/world-env)]
+
+- **VLA-RFT**: "VLA-RFT: Vision-Language-Action Reinforcement Fine-tuning with Verified Rewards in World Simulators", arXiv 2025.
+  [[📄 Paper](https://arxiv.org/pdf/2510.00406)] [[🌍 Webpage](https://vla-rft.github.io/)] [[💻 Code](https://github.com/OpenHelix-Team/VLA-RFT)] [[🤗 Model](https://huggingface.co/VLA-RFT)]
+
+- **PhysWorl**: "Robot Learning from a Physical World Model", arXiv 2025.
+  [[📄 Paper](https://arxiv.org/pdf/2511.07416)] [[🌍 Webpage](https://pointscoder.github.io/PhysWorld_Web/)] [[💻 Code](https://github.com/PointsCoder/OpenReal2Sim)]
+
+- **WMPO**: "WMPO: World Model-based Policy Optimization for Vision-Language-Action Models", arXiv 2025.
+  [[📄 Paper](https://arxiv.org/pdf/2511.09515)] [[🌍 Webpage](https://wm-po.github.io/)] [[💻 Code](https://github.com/WM-PO/WMPO)]
+
+- **SRPO**: "SRPO: Self-Referential Policy Optimization for Vision-Language-Action Models", arXiv 2025.
+  [[📄 Paper](https://arxiv.org/pdf/2511.15605)] [[💻 Code](https://github.com/sii-research/siiRL)] [[🤗 Model](https://huggingface.co/collections/Sylvest/srpo)]
+
+- **GenReward**: "Goal-Driven Reward by Video Diffusion Models for Reinforcement Learning", arXiv 2025.
+  [[📄 Paper](https://arxiv.org/pdf/2512.00961)] [[🌍 Webpage](https://qiwang067.github.io/genreward)]
+
+- **RoboScape-R**: "RoboScape-R: Unified Reward-Observation World Models for Generalizable Robotics Training via RL", arXiv 2025.
+  [[📄 Paper](https://arxiv.org/pdf/2512.03556)]
+
+- **World-Gymnast**: "World-Gymnast: Training Robots with Reinforcement Learning in a World Model", arXiv 2026.
+  [[📄 Paper](https://arxiv.org/pdf/2602.02454)] [[🌍 Webpage](https://world-gymnast.github.io/)] [[💻 Code](https://github.com/world-gymnast/world-gymnast)]
+
+- **RWML**: "Reinforcement World Model Learning for LLM-based Agents", arXiv 2026.
+  [[📄 Paper](https://arxiv.org/pdf/2602.05842)]
+
+- **RISE**: "RISE: Self-Improving Robot Policy with Compositional World Model", arXiv 2026.
+  [[📄 Paper](https://arxiv.org/pdf/2602.11075)] [[💻 Code](https://github.com/OpenDriveLab/RISE)]
+
+- **WoVR**: "WoVR: World Models as Reliable Simulators for Post-Training VLA Policies with RL", arXiv 2026.
+  [[📄 Paper](https://arxiv.org/pdf/2602.13977)] [[💻 Code](https://github.com/RLinf/RLinf)] [[🤗 Model](https://huggingface.co/collections/RLinf/wovr)]
+
+### World Model for Evaluation
+
+- **WorldEval**: "WorldEval: World Model as Real-World Robot Policies Evaluator", arXiv 2025.
+  [[📄 Paper](https://arxiv.org/pdf/2505.19017)] [[🌍 Webpage](https://worldeval.github.io/)] [[💻 Code](https://github.com/liyaxuanliyaxuan/Worldeval)]
+
+- **WorldGym**: "WorldGym: World Model as An Environment for Policy Evaluation", arXiv 2025.
+  [[📄 Paper](https://arxiv.org/pdf/2506.00613)] [[🌍 Webpage](https://world-model-eval.github.io/abstract)] [[💻 Code](https://github.com/world-model-eval/world-model-eval)]
+
+- **Veo**: "Evaluating Gemini Robotics Policies in a Veo World Simulator", arXiv 2025.
+  [[📄 Paper](https://arxiv.org/pdf/2512.10675)] [[🌍 Webpage](https://veo-robotics.github.io/)]
+
+- **Interactive World Simulator**: "Interactive World Simulator for Robot Policy Training and Evaluation", arXiv 2026.
+  [[📄 Paper](https://arxiv.org/pdf/2603.08546)] [[🌍 Webpage](https://www.yixuanwang.me/interactive_world_sim/)] [[💻 Code](https://github.com/WangYixuan12/interactive_world_sim)] [[🤗 Model](https://huggingface.co/yixuan1999/interactive-world-sim-checkpoints)]
+
+- **dWorldEval**: "dWorldEval: Scalable Robotic Policy Evaluation via Discrete Diffusion World Model", arXiv 2026.
+  [[📄 Paper](https://arxiv.org/pdf/2604.22152)] [[🌍 Webpage](https://dworldeval.github.io/)]
+
+
+### Training Data
 
 ---
 
-## Table of Contents
+#### 🤖 Robot-Centric
 
-- [✨ Visual Preview](#-visual-preview)
-- [What Harness Engineering Actually Means](#what-harness-engineering-actually-means)
-- [Quick Start: Improve Your Agent Today](#quick-start-improve-your-agent-today)
-- [Capstone Project: A Real App](#capstone-project-a-real-app)
-- [Learning Path](#learning-path)
-- [Syllabus](#syllabus)
-- [Skills](#skills)
-- [Other Courses](#other-courses)
-
----
-
-## ✨ Visual Preview
-
-### 🏠 Course Homepage
-> A comprehensive course outline and introduction to core philosophies, providing a clear path to get started.
-
-![Course homepage preview](./docs/public/screenshots/readme/en-home.png)
-
-### 📖 Immersive Lectures
-> Deep dives into real-world pain points and hands-on projects (like Project 01) for an immersive learning experience.
-
-![Course lecture preview](./docs/public/screenshots/readme/en-lecture-01.png)
-
-### 🗂️ Ready-to-Use Resource Library
-> Templates and reference configurations designed to solve common pitfalls in multi-turn AI agent development, such as context loss and premature task completion.
-
-![Resource library preview](./docs/public/screenshots/readme/en-resources.png)
-
-## PDF Coursebooks
-
-The repository now includes a PDF build pipeline for the course content.
-
-- Run `npm run pdf:build` to generate English and Chinese PDFs locally.
-- Output files are written to `artifacts/pdfs/`.
-- Run `npm run screenshots:readme` if you want to refresh the README preview images.
-- GitHub Actions workflow [`release-course-pdfs.yml`](./.github/workflows/release-course-pdfs.yml) can build the PDFs and publish them to GitHub Releases.
+| Paper | Released | Links |
+|-------|----------|-------|
+| **QT-Opt** - *QT-Opt: Scalable Deep Reinforcement Learning for Vision-Based Robotic Manipulation* | 2018-06 | [📄 Paper](https://arxiv.org/pdf/1806.10293) · [🌍&nbsp;Web](https://sites.google.com/view/qtopt)  · [📦&nbsp;Dataset](https://huggingface.co/datasets/jxu124/OpenX-Embodiment/tree/main/kuka) |
+| **MIME** - *Multiple Interactions Made Easy (MIME): Large Scale Demonstrations Data for Imitation* | 2018-10 | [📄 Paper](https://arxiv.org/pdf/1810.07121) · [🌍&nbsp;Web](https://sites.google.com/view/mimedataset) · [📦&nbsp;Dataset](https://sites.google.com/view/mimedataset/dataset) |
+| **RoboNet** - *RoboNet: Large-Scale Multi-Robot Learning* | 2019-10 | [📄 Paper](https://arxiv.org/pdf/1910.11215) · [🌍&nbsp;Web](https://www.robonet.wiki/) · [📦&nbsp;Dataset](https://github.com/SudeepDasari/RoboNet/wiki/Getting-Started) · [💻&nbsp;Code](https://github.com/SudeepDasari/RoboNet) |
+| **RoboTurk** - *Scaling Robot Supervision to Hundreds of Hours with RoboTurk: Robotic Manipulation Dataset through Human Reasoning and Dexterity* | 2019-11 | [📄 Paper](https://arxiv.org/pdf/1911.04052) · [🌍&nbsp;Web](https://roboturk.stanford.edu/realrobotdataset.html) · [📦&nbsp;Dataset](https://roboturk.stanford.edu/) |
+| **Bridge** - *Bridge Data: Boosting Generalization of Robotic Skills with Cross-Domain Datasets* | 2021-09 | [📄 Paper](https://arxiv.org/pdf/2109.13396) · [🌍&nbsp;Web](https://bair.berkeley.edu/blog/2021/11/18/bridge-data/) · [📦&nbsp;Dataset](https://sites.google.com/view/bridgedata) |
+| **MT-Opt** - *MT-Opt: Continuous Multi-Task Robotic Reinforcement Learning at Scale* | 2021-04 | [📄 Paper](https://arxiv.org/pdf/2104.08212) · [🌍&nbsp;Web](https://karolhausman.github.io/mt-opt/) · [📦&nbsp;Dataset](https://www.tensorflow.org/datasets/catalog/mt_opt) |
+| **BC-Z** - *BC-Z: Zero-Shot Task Generalization with Robotic Imitation Learning* | 2022-02 | [📄 Paper](https://arxiv.org/pdf/2202.02005) · [🌍&nbsp;Web](https://sites.google.com/view/bc-z/home) · [📦&nbsp;Dataset](https://www.kaggle.com/datasets/google/bc-z-robot) |
+| **Language-Table** - *Interactive Language: Talking to Robots in Real Time* | 2022-10 | [📄 Paper](https://arxiv.org/pdf/2210.06407) · [🌍&nbsp;Web](https://interactive-language.github.io/) · [📦&nbsp;Dataset](https://github.com/google-research/language-table) |
+| **RT-1** - *RT-1: Robotics Transformer for Real-World Control at Scale* | 2022-12 | [📄 Paper](https://arxiv.org/pdf/2212.06817) · [🌍&nbsp;Web](https://robotics-transformer1.github.io/) · [📦&nbsp;Dataset](https://console.cloud.google.com/storage/browser/gresearch/rt-1-data-release) · [💻&nbsp;Code](https://github.com/google-research/robotics_transformer) |
+| **BridgeData V2** - *BridgeData V2: A Dataset for Robot Learning at Scale* | 2023-08 | [📄 Paper](https://arxiv.org/pdf/2308.12952) · [🌍&nbsp;Web](https://bridgedata-v2.github.io/) · [📦&nbsp;Dataset](https://rail-berkeley.github.io/bridgedata/?curius=1637) · [💻&nbsp;Code](https://github.com/rail-berkeley/bridge_data_v2) |
+| **Jaco-Play** - *CLVR Jaco Play Dataset* | 2023-04 | [💻&nbsp;Code](https://github.com/clvrai/clvr_jaco_play_dataset)· [📦&nbsp;Dataset](https://github.com/clvrai/clvr_jaco_play_dataset) |
+| **Cable-Routing-Dataset** - *Multi-Stage Cable Routing through Hierarchical Imitation Learning* | 2023-07 | [📄 Paper](https://arxiv.org/pdf/2307.08927) · [🌍&nbsp;Web](https://sites.google.com/view/cablerouting) · [📦&nbsp;Dataset](https://sites.google.com/view/cablerouting/data) · [💻&nbsp;Code](https://github.com/charlesxu0124/CableRouting) |
+| **RH20T** - *RH20T: A Comprehensive Robotic Dataset for Learning Diverse Skills in One-Shot* | 2023-07 | [📄 Paper](https://arxiv.org/pdf/2307.00595) · [🌍&nbsp;Web](https://rh20t.github.io/) · [📦&nbsp;Dataset](https://rh20t.github.io/#download) · [💻&nbsp;Code](https://github.com/rh20t/rh20t_api) |
+| **OXE** - *Open X-Embodiment: Robotic Learning Datasets and RT-X Models* | 2023-10 | [📄 Paper](https://arxiv.org/pdf/2310.08864) · [🌍&nbsp;Web](https://robotics-transformer-x.github.io/) · [📦&nbsp;Dataset](https://docs.google.com/spreadsheets/d/1rPBD77tk60AEIGZrGSODwyyzs5FgCU9Uz3h-3_t2A9g/edit?gid=0#gid=0) · [💻&nbsp;Code](https://github.com/google-deepmind/open_x_embodiment) |
+| **DROID** - *DROID: A Large-Scale In-The-Wild Robot Manipulation Dataset* | 2024-03 | [📄 Paper](https://arxiv.org/pdf/2403.12945) · [🌍&nbsp;Web](https://droid-dataset.github.io/) · [📦&nbsp;Dataset](https://droid-dataset.github.io/droid/the-droid-dataset) · [💻&nbsp;Code](https://github.com/droid-dataset/droid_policy_learning) |
+| **RH20T-P** - *RH20T-P: A Primitive-Level Robotic Dataset Towards Composable Generalization Agents* | 2024-03 | [📄 Paper](https://arxiv.org/pdf/2403.19622) · [🌍&nbsp;Web](https://sites.google.com/view/rh20t-primitive/main) · [📦&nbsp;Dataset](https://github.com/Zx55/cga-challenge/tree/main/data/rh20tp) |
+| **RoboMIND** - *RoboMIND: Benchmark on Multi-embodiment Intelligence Normative Data for Robot Manipulation* | 2024-12 | [📄 Paper](https://arxiv.org/pdf/2412.13877) · [🌍&nbsp;Web](https://x-humanoid-robomind.github.io/) · [📦&nbsp;Dataset](https://huggingface.co/datasets/x-humanoid-robomind/RoboMIND) · [💻&nbsp;Code](https://github.com/x-humanoid-robomind/x-humanoid-robomind.github.io) |
+| **ARIO** - *All Robots in One: A New Standard and Unified Dataset for Versatile, General-Purpose Embodied Agents* | 2024-08 | [📄 Paper](https://arxiv.org/pdf/2408.10899) · [🌍&nbsp;Web](https://ario-dataset.github.io/) · [📦&nbsp;Dataset](https://openi.pcl.ac.cn/ARIO/Songling_datasets/datasets) · [💻&nbsp;Code](https://github.com/ario-dataset/ario-tools) |
+| **RoboData** - *RoboTron-Mani: All-in-One Multimodal Large Model for Robotic Manipulation* | 2024-12 | [📄 Paper](https://arxiv.org/pdf/2412.07215) · [📦&nbsp;Dataset](https://huggingface.co/datasets/liufanfanlff/RoboData) · [💻&nbsp;Code](https://github.com/RoboUniview/RoboMM) |
+| **DexCap** - *DexCap: Scalable and Portable Mocap Data Collection System for Dexterous Manipulation* | 2024-03 | [📄 Paper](https://arxiv.org/pdf/2403.07788) · [🌍&nbsp;Web](https://dex-cap.github.io/) · [📦&nbsp;Dataset](https://huggingface.co/datasets/chenwangj/DexCap-Data) · [💻&nbsp;Code](https://github.com/j96w/DexCap) |
+| **FuSe** - *Beyond Sight: Finetuning Generalist Robot Policies with Heterogeneous Sensors via Language Grounding* | 2025-01 | [📄 Paper](https://arxiv.org/pdf/2501.04693) · [🌍&nbsp;Web](https://fuse-model.github.io/) · [📦&nbsp;Dataset](https://huggingface.co/datasets/oier-mees/FuSe) · [💻&nbsp;Code](https://github.com/fuse-model/FuSe) |
+| **AgiBot World Colosseo** - *AgiBot World Colosseo: A Large-scale Manipulation Platform for Scalable and Intelligent Embodied Systems* | 2025-03 | [📄 Paper](https://arxiv.org/pdf/2503.06669) · [🌍&nbsp;Web](https://agibot-world.com/) · [📦&nbsp;Dataset](https://huggingface.co/datasets/agibot-world/AgiBotWorld-Alpha) · [💻&nbsp;Code](https://github.com/OpenDriveLab/AgiBot-World)|
+| **REASSEMBLE** - *REASSEMBLE: A Multimodal Dataset for Contact-rich Robotic Assembly and Disassembly* | 2025-02 | [📄 Paper](https://arxiv.org/pdf/2502.05086) · [🌍&nbsp;Web](https://tuwien-asl.github.io/REASSEMBLE_page/) · [📦&nbsp;Dataset](https://researchdata.tuwien.ac.at/records/0ewrv-8cb44) · [💻&nbsp;Code](https://github.com/TUWIEN-ASL/REASSEMBLE) |
+| **OmniAction** - *RoboOmni: Proactive Robot Manipulation in Omni-modal Context* | 2025-10 | [📄 Paper](https://arxiv.org/pdf/2510.23763) · [🌍&nbsp;Web](https://openmoss.github.io/RoboOmni/) · [📦&nbsp;Dataset](https://huggingface.co/datasets/fnlp/OmniAction) · [💻&nbsp;Code](https://github.com/OpenMOSS/RoboOmni) ·  |
+| **UnifoLM-WBT** - *UnifoLM-WBT-Dataset* | 2026-03 | [📦&nbsp;Dataset](https://huggingface.co/collections/unitreerobotics/unifolm-wbt-dataset) |
 
 ---
 
-## The Model Is Smart, The Harness Makes It Reliable
+#### 🖐️ UMI
 
-There's a hard truth most people learn the hard way: **the strongest model in the world will still fail on real engineering tasks if you don't build a proper environment around it.**
+| Paper | Released | Links |
+|-------|----------|-------|
+| **UMI** - *Universal Manipulation Interface: In-The-Wild Robot Teaching Without In-The-Wild Robots* | 2024-02 | [📄 Paper](https://arxiv.org/pdf/2402.10329) · [🌍&nbsp;Web](https://umi-gripper.github.io/) · [💻&nbsp;Code](https://github.com/real-stanford/universal_manipulation_interface)· [📦&nbsp;Dataset](https://real.stanford.edu/umi/data/zarr_datasets/) |
+| **FastUMI** - *FastUMI: A Scalable and Hardware-Independent Universal Manipulation Interface with Dataset* | 2024-09 | [📄 Paper](https://arxiv.org/pdf/2409.19499) · [🌍&nbsp;Web](https://fastumi.com/FastUMI/) · [📦&nbsp;Dataset](https://huggingface.co/datasets/IPEC-COMMUNITY/FastUMI-Data) · [💻&nbsp;Code](https://github.com/zxzm-zak/FastUMI_Data) |
+| **FastUMI-100K** - *FastUMI-100K: Advancing Data-driven Robotic Manipulation with a Large-scale UMI-style Dataset* | 2025-10 | [📄 Paper](https://arxiv.org/pdf/2510.08022) · [💻&nbsp;Code](https://github.com/MrKeee/FastUMI-100K) |
+| **RealOmin** - *10Kh-RealOmin-OpenData: A Large-Scale Real-World Manipulation Dataset* | 2026-01 | [🌍&nbsp;Web](https://www.genrobot.ai/data/open-dataset) · [📦&nbsp;Dataset](https://huggingface.co/datasets/genrobot2025/10Kh-RealOmin-OpenData) · [💻&nbsp;Code](https://github.com/genrobot-ai/das-datakit) |
+| **Hoi!** - *Hoi! -- A Multimodal Dataset for Force-Grounded, Cross-View Articulated Manipulation* | 2025-12 | [📄 Paper](https://arxiv.org/pdf/2512.04884) · [🌍&nbsp;Web](https://timengelbracht.github.io/Hoi-Dataset-Website/) · [📦&nbsp;Dataset](https://drive.google.com/drive/folders/1Hzpt5WXFbUg0CNVU7gudH-4z-HkC6kGR) |
+| **DexUMI** - *DexUMI: Using Human Hand as the Universal Manipulation Interface for Dexterous Manipulation* | 2025-05 | [📄 Paper](https://arxiv.org/pdf/2505.21864) · [🌍&nbsp;Web](https://dex-umi.github.io/) · [📦&nbsp;Dataset](https://umi-data.github.io/) · [💻&nbsp;Code](https://github.com/real-stanford/DexUMI) |
 
-You've probably seen this yourself. You give Claude or GPT a task in your repo. It starts well — reads files, writes code, looks productive. Then something goes wrong. It skips a step. It breaks a test. It says "done" but nothing actually works. You spend more time cleaning up than if you'd done it yourself.
+---
 
-This isn't a model problem. It's a harness problem.
+#### 🖥️ Simulation
 
-The evidence is clear. Anthropic ran a controlled experiment: same model (Opus 4.5), same prompt ("build a 2D retro game editor"). Without a harness, it spent $9 in 20 minutes and produced something that didn't work. With a full harness (planner + generator + evaluator), it spent $200 in 6 hours and built a game you could actually play. The model didn't change. The harness did.
+| Paper | Released | Links |
+|-------|----------|-------|
+| **MimicGen** - *MimicGen: A Data Generation System for Scalable Robot Learning using Human Demonstrations* | 2023-10 | [📄 Paper](https://arxiv.org/pdf/2310.17596) · [🌍&nbsp;Web](https://mimicgen.github.io/) · [📦&nbsp;Dataset](https://huggingface.co/datasets/amandlek/mimicgen_datasets) · [💻&nbsp;Code](https://github.com/NVlabs/mimicgen) |
+| **ManiSkill2** - *ManiSkill2: A Unified Benchmark for Generalizable Manipulation Skills* | 2023-02 | [📄 Paper](https://arxiv.org/pdf/2302.04659) · [🌍&nbsp;Web](https://haosulab.github.io/ManiSkill2/) · [📦&nbsp;Dataset](https://huggingface.co/datasets/haosulab/ManiSkill2) · [💻&nbsp;Code](https://github.com/KolinGuo/ManiSkill2) |
+| **RoboCasa** - *RoboCasa: Large-Scale Simulation of Everyday Tasks for Generalist Robots* | 2024-06 | [📄 Paper](https://arxiv.org/pdf/2406.02523) · [🌍&nbsp;Web](https://robocasa.ai/) · [📦&nbsp;Dataset](https://robocasa.ai/docs/build/html/datasets/using_datasets.html) · [💻&nbsp;Code](https://github.com/robocasa/robocasa) |
+| **RoboTwin** - *RoboTwin: Dual-Arm Robot Benchmark with Generative Digital Twins* | 2025-04 | [📄 Paper](https://arxiv.org/pdf/2504.13059) · [🌍&nbsp;Web](https://robotwin-platform.github.io/) · [📦&nbsp;Dataset](https://huggingface.co/datasets/TianxingChen/RoboTwin) · [💻&nbsp;Code](https://github.com/RoboTwin-Platform/RoboTwin) |
+| **DexMimicGen** - *DexMimicGen: Automated Data Generation for Bimanual Dexterous Manipulation via Imitation Learning* | 2024-10 | [📄 Paper](https://arxiv.org/pdf/2410.24185) · [🌍&nbsp;Web](https://dexmimicgen.github.io/) · [📦&nbsp;Dataset](https://huggingface.co/datasets/MimicGen/dexmimicgen_datasets) · [💻&nbsp;Code](https://github.com/NVlabs/dexmimicgen) |
+| **QUARD-Auto** - *GeRM: A Generalist Robotic Model with Mixture-of-experts for Quadruped Robot* | 2024-03 | [📄 Paper](https://arxiv.org/pdf/2403.13358) · [🌍&nbsp;Web](https://songwxuan.github.io/GeRM/) · [📦&nbsp;Dataset](https://github.com/Songwxuan/GeRM) · [💻&nbsp;Code](https://github.com/Songwxuan/GeRM) |
+| **TesserAct** - *TesserAct: Learning 4D Embodied World Models* | 2025-04 | [📄 Paper](https://arxiv.org/pdf/2504.20995) · [🌍&nbsp;Web](https://tesseractworld.github.io/) · [💻&nbsp;Code](https://github.com/UMass-Embodied-AGI/TesserAct)|
+| **RoboCerebra** - *RoboCerebra: A Large-scale Benchmark for Long-horizon Robotic Manipulation Evaluation* | 2025-06 | [📄 Paper](https://arxiv.org/pdf/2506.06677) · [🌍&nbsp;Web](https://robocerebra.github.io/) · [📦&nbsp;Dataset](https://huggingface.co/datasets/lerobot/robocerebra_unified) · [💻&nbsp;Code](https://github.com/buaa-colalab/RoboCerebra) |
+| **SynGrasp-1B** - *GraspVLA: a Grasping Foundation Model Pre-trained on Billion-scale Synthetic Action Data* | 2025-05 | [📄 Paper](https://arxiv.org/pdf/2505.03233) · [🌍&nbsp;Web](https://pku-epic.github.io/GraspVLA-web) · [💻&nbsp;Code](https://github.com/PKU-EPIC/GraspVLA) |
+| **RoboTwin 2.0** - *RoboTwin 2.0: A Scalable Data Generator and Benchmark with Strong Domain Randomization for Robust Bimanual Robotic Manipulation* | 2025-06 | [📄 Paper](https://arxiv.org/pdf/2506.18088) · [🌍&nbsp;Web](https://robotwin-platform.github.io/) · [📦&nbsp;Dataset](https://huggingface.co/datasets/TianxingChen/RoboTwin2.0) · [💻&nbsp;Code](https://github.com/RoboTwin-Platform/RoboTwin) |
+| **TLA** - *TLA: Tactile-Language-Action Model for Contact-Rich Manipulation* | 2025-03 | [📄 Paper](https://arxiv.org/pdf/2503.08548) · [🌍&nbsp;Web](https://sites.google.com/view/tactile-language-action/) |
+| **InternVLA-M1** - *InternVLA-M1: A Spatially Guided Vision-Language-Action Framework for Generalist Robot Policy* | 2025-10 | [📄 Paper](https://arxiv.org/pdf/2510.13778) · [🌍&nbsp;Web](https://internrobotics.github.io/internvla-m1.github.io) · [📦&nbsp;Dataset](https://huggingface.co/datasets/InternRobotics/InternData-M1) · [💻&nbsp;Code](https://github.com/InternRobotics/InternVLA-M1)|
+| **InternData-A1** - *InternVLA-A1: Unifying Understanding, Generation and Action for Robotic Manipulation* | 2026-01 | [📄 Paper](https://arxiv.org/pdf/2601.02456) · [🌍&nbsp;Web](https://internrobotics.github.io/interndata-a1.github.io/) · [📦&nbsp;Dataset](https://huggingface.co/datasets/InternRobotics/InternData-A1) · [💻&nbsp;Code](https://github.com/InternRobotics/InternVLA-A1)  |
 
-OpenAI reported the same thing with Codex: in a well-harnessed repository, the same model goes from "unreliable" to "reliable." Not a marginal improvement — a qualitative shift.
+---
 
-**This course teaches you how to build that environment.**
+#### 👁️ Human / Egocentric
 
-```text
-                    THE HARNESS PATTERN
-                    ====================
+| Paper | Released | Links |
+|-------|----------|-------|
+| **SSv2** - *The "something something" video database for learning and evaluating visual common sense* | 2017-06 | [📄 Paper](https://arxiv.org/pdf/1706.04261) · [📦&nbsp;Dataset](https://developer.qualcomm.com/software/ai-datasets/something-something) |
+| **EPIC-KITCHENS** - *Scaling Egocentric Vision: The EPIC-KITCHENS Dataset* | 2018-04 | [📄 Paper](https://arxiv.org/pdf/1804.02748) · [🌍&nbsp;Web](https://epic-kitchens.github.io/) · [📦&nbsp;Dataset](https://epic-kitchens.github.io/) · [💻&nbsp;Code](https://github.com/epic-kitchens/epic-kitchens-download-scripts) |
+| **HowTo100M** - *HowTo100M: Learning a Text-Video Embedding by Watching Hundred Million Narrated Video Clips* | 2019-06 | [📄 Paper](https://arxiv.org/pdf/1906.03327) · [🌍&nbsp;Web](https://www.di.ens.fr/willow/research/howto100m/) · [📦&nbsp;Dataset](https://www.di.ens.fr/willow/research/howto100m/) |
+| **Kinetics-700** - *A Short Note on the Kinetics-700 Human Action Dataset* | 2019-07 | [📄 Paper](https://arxiv.org/pdf/1907.06987) · [📦&nbsp;Dataset](https://github.com/cvdfoundation/kinetics-dataset) · [💻&nbsp;Code](https://github.com/cvdfoundation/kinetics-dataset) |
+| **EGTEA Gaze+** - *In the Eye of the Beholder: Gaze and Actions in First Person Video* | 2020-06 | [📄 Paper](https://arxiv.org/pdf/2006.00626) · [🌍&nbsp;Web](https://cbs.ic.gatech.edu/fpv/) · [📦&nbsp;Dataset](https://cbs.ic.gatech.edu/fpv/) |
+| **Ego4D** - *Ego4D: Around the World in 3,000 Hours of Egocentric Video* | 2021-10 | [📄 Paper](https://arxiv.org/pdf/2110.07058) · [🌍&nbsp;Web](https://ego4d-data.org/) · [📦&nbsp;Dataset](https://ego4d-data.org/docs/start-here/) · [💻&nbsp;Code](https://github.com/facebookresearch/Ego4d) |
+| **H2O** - *H2O: Two Hands Manipulating Objects for First Person Interaction Recognition* | 2021-04 | [📄 Paper](https://arxiv.org/pdf/2104.11181) · [🌍&nbsp;Web](https://taeinkwon.com/projects/h2o/) · [📦&nbsp;Dataset](https://taeinkwon.com/projects/h2o/) · [💻&nbsp;Code](https://github.com/taeinkwon/h2odataset) |
+| **HOI4D** - *HOI4D: A 4D Egocentric Dataset for Category-Level Human-Object Interaction* | 2022-03 | [📄 Paper](https://arxiv.org/pdf/2203.01577) · [🌍&nbsp;Web](https://hoi4d.github.io/) · [📦&nbsp;Dataset](https://hoi4d.github.io/) |
+| **Assembly101** - *Assembly101: A Large-Scale Multi-View Video Dataset for Understanding Procedural Activities* | 2022-03 | [📄 Paper](https://arxiv.org/pdf/2203.14712) · [🌍&nbsp;Web](https://assembly-101.github.io/) · [📦&nbsp;Dataset](https://assembly-101.github.io/) · [💻&nbsp;Code](https://github.com/assembly-101/assembly101-download-scripts) |
+| **EgoPAT3D** - *Egocentric Prediction of Action Target in 3D* | 2022-03 | [📄 Paper](https://arxiv.org/pdf/2203.13116) · [📦&nbsp;Dataset](https://github.com/ai4ce/EgoPAT3D) · [💻&nbsp;Code](https://github.com/ai4ce/EgoPAT3D) |
+| **ARCTIC** - *ARCTIC: A Dataset for Dexterous Bimanual Hand-Object Manipulation* | 2022-04 | [📄 Paper](https://arxiv.org/pdf/2204.13662) · [🌍&nbsp;Web](https://arctic.is.tue.mpg.de/) · [📦&nbsp;Dataset](https://arctic.is.tue.mpg.de/) · [💻&nbsp;Code](https://github.com/zc-alexfan/arctic) |
+| **HoloAssist** - *HoloAssist: an Egocentric Human Interaction Dataset for Interactive AI Assistants in the Real World* | 2023-09 | [📄 Paper](https://arxiv.org/pdf/2309.17024) · [🌍&nbsp;Web](https://holoassist.github.io/) · [📦&nbsp;Dataset](https://holoassist.github.io/) |
+| **Ego-Exo4D** - *Ego-Exo4D: Understanding Skilled Human Activity from First- and Third-Person Perspectives* | 2023-11 | [📄 Paper](https://arxiv.org/pdf/2311.18259) · [🌍&nbsp;Web](https://ego-exo4d-data.org/) · [📦&nbsp;Dataset](https://docs.ego-exo4d-data.org/download/) · [💻&nbsp;Code](https://github.com/facebookresearch/Ego4d) |
+| **TACO** - *TACO: Benchmarking Generalizable Bimanual Tool-ACtion-Object Understanding* | 2024-01 | [📄 Paper](https://arxiv.org/pdf/2401.08399) · [🌍&nbsp;Web](https://taco2024.github.io/) · [📦&nbsp;Dataset](https://taco2024.github.io/) · [💻&nbsp;Code](https://github.com/leolyliu/TACO-Instructions) |
+| **Aria Everyday Activities** - *Aria Everyday Activities Dataset* | 2024-02 | [📄 Paper](https://arxiv.org/pdf/2402.13349) · [🌍&nbsp;Web](https://www.projectaria.com/datasets/aea/) · [📦&nbsp;Dataset](https://www.projectaria.com/datasets/aea/) · [💻&nbsp;Code](https://github.com/facebookresearch/projectaria_tools) |
+| **OAKINK2** - *OAKINK2: A Dataset of Bimanual Hands-Object Manipulation in Complex Task Completion* | 2024-03 | [📄 Paper](https://arxiv.org/pdf/2403.19417) · [🌍&nbsp;Web](https://oakink.net/v2/) · [📦&nbsp;Dataset](https://oakink.net/v2/) · [💻&nbsp;Code](https://github.com/oakink/OakInk2) |
+| **Nymeria** - *Nymeria: A Massive Collection of Multimodal Egocentric Daily Motion in the Wild* | 2024-06 | [📄 Paper](https://arxiv.org/pdf/2406.09905) · [🌍&nbsp;Web](https://www.projectaria.com/datasets/nymeria/) · [📦&nbsp;Dataset](https://huggingface.co/datasets/projectaria/Nymeria) · [💻&nbsp;Code](https://github.com/facebookresearch/nymeria_dataset) |
+| **COM Kitchens** - *COM Kitchens: An Unedited Overhead-view Video Dataset as a Vision-Language Benchmark* | 2024-08 | [📄 Paper](https://arxiv.org/pdf/2408.02272) · [📦&nbsp;Dataset](https://github.com/omron-sinicx/com_kitchens) · [💻&nbsp;Code](https://github.com/omron-sinicx/com_kitchens) |
+| **EgoVid-5M** - *EgoVid-5M: A Large-Scale Video-Action Dataset for Egocentric Video Generation* | 2024-11 | [📄 Paper](https://arxiv.org/pdf/2411.08380) · [🌍&nbsp;Web](https://egovid.github.io/) · [📦&nbsp;Dataset](https://egovid.github.io/) |
+| **EgoMimic** - *EgoMimic: Scaling Imitation Learning via Egocentric Video* | 2024-10 | [📄 Paper](https://arxiv.org/pdf/2410.24221) · [🌍&nbsp;Web](https://egomimic.github.io/) · [📦&nbsp;Dataset](https://huggingface.co/datasets/gatech/EgoMimic) |
+| **HOT3D** - *HOT3D: Hand and Object Tracking in 3D from Egocentric Multi-View Videos* | 2024-11 | [📄 Paper](https://arxiv.org/pdf/2411.19167) · [🌍&nbsp;Web](https://www.projectaria.com/datasets/hot3D/) · [📦&nbsp;Dataset](https://www.projectaria.com/datasets/hot3D/) · [💻&nbsp;Code](https://github.com/facebookresearch/hot3d) |
+| **Egocentric-10K** - *Egocentric-10K* | 2025-11 | [🌍&nbsp;Web](https://egocentric.io/) · [📦&nbsp;Dataset](https://huggingface.co/datasets/builddotai/Egocentric-10K) |
+| **DreamDojo** - *DreamDojo: A Generalist Robot World Model from Large-Scale Human Videos* | 2026-02 | [📄 Paper](https://arxiv.org/pdf/2602.06949) · [🌍&nbsp;Web](https://dreamdojo-world.github.io/) · [💻&nbsp;Code](https://github.com/NVIDIA/DreamDojo) |
+| **PH²D** - *Humanoid Policy ~ Human Policy* | 2025-03 | [📄 Paper](https://arxiv.org/pdf/2503.13441) · [🌍&nbsp;Web](https://human-as-robot.github.io/) · [📦&nbsp;Dataset](https://huggingface.co/datasets/RogerQi/PH2D) |
+| **Humanoid Everyday** - *Humanoid Everyday: A Comprehensive Robotic Dataset for Open-World Humanoid Manipulation* | 2025-10 | [📄 Paper](https://arxiv.org/pdf/2510.08807) · [🌍&nbsp;Web](https://humanoideveryday.github.io/) · [📦&nbsp;Dataset](https://huggingface.co/datasets/USC-PSI-Lab/humanoid-everyday) · [💻&nbsp;Code](https://github.com/ausbxuse/Humanoid-Everyday) |
+| **IndEgo** - *IndEgo: A Dataset of Industrial Scenarios and Collaborative Work for Egocentric Assistants* | 2025-11 | [📄 Paper](https://arxiv.org/pdf/2511.19684) · [🌍&nbsp;Web](https://indego-dataset.github.io/) · [📦&nbsp;Dataset](https://huggingface.co/datasets/FraunhoferIPK/IndEgo) · [💻&nbsp;Code](https://github.com/Vivek9Chavan/IndEgo) |
+| **PLAICraft** - *PLAICraft: Large-Scale Time-Aligned Vision-Speech-Action Dataset for Embodied AI* | 2025-05 | [📄 Paper](https://arxiv.org/pdf/2505.12707) · [🌍 Web](https://plaicraft.ai/) · [📦&nbsp;Dataset](https://blog.plaicraft.ai/2025/05/11/download-user-data/) |
+| **HD-EPIC** - *HD-EPIC: A Highly-Detailed Egocentric Video Dataset* | 2025-02 | [📄 Paper](https://arxiv.org/pdf/2502.04144) · [🌍&nbsp;Web](https://hd-epic.github.io/site/) · [📦&nbsp;Dataset](https://hd-epic.github.io/site/) |
+| **UniHand** - *Being-H0: Vision-Language-Action Pretraining from Large-Scale Human Videos* | 2025-07 | [📄 Paper](https://arxiv.org/pdf/2507.15597) · [🌍&nbsp;Web](https://beingbeyond.github.io/Being-H0) · [📦&nbsp;Dataset](https://huggingface.co/datasets/BeingBeyond/h0_post_train_db_2508) · [💻&nbsp;Code](https://github.com/BeingBeyond/Being-H0) |
+| **Ego-Centric Human Manipulation Dataset** - *EgoVLA: Learning Vision-Language-Action Models from Egocentric Human Videos* | 2025-07 | [📄 Paper](https://arxiv.org/pdf/2507.12440) · [🌍&nbsp;Web](https://rchalyang.github.io/EgoVLA/) · [📦&nbsp;Dataset](https://huggingface.co/datasets/EgoVLA/EgoVLA-Humanoid-Sim) |
+| **Kaiwu** - *Kaiwu: A Multimodal Manipulation Dataset and Framework for Robot Learning and Human-Robot Interaction* | 2025-03 | [📄 Paper](https://ieeexplore.ieee.org/document/11160665/) · [📦 Dataset](https://www.scidb.cn/en/detail?dataSetId=33060cd729604d2ca7d41189a9fc492b) |
+| **EgoDex** - *EgoDex: Learning Dexterous Manipulation from Large-Scale Egocentric Video* | 2025-05 | [📄 Paper](https://arxiv.org/pdf/2505.11709) · [📦&nbsp;Dataset](https://github.com/apple/ml-egodex) · [💻&nbsp;Code](https://github.com/apple/ml-egodex) |
 
-    You --> give task --> Agent reads harness files --> Agent executes
-                                                        |
-                                              harness governs every step:
-                                              |
-                                              +--> Instructions: what to do, in what order
-                                              +--> Scope:       one feature at a time, no overreach
-                                              +--> State:       progress log, feature list, git history
-                                              +--> Verification: tests, lint, type-check, smoke runs
-                                              +--> Lifecycle:   init at start, clean state at end
-                                              |
-                                              v
-                                         Agent stops only when
-                                         verification passes
+### Evaluation
+
+---
+
+#### 🌐 World Model — Visual Fidelity
+
+| Paper | Released | Links |
+|-------|----------|-------|
+| **PSNR / SSIM** - *Image Quality Assessment: From Error Visibility to Structural Similarity* | 2004 | [📄 Paper](https://ieeexplore.ieee.org/document/1284395) · [🌍&nbsp;Web](https://ece.uwaterloo.ca/~z70wang/research/ssim/) · [💻&nbsp;Code](https://ece.uwaterloo.ca/~z70wang/research/ssim/) |
+| **LPIPS** - *The Unreasonable Effectiveness of Deep Features as a Perceptual Metric* | 2018-01 | [📄 Paper](https://arxiv.org/pdf/1801.03924) · [🌍&nbsp;Web](https://richzhang.github.io/PerceptualSimilarity/) · [💻&nbsp;Code](https://github.com/richzhang/PerceptualSimilarity) |
+| **DreamSim** - *DreamSim: Learning New Dimensions of Human Visual Similarity Using Synthetic Data* | 2023-06 | [📄 Paper](https://arxiv.org/pdf/2306.09344) · [🌍&nbsp;Web](https://dreamsim-nights.github.io/) · [💻&nbsp;Code](https://github.com/ssundaram21/dreamsim) |
+| **DINOv2** - *DINOv2: Learning Robust Visual Features without Supervision* | 2023-04 | [📄 Paper](https://arxiv.org/pdf/2304.07193) · [🌍&nbsp;Web](https://dinov2.metademolab.com/) · [💻&nbsp;Code](https://github.com/facebookresearch/dinov2) |
+| **FVD** - *Towards Accurate Generative Models of Video: A New Metric & Challenges* | 2018-12 | [📄 Paper](https://arxiv.org/pdf/1812.01717) · [💻&nbsp;Code](https://github.com/google-research/google-research/tree/master/frechet_video_distance) |
+
+---
+
+#### 🌐 World Model — Physical Commonsense
+
+| Paper | Released | Links |
+|-------|----------|-------|
+| **VideoPhy** - *VideoPhy: Evaluating Physical Commonsense for Video Generation* | 2024-06 | [📄 Paper](https://arxiv.org/pdf/2406.03520) · [🌍&nbsp;Web](https://videophy.github.io/) · [💻&nbsp;Code](https://github.com/Hritikbansal/videophy) · [📦&nbsp;Dataset](https://huggingface.co/datasets/videophysics/videophy_test_public) 
+| **PhyGenBench** - *Towards World Simulator: Crafting Physical Commonsense-Based Benchmark for Video Generation* | 2024-10 | [📄 Paper](https://arxiv.org/pdf/2410.05363) · [🌍&nbsp;Web](https://phygenbench123.github.io/) · [💻&nbsp;Code](https://github.com/OpenGVLab/PhyGenBench) 
+| **VBench-2.0** - *VBench-2.0: Advancing Video Generation Benchmark Suite for Intrinsic Faithfulness* | 2025-03 | [📄 Paper](https://arxiv.org/pdf/2503.21755) · [🌍&nbsp;Web](https://vchitect.github.io/VBench-2.0-project/) · [💻&nbsp;Code](https://github.com/Vchitect/VBench) · [📦&nbsp;Dataset](https://huggingface.co/datasets/Vchitect/VBench-2.0_sampled_videos) 
+| **WorldModelBench** - *WorldModelBench: Judging Video Generation Models as World Models* | 2025-02 | [📄 Paper](https://arxiv.org/pdf/2502.20694) · [🌍&nbsp;Web](https://worldmodelbench-team.github.io/) · [💻&nbsp;Code](https://github.com/WorldModelBench-Team/WorldModelBench) |
+| **Physics-IQ** - *Do Generative Video Models Understand Physical Principles?* | 2025-01 | [📄 Paper](https://arxiv.org/pdf/2501.09038) · [🌍&nbsp;Web](https://physics-iq.github.io/) · [💻&nbsp;Code](https://github.com/google-deepmind/physics-iq-benchmark) |
+| **WorldScore** - *WorldScore: A Unified Evaluation Benchmark for World Generation* | 2025-04 | [📄 Paper](https://arxiv.org/pdf/2504.00983) · [🌍&nbsp;Web](https://haoyi-duan.github.io/WorldScore/) · [💻&nbsp;Code](https://github.com/haoyi-duan/WorldScore) |
+| **EWMBench** - *EWMBench: Evaluating Scene, Motion, and Semantic Quality in Embodied World Models* | 2025-05 | [📄 Paper](https://arxiv.org/pdf/2505.09694) · [💻&nbsp;Code](https://github.com/AgibotTech/EWMBench) |
+
+---
+
+#### 🌐 World Model — Action Plausibility
+
+| Paper | Released | Links |
+|-------|----------|-------|
+| **WorldSimBench** - *WorldSimBench: Towards Video Generation Models as World Simulators* | 2024-10 | [📄 Paper](https://arxiv.org/pdf/2410.18072) · [🌍&nbsp;Web](https://iranqin.github.io/WorldSimBench.github.io/) · [💻&nbsp;Code](https://github.com/iranqin/WorldSimBench) |
+| **Wow, wo, val!** - *A Comprehensive Embodied World Model Evaluation Turing Test* | 2026-01 | [📄 Paper](https://arxiv.org/pdf/2601.04137) |
+
+---
+
+#### 🤖 Action Policy — General
+
+| Paper | Released | Links |
+|-------|----------|-------|
+| **MetaWorld** - *MetaWorld: A Benchmark and Evaluation for Multi-Task and Meta Reinforcement Learning* | 2019-10 | [📄 Paper](https://arxiv.org/pdf/1910.10897) · [🌍&nbsp;Web](https://meta-world.github.io/) · [💻&nbsp;Code](https://github.com/Farama-Foundation/Metaworld) |
+| **RLBench** - *RLBench: The Robot Learning Benchmark & Learning Environment* | 2019-09 | [📄 Paper](https://arxiv.org/pdf/1909.12271) · [🌍&nbsp;Web](https://sites.google.com/view/rlbench) · [💻&nbsp;Code](https://github.com/stepjam/RLBench) |
+| **Robomimic** - *What Matters in Learning from Offline Human Demonstrations for Robot Manipulation* | 2021-08 | [📄 Paper](https://arxiv.org/pdf/2108.03298) · [🌍&nbsp;Web](https://robomimic.github.io/) · [💻&nbsp;Code](https://github.com/ARISE-Initiative/robomimic) · [📦&nbsp;Dataset](https://huggingface.co/datasets/robomimic/robomimic_datasets) |
+| **Franka Kitchen** - *Relay Policy Learning: Solving Long-Horizon Tasks via Imitation and Reinforcement Learning* | 2019-10 | [📄 Paper](https://arxiv.org/pdf/1910.11956) · [🌍&nbsp;Web](https://relay-policy-learning.github.io/) · [💻&nbsp;Code](https://github.com/google-research/relay-policy-learning) |
+| **ManiSkill** - *ManiSkill: Generalizable Manipulation Skill Benchmark with Large-Scale Demonstrations* | 2021-07 | [📄 Paper](https://arxiv.org/pdf/2107.14483) · [🌍&nbsp;Web](https://maniskill.ai/) · [💻&nbsp;Code](https://github.com/haosulab/ManiSkill) |
+| **ManiSkill2** - *ManiSkill2: A Unified Benchmark for Generalizable Manipulation Skills* | 2023-02 | [📄 Paper](https://arxiv.org/pdf/2302.04659) · [🌍&nbsp;Web](https://haosulab.github.io/ManiSkill2/) · [💻&nbsp;Code](https://github.com/haosulab/ManiSkill2) · [📦&nbsp;Dataset](https://huggingface.co/datasets/haosulab/ManiSkill2) |
+| **ManiSkill3** - *ManiSkill3: GPU Parallelized Robotics Simulation and Rendering for Generalizable Embodied AI* | 2024-10 | [📄 Paper](https://arxiv.org/pdf/2410.00425) · [🌍&nbsp;Web](https://maniskill.ai/) · [💻&nbsp;Code](https://github.com/haosulab/ManiSkill) · [📦&nbsp;Dataset](https://huggingface.co/datasets/haosulab/ManiSkill_Demonstrations) |
+| **RoboCasa** - *RoboCasa: Large-Scale Simulation of Everyday Tasks for Generalist Robots* | 2024-06 | [📄 Paper](https://arxiv.org/pdf/2406.02523) · [🌍&nbsp;Web](https://robocasa.ai/) · [💻&nbsp;Code](https://github.com/robocasa/robocasa) |
+| **CALVIN** - *CALVIN: A Benchmark for Language-Conditioned Policy Learning for Long-Horizon Robot Manipulation Tasks* | 2021-12 | [📄 Paper](https://arxiv.org/pdf/2112.03227) · [🌍&nbsp;Web](http://calvin.cs.uni-freiburg.de/) · [💻&nbsp;Code](https://github.com/mees/calvin) |
+| **VIMAbench** - *VIMA: General Robot Manipulation with Multimodal Prompts* | 2022-10 | [📄 Paper](https://arxiv.org/pdf/2210.03094) · [🌍&nbsp;Web](https://vimalabs.github.io/) · [💻&nbsp;Code](https://github.com/vimalabs/VIMA) |
+| **VLMbench** - *VLMbench: A Compositional Benchmark for Vision-and-Language Manipulation* | 2022-06 | [📄 Paper](https://arxiv.org/pdf/2206.08522) · [💻&nbsp;Code](https://github.com/eric-ai-lab/VLMbench) |
+| **LIBERO** - *LIBERO: Benchmarking Knowledge Transfer for Lifelong Robot Learning* | 2023-06 | [📄 Paper](https://arxiv.org/pdf/2306.03310) · [🌍&nbsp;Web](https://libero-project.github.io/) · [💻&nbsp;Code](https://github.com/Lifelong-Robot-Learning/LIBERO) |
+| **LIBERO-Plus** - *LIBERO-Plus: In-Depth Robustness Analysis of Vision-Language-Action Models* | 2025-10 | [📄 Paper](https://arxiv.org/pdf/2510.13626) · [🌍&nbsp;Web](https://sylvestf.github.io/LIBERO-plus/) · [💻&nbsp;Code](https://github.com/sylvestf/LIBERO-plus) · [📦&nbsp;Dataset](https://huggingface.co/datasets/Sylvest/LIBERO-plus) |
+| **LIBERO-PRO** - *LIBERO-PRO: Towards Robust and Fair Evaluation of VLA Models beyond Memorization* | 2025-10 | [📄 Paper](https://arxiv.org/pdf/2510.03827) · [🌍&nbsp;Web](https://zxy-mllab.github.io/LIBERO-PRO-Webpage/) · [💻&nbsp;Code](https://github.com/Zxy-MLlab/LIBERO-PRO) · [📦&nbsp;Dataset](https://huggingface.co/datasets/zhouxueyang/LIBERO-Pro) |
+| **LIBERO-X** - *LIBERO-X: Robustness Litmus for Vision-Language-Action Models* | 2026-02 | [📄 Paper](https://arxiv.org/pdf/2602.06556)· [🌍&nbsp;Web](https://meituan.github.io/LIBERO-X/) · [💻&nbsp;Code](https://github.com/meituan/LIBERO-X) |
+| **COLOSSEUM** - *THE COLOSSEUM: A Benchmark for Evaluating Generalization for Robotic Manipulation* | 2024-02 | [📄 Paper](https://arxiv.org/pdf/2402.08191) · [🌍&nbsp;Web](https://robot-colosseum.github.io/) · [💻&nbsp;Code](https://github.com/robot-colosseum/robot-colosseum) |
+| **AGNOSTOS** - *Exploring the Limits of Vision-Language-Action Manipulations in Cross-Task Generalization* | 2025-05 | [📄 Paper](https://arxiv.org/pdf/2505.15660) · [🌍&nbsp;Web](https://jiaming-zhou.github.io/AGNOSTOS) · [💻&nbsp;Code](https://github.com/jiaming-zhou/X-ICM) |
+| **RoboEval** - *RoboEval: Where Robotic Manipulation Meets Structured and Scalable Evaluation* | 2025-07 | [📄 Paper](https://arxiv.org/pdf/2507.00435) · [🌍&nbsp;Web](https://robo-eval.github.io/)· [💻&nbsp;Code](https://github.com/Robo-Eval/RoboEval) |
+| **RoboVerse** - *RoboVerse: Towards a Unified Platform, Dataset and Benchmark for Scalable and Generalizable Robot Learning* | 2025-04 | [📄 Paper](https://arxiv.org/pdf/2504.18904) · [🌍&nbsp;Web](https://roboverse.wiki/) · [💻&nbsp;Code](https://github.com/RoboVerseOrg/RoboVerse) |
+| **PolaRiS** - *PolaRiS: Scalable Real-to-Sim Evaluations for Generalist Robot Policies* | 2025-12 | [📄 Paper](https://arxiv.org/pdf/2512.16881) · [🌍&nbsp;Web](https://polaris-evals.github.io/) · [💻&nbsp;Code](https://github.com/arhanjain/polaris) · [📦&nbsp;Dataset](https://huggingface.co/datasets/owhan/PolaRiS-Hub) |
+| **RoboMME** - *RoboMME: Benchmarking and Understanding Memory for Robotic Generalist Policies* | 2026-03 | [📄 Paper](https://arxiv.org/pdf/2603.04639) · [🌍&nbsp;Web](https://robomme.github.io/) · [💻&nbsp;Code](https://github.com/RoboMME/robomme_benchmark) |
+| **GenManip** - *GenManip: LLM-Driven Simulation for Generalizable Instruction-Following Manipulation* | 2025-06 | [📄 Paper](https://arxiv.org/pdf/2506.10966) · [🌍&nbsp;Web](https://genmanip.axi404.top/) |
+| **VLABench** - *VLABench: A Large-Scale Benchmark for Language-Conditioned Robotics Manipulation with Long-Horizon Reasoning Tasks* | 2024-12 | [📄 Paper](https://arxiv.org/pdf/2412.18194) · [💻&nbsp;Code](https://github.com/OpenMOSS/VLABench) |
+| **RoboSuite** - *Robosuite: A Modular Simulation Framework and Benchmark for Robot Learning* | 2020-09 | [📄 Paper](https://arxiv.org/pdf/2009.12293) · [🌍&nbsp;Web](https://robosuite.ai/) · [💻&nbsp;Code](https://github.com/ARISE-Initiative/robosuite) |
+| **RoboLab** - *RoboLab: A High-Fidelity Simulation Benchmark for Analysis of Task Generalist Policies* | 2026-04 | [📄 Paper](https://arxiv.org/pdf/2604.09860) |
+| **SimplerEnv** - *Evaluating Real-World Robot Manipulation Policies in Simulation* | 2024-05 | [📄 Paper](https://arxiv.org/pdf/2405.05941) · [🌍&nbsp;Web](https://simpler-env.github.io/) · [💻&nbsp;Code](https://github.com/simpler-env/SimplerEnv) |
+| **ARNOLD** - *ARNOLD: A Benchmark for Language-Grounded Task Learning with Continuous States in Realistic 3D Scenes* | 2023-04 | [📄 Paper](https://arxiv.org/pdf/2304.04321) · [🌍&nbsp;Web](https://arnold-benchmark.github.io/) · [💻&nbsp;Code](https://github.com/arnold-benchmark/arnold) |
+| **GemBench** - *Towards Generalizable Vision-Language Robotic Manipulation: A Benchmark and LLM-Guided 3D Policy* | 2024-10 | [📄 Paper](https://arxiv.org/pdf/2410.01345) · [🌍&nbsp;Web](https://www.di.ens.fr/willow/research/gembench/) · [💻&nbsp;Code](https://github.com/vlc-robot/robot-3dlotus/) |
+
+---
+
+#### 🤖 Action Policy — Bimanual and Humanoid Form
+
+| Paper | Released | Links |
+|-------|----------|-------|
+| **RoboTwin** - *RoboTwin: Dual-Arm Robot Benchmark with Generative Digital Twins* | 2025-04 | [📄 Paper](https://arxiv.org/pdf/2504.13059) · [🌍&nbsp;Web](https://robotwin-platform.github.io/) · [💻&nbsp;Code](https://github.com/RoboTwin-Platform/RoboTwin) |
+| **BiGym** - *BiGym: A Demo-Driven Mobile Bi-Manual Manipulation Benchmark* | 2024-07 | [📄 Paper](https://arxiv.org/pdf/2407.07788) · [🌍&nbsp;Web](https://chernyadev.github.io/bigym/) · [💻&nbsp;Code](https://github.com/chernyadev/bigym) |
+| **HumanoidBench** - *HumanoidBench: Simulated Humanoid Benchmark for Whole-Body Locomotion and Manipulation* | 2024-03 | [📄 Paper](https://arxiv.org/pdf/2403.10506) · [🌍&nbsp;Web](https://humanoid-bench.github.io/) · [💻&nbsp;Code](https://github.com/humanoid-bench/humanoid-bench) |
+| **HumanoidGen** - *HumanoidGen: Data Generation for Bimanual Dexterous Manipulation via LLM Reasoning* | 2025-07 | [📄 Paper](https://arxiv.org/pdf/2507.00833) · [🌍&nbsp;Web](https://openhumanoidgen.github.io/) · [💻&nbsp;Code](https://github.com/carlosferrazza/humanoid-bench) |
+
+---
+
+#### 🤖 Action Policy — Mobile Manipulation
+
+| Paper | Released | Links |
+|-------|----------|-------|
+| **ManipulaTHOR** - *ManipulaTHOR: A Framework for Visual Object Manipulation* | 2021-04 | [📄 Paper](https://arxiv.org/pdf/2104.11213) · [🌍&nbsp;Web](https://ai2thor.allenai.org/manipulathor/) · [💻&nbsp;Code](https://github.com/allenai/manipulathor) |
+| **HomeRobot** - *HomeRobot: Open-Vocabulary Mobile Manipulation* | 2023-06 | [📄 Paper](https://arxiv.org/pdf/2306.11565) · [🌍&nbsp;Web](https://ovmm.github.io/) · [💻&nbsp;Code](https://github.com/facebookresearch/home-robot) |
+| **BEHAVIOR-1K** - *BEHAVIOR-1K: A Benchmark for Embodied AI with 1,000 Everyday Activities and Realistic Simulation* | 2024-03 | [📄 Paper](https://arxiv.org/pdf/2403.09227) · [🌍&nbsp;Web](https://behavior.stanford.edu/) · [💻&nbsp;Code](https://github.com/StanfordVL/OmniGibson) |
+
+---
+
+#### 🤖 Action Policy — Contact and Deformation Manipulation
+
+| Paper | Released | Links |
+|-------|----------|-------|
+| **SoftGym** - *SoftGym: Benchmarking Deep Reinforcement Learning for Deformable Object Manipulation* | 2020-11 | [📄 Paper](https://arxiv.org/pdf/2011.07215)· [🌍&nbsp;Web](https://sites.google.com/view/softgym) · [💻&nbsp;Code](https://github.com/Xingyu-Lin/softgym) |
+| **PlasticineLab** - *PlasticineLab: A Soft-Body Manipulation Benchmark with Differentiable Physics* | 2021-04 | [📄 Paper](https://arxiv.org/pdf/2104.03311) · [🌍&nbsp;Web](https://plasticinelab.csail.mit.edu/) · [💻&nbsp;Code](https://github.com/hzaskywalker/PlasticineLab) |
+| **DaXBench** - *DaXBench: Benchmarking Deformable Object Manipulation with Differentiable Physics* | 2022-10 | [📄 Paper](https://arxiv.org/pdf/2210.13066) · [🌍&nbsp;Web](https://daxbench.github.io/) · [💻&nbsp;Code](https://github.com/AdaCompNUS/DaXBench) |
+| **TacSL** - *TacSL: A Library for Visuotactile Sensor Simulation and Learning* | 2024-08 | [📄 Paper](https://arxiv.org/pdf/2408.06506) · [🌍&nbsp;Web](https://iakinola23.github.io/tacsl/) · [💻&nbsp;Code](https://github.com/isaac-sim/IsaacGymEnvs/blob/tacsl/isaacgymenvs/tacsl_sensors/install/tacsl_setup.md) |
+| **ManiFeel** - *ManiFeel: Benchmarking and Understanding Visuotactile Manipulation Policy Learning* | 2025-05 | [📄 Paper](https://arxiv.org/pdf/2505.18472) · [🌍&nbsp;Web](https://zhengtongxu.github.io/manifeel-website/)· [💻&nbsp;Code](https://github.com/purdue-mars/manifeel) |
+
+---
+
+#### 🤖 Action Policy — Real-Device
+
+| Paper | Released | Links |
+|-------|----------|-------|
+| **RoboArena** - *RoboArena: Distributed Real-World Evaluation of Generalist Robot Policies* | 2025-06 | [📄 Paper](https://arxiv.org/pdf/2506.18123) · [🌍&nbsp;Web](https://robo-arena.github.io/) · [💻&nbsp;Code](https://github.com/robo-arena/roboarena) |
+| **RoboChallenge** - *RoboChallenge: Large-Scale Real-Robot Evaluation of Embodied Policies* | 2025-10 | [📄 Paper](https://arxiv.org/pdf/2510.17950) · [🌍&nbsp;Web](https://robochallenge.ai/)· [💻&nbsp;Code](https://github.com/RoboChallenge) |
+| **ManipArena** - *ManipArena: Comprehensive Real-World Evaluation of Reasoning-Oriented Generalist Robot Manipulation* | 2026-03 | [📄 Paper](https://arxiv.org/pdf/2603.28545) · [🌍&nbsp;Web](https://maniparena.x2robot.com/) · [💻&nbsp;Code](https://github.com/maniparena/maniparena-repo) |
+
+
+
+## 👋 Citation
+
+If you find this survey or repository helpful for your research, please consider citing our paper:
+
+```bibtex
+@article{wang2026world,
+  title={World Action Models for Generalist Robotics: From Next Token Prediction to Next State Synthesis},
+  author={Wang, Siyin and Shi, Junhao and Fu, Zhaoyang and He, Xinzhe and Liu, Feihong and Yang, Chenchen and Zhou, Yikang and Fei, Zhaoye and Gong, Jingjing and Fu, Jinlan and Shou, Mike Zheng and Huang, Xuanjing and Qiu, Xipeng and Jiang, Yu-Gang},
+  year={2026}
+}
 ```
-
----
-
-## What Harness Engineering Actually Means
-
-Harness engineering is about building a complete working environment around the model so it produces reliable results. It's not about writing better prompts. It's about designing the system the model operates inside.
-
-A harness has five subsystems:
-
-```text
-    ┌─────────────────────────────────────────────────────────────────┐
-    │                        THE HARNESS                              │
-    │                                                                 │
-    │   ┌──────────────┐  ┌──────────────┐  ┌──────────────────────┐ │
-    │   │ Instructions  │  │    State     │  │   Verification       │ │
-    │   │              │  │              │  │                      │ │
-    │   │ AGENTS.md    │  │ progress.md  │  │ tests + lint         │ │
-    │   │ CLAUDE.md    │  │ feature_list │  │ type-check           │ │
-    │   │ feature_list │  │ git log      │  │ smoke runs           │ │
-    │   │ docs/        │  │ session hand │  │ e2e pipeline         │ │
-    │   └──────────────┘  └──────────────┘  └──────────────────────┘ │
-    │                                                                 │
-    │   ┌──────────────┐  ┌──────────────────────────────────────┐   │
-    │   │    Scope     │  │         Session Lifecycle             │   │
-    │   │              │  │                                      │   │
-    │   │ one feature  │  │ init.sh at start                     │   │
-    │   │ at a time   │  │ clean-state checklist at end          │   │
-    │   │ definition   │  │ handoff note for next session        │   │
-    │   │ of done      │  │ commit only when safe to resume      │   │
-    │   └──────────────┘  └──────────────────────────────────────┘   │
-    │                                                                 │
-    └─────────────────────────────────────────────────────────────────┘
-
-    The MODEL decides what code to write.
-    The HARNESS governs when, where, and how it writes it.
-    The harness doesn't make the model smarter.
-    It makes the model's output reliable.
-```
-
-Each subsystem has one job:
-
-- **Instructions** — Tell the agent what to do, in what order, and what to read before starting. Not one giant file; a progressive disclosure structure the agent navigates on demand.
-- **State** — Track what's been done, what's in progress, and what's next. Persisted to disk so the next session picks up exactly where the last one left off.
-- **Verification** — Only a passing test suite counts as evidence. The agent cannot declare victory without runnable proof.
-- **Scope** — Constrain the agent to one feature at a time. No overreach. No half-finishing three things. No rewriting the feature list to hide unfinished work.
-- **Session Lifecycle** — Initialize at the start. Clean up at the end. Leave a clean restart path for the next session.
-
----
-
-## Why This Course Exists
-
-The question isn't "can models write code?" They can. The question is: **can they reliably complete real engineering tasks inside real repositories, over multiple sessions, without constant human supervision?**
-
-Right now, the answer is: not without a harness.
-
-```text
-    WITHOUT HARNESS                          WITH HARNESS
-    ==============                          ============
-
-    Session 1: agent writes code            Session 1: agent reads instructions
-              agent breaks tests                      agent runs init.sh
-              agent says "done"                       agent works on one feature
-              you fix it manually                     agent verifies before claiming done
-                                                       agent updates progress log
-    Session 2: agent starts fresh                    agent commits clean state
-              agent has no memory
-              of what happened before         Session 2: agent reads progress log
-              agent re-does work                       agent picks up exactly where it left off
-              or does something else entirely          agent continues the unfinished feature
-              you fix it again                         you review, not rescue
-
-    Result: you spend more time                  Result: agent does the work,
-            cleaning up than if you                      you verify the result
-            did it yourself
-```
-
-The questions this course actually cares about:
-
-- Which harness designs improve task completion rates?
-- Which designs reduce rework and incorrect completions?
-- Which mechanisms keep long-running tasks progressing steadily?
-- Which structures keep the system maintainable after multiple agent runs?
-
----
-
-## Course Curriculum & Documentation
-
-For the full course materials, please visit the **[Documentation Website](https://walkinglabs.github.io/learn-harness-engineering/)**.
-
-The curriculum is divided into three parts:
-
-1. **Lectures**: 12 conceptual units explaining the theory behind harness engineering.
-2. **Projects**: 6 hands-on projects where you build an agentic workspace from scratch.
-3. **Resource Library**: Copy-ready templates (`AGENTS.md`, `feature_list.json`, `init.sh`, etc.) to use in your own repositories today.
-
----
-
-## Quick Start: Improve Your Agent Today
-
-You don't need to read all 12 lectures before you start getting value. If you're already using a coding agent on a real project, here's how to improve it right now.
-
-The idea is simple: instead of just writing prompts, give your agent a set of structured files that define what to do, what's been done, and how to verify the work. These files live inside your repo, so every session starts from the same state.
-
-```text
-    YOUR PROJECT ROOT
-    ├── AGENTS.md              <-- the agent's operating manual
-    ├── CLAUDE.md              <-- (alternative, if using Claude Code)
-    ├── init.sh                <-- runs install + verify + start
-    ├── feature_list.json      <-- what features exist, which are done
-    ├── claude-progress.md     <-- what happened each session
-    └── src/                   <-- your actual code
-```
-
-Grab the starter templates from the [Resource Library](https://walkinglabs.github.io/learn-harness-engineering/en/resources/) and drop them into your project. That's it. Four files, and your agent sessions will already be significantly more stable than running on prompts alone.
-
----
-
-## Capstone Project: A Real App
-
-All six course projects revolve around the same product: **an Electron-based personal knowledge base desktop app**.
-
-```text
-    ┌─────────────────────────────────────────────────────┐
-    │               Knowledge Base Desktop App            │
-    │                                                     │
-    │  ┌──────────────┐  ┌──────────────────────────────┐│
-    │  │ Document List │  │       Q&A Panel              ││
-    │  │              │  │                              ││
-    │  │ doc-001.md   │  │  Q: What is harness eng?    ││
-    │  │ doc-002.md   │  │  A: The environment built    ││
-    │  │ doc-003.md   │  │     around an agent model... ││
-    │  │ ...          │  │     [citation: doc-002.md]   ││
-    │  └──────────────┘  └──────────────────────────────┘│
-    │                                                     │
-    │  ┌─────────────────────────────────────────────────┐│
-    │  │ Status Bar: 42 docs | 38 indexed | last sync 3m ││
-    │  └─────────────────────────────────────────────────┘│
-    └─────────────────────────────────────────────────────┘
-
-    Core features:
-    ├── Import local documents
-    ├── Manage a document library
-    ├── Process and index documents
-    ├── Run AI-powered Q&A over imported content
-    └── Return grounded answers with citations
-```
-
-This project was chosen because it combines strong practical value, enough real-world product complexity, and a good setting for observing before/after harness improvements.
-
-Each course project's starter/solution is a complete copy of this Electron app at that evolutionary stage. P(N+1)'s starter is derived from P(N)'s solution — the app evolves as your harness skills grow.
-
----
-
-## Learning Path
-
-The course is designed to be done in order. Each phase builds on the last.
-
-```text
-    Phase 1: SEE THE PROBLEM              Phase 2: STRUCTURE THE REPO
-    ========================              ==========================
-
-    L01  Strong models ≠ reliable         L03  Repository as single
-         execution                              source of truth
-    L02  What harness actually means
-                                       L04  Split instructions across
-         |                                   files, not one giant file
-         v
-    P01  Prompt-only vs.                       |
-         rules-first comparison                v
-                                               P02  Agent-readable workspace
-
-
-    Phase 3: CONNECT SESSIONS             Phase 4: FEEDBACK & SCOPE
-    ==========================           =========================
-
-    L05  Keep context alive               L07  Draw clear task boundaries
-         across sessions
-                                       L08  Feature lists as harness
-    L06  Initialize before every               primitives
-         agent session
-                                               |
-         |                                     v
-         v                                     P04  Runtime feedback to
-    P03  Multi-session continuity                   correct agent behavior
-
-
-    Phase 5: VERIFICATION                 Phase 6: PUT IT ALL TOGETHER
-    =====================                 ============================
-
-    L09  Stop agents from                 L11  Make agent's runtime
-         declaring victory early               observable
-
-    L10  Full-pipeline run =              L12  Clean handoff at end of
-         real verification                      every session
-
-         |                                     |
-         v                                     v
-    P05  Agent verifies its own work       P06  Build a complete harness
-                                               (capstone project)
-```
-
-Each phase takes about a week if you're going part-time. If you want to go faster, phases 1–3 can be done in a long weekend.
-
----
-
-## Syllabus
-
-### Lectures — 12 conceptual units, each answering one core question
-
-*Read the full text for each lecture on the [Documentation Website](https://walkinglabs.github.io/learn-harness-engineering/).*
-
-| Session | Question | Core Idea |
-|---------|----------|-----------|
-| [L01](./docs/lectures/lecture-01-why-capable-agents-still-fail/index.md) | Why do strong models still fail on real tasks? | The capability gap between benchmarks and real engineering |
-| [L02](./docs/lectures/lecture-02-what-a-harness-actually-is/index.md) | What does "harness" actually mean? | Five subsystems: instructions, state, verification, scope, lifecycle |
-| [L03](./docs/lectures/lecture-03-why-the-repository-must-become-the-system-of-record/index.md) | Why must the repo be the single source of truth? | If the agent can't see it, it doesn't exist |
-| [L04](./docs/lectures/lecture-04-why-one-giant-instruction-file-fails/index.md) | Why does one giant instruction file fail? | Progressive disclosure: give a map, not an encyclopedia |
-| [L05](./docs/lectures/lecture-05-why-long-running-tasks-lose-continuity/index.md) | Why do long-running tasks lose continuity? | Persist progress to disk; pick up where you left off |
-| [L06](./docs/lectures/lecture-06-why-initialization-needs-its-own-phase/index.md) | Why does initialization need its own phase? | Verify the environment is healthy before the agent starts work |
-| [L07](./docs/lectures/lecture-07-why-agents-overreach-and-under-finish/index.md) | Why do agents overreach and under-finish? | One feature at a time; explicit definition of done |
-| [L08](./docs/lectures/lecture-08-why-feature-lists-are-harness-primitives/index.md) | Why are feature lists harness primitives? | Machine-readable scope boundaries the agent can't ignore |
-| [L09](./docs/lectures/lecture-09-why-agents-declare-victory-too-early/index.md) | Why do agents declare victory too early? | Verification gaps: confidence ≠ correctness |
-| [L10](./docs/lectures/lecture-10-why-end-to-end-testing-changes-results/index.md) | Why does end-to-end testing change results? | Only a full-pipeline run counts as real verification |
-| [L11](./docs/lectures/lecture-11-why-observability-belongs-inside-the-harness/index.md) | Why does observability belong inside the harness? | If you can't see what the agent did, you can't fix what it broke |
-| [L12](./docs/lectures/lecture-12-why-every-session-must-leave-a-clean-state/index.md) | Why must every session leave a clean state? | The next session's success depends on this session's cleanup |
-
-### Projects — 6 hands-on projects applying lecture methods to the same Electron app
-
-| Project | What You Do | Harness Mechanism |
-|---------|------------|-------------------|
-| [P01](./docs/projects/project-01-baseline-vs-minimal-harness/index.md) | Run the same task twice: prompt-only vs. rules-first | Minimal harness: AGENTS.md + init.sh + feature_list.json |
-| [P02](./docs/projects/project-02-agent-readable-workspace/index.md) | Restructure the repo so the agent can read it | Agent-readable workspace + persistent state files |
-| [P03](./docs/projects/project-03-multi-session-continuity/index.md) | Make the agent pick up from where it left off | Progress log + session handoff + multi-session continuity |
-| [P04](./docs/projects/project-04-incremental-indexing/index.md) | Stop the agent from doing too much or too little | Runtime feedback + scope control + incremental indexing |
-| [P05](./docs/projects/project-05-grounded-qa-verification/index.md) | Make the agent verify its own work | Self-verification + grounded Q&A + evidence-based completion |
-| [P06](./docs/projects/project-06-runtime-observability-and-debugging/index.md) | Build a complete harness from scratch (capstone) | Full harness: all mechanisms + observability + ablation study |
-
-```text
-    PROJECT EVOLUTION
-    =================
-
-    P01  Prompt-only vs. rules-first       You see the problem
-     |
-     v
-    P02  Agent-readable workspace           You restructure the repo
-     |
-     v
-    P03  Multi-session continuity           You connect sessions
-     |
-     v
-    P04  Runtime feedback & scope           You add feedback loops
-     |
-     v
-    P05  Self-verification                  You make the agent check itself
-     |
-     v
-    P06  Complete harness (capstone)        You build the full system
-
-    Each project's solution becomes the next project's starter.
-    The app evolves. Your harness skills grow with it.
-```
-
-### Resource Library
-
-- [English Resource Library](https://walkinglabs.github.io/learn-harness-engineering/en/resources/) — templates, checklists, and method references
-- [Chinese Resource Library](https://walkinglabs.github.io/learn-harness-engineering/zh/resources/) — 中文模板、清单和方法参考
-- [Russian Resource Library](https://walkinglabs.github.io/learn-harness-engineering/ru/resources/) — шаблоны, чек-листы и справочники
-- [Vietnamese Resource Library](https://walkinglabs.github.io/learn-harness-engineering/vi/resources/) — mẫu, danh sách kiểm tra và tài liệu tham khảo
-
----
-
-## The Agent Session Lifecycle
-
-One of the core ideas in this course: **the agent's session should follow a structured lifecycle, not a free-for-all.** Here's what that looks like:
-
-```text
-    AGENT SESSION LIFECYCLE
-    ======================
-
-    ┌──────────────────────────────────────────────────────────────────┐
-    │  START                                                          │
-    │                                                                  │
-    │  1. Agent reads AGENTS.md / CLAUDE.md                           │
-    │  2. Agent runs init.sh (install, verify, health check)          │
-    │  3. Agent reads claude-progress.md (what happened last time)    │
-    │  4. Agent reads feature_list.json (what's done, what's next)    │
-    │  5. Agent checks git log (recent changes)                       │
-    │                                                                  │
-    │  SELECT                                                          │
-    │                                                                  │
-    │  6. Agent picks exactly ONE unfinished feature                   │
-    │  7. Agent works only on that feature                             │
-    │                                                                  │
-    │  EXECUTE                                                         │
-    │                                                                  │
-    │  8. Agent implements the feature                                 │
-    │  9. Agent runs verification (tests, lint, type-check)           │
-    │  10. If verification fails: fix and re-run                      │
-    │  11. If verification passes: record evidence                    │
-    │                                                                  │
-    │  WRAP UP                                                         │
-    │                                                                  │
-    │  12. Agent updates claude-progress.md                           │
-    │  13. Agent updates feature_list.json                            │
-    │  14. Agent records what's still broken or unverified            │
-    │  15. Agent commits (only when safe to resume)                   │
-    │  16. Agent leaves clean restart path for next session           │
-    │                                                                  │
-    └──────────────────────────────────────────────────────────────────┘
-
-    The harness governs every transition in this lifecycle.
-    The model decides what code to write at each step.
-    Without the harness, step 9 becomes "agent says it looks fine."
-    With the harness, step 9 is "tests pass, lint is clean, types check."
-```
-
----
-
-## Who This Is For
-
-This course is for:
-
-- Engineers already using coding agents who want better stability and quality
-- Researchers or builders who want a systematic understanding of harness design
-- Tech leads who need to understand how environment design affects agent performance
-
-This course is not for:
-
-- People looking for a zero-code AI introduction
-- People who only care about prompts and don't plan to build real implementations
-- Learners not prepared to let agents work inside real repositories
-
----
-
-## Requirements
-
-This is a course where you actually run coding agents.
-
-You need at least one of these tools:
-
-- Claude Code
-- Codex
-- Another IDE or CLI coding agent that supports file editing, command execution, and multi-step tasks
-
-The course assumes you can:
-
-- Open a local repository
-- Allow the agent to edit files
-- Allow the agent to run commands
-- Inspect output and re-run tasks
-
-If you don't have such a tool, you can still read the course content, but you won't be able to complete the projects as intended.
-
----
-
-## Local Preview
-
-This repository uses VitePress as a documentation viewer.
-
-```sh
-npm install
-npm run docs:dev        # Dev server with hot reload
-npm run docs:build      # Production build
-npm run docs:preview    # Preview built site
-```
-
-Then open the local URL that VitePress outputs in your browser.
-
----
-
-## Prerequisites
-
-Required:
-
-- Familiarity with the terminal, git, and local development environments
-- Ability to read and write code in at least one common application stack
-- Basic software debugging experience (reading logs, tests, and runtime behavior)
-- Enough time to commit to implementation-focused coursework
-
-Helpful but not required:
-
-- Experience with Electron, desktop apps, or local-first tools
-- Background in testing, logging, or software architecture
-- Prior exposure to Codex, Claude Code, or similar coding agents
-
----
-
-## Core References
-
-Primary:
-
-- [OpenAI: Harness engineering: leveraging Codex in an agent-first world](https://openai.com/index/harness-engineering/)
-- [Anthropic: Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents)
-- [Anthropic: Harness design for long-running application development](https://www.anthropic.com/engineering/harness-design-long-running-apps)
-- [OpenAI: Unrolling the Codex agent loop](https://openai.com/index/unrolling-the-codex-agent-loop/)
-- [Anthropic: Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)
-- [LangChain: Improving Deep Agents with harness engineering](https://www.langchain.com/blog/improving-deep-agents-with-harness-engineering)
-- [Thoughtworks / Martin Fowler: Harness engineering for coding agent users](https://martinfowler.com/articles/harness-engineering.html)
-- [Cursor: Continually improving our agent harness](https://cursor.com/blog/continually-improving-agent-harness)
-
-See the full layered reference list in [`docs/en/resources/reference/`](./docs/en/resources/reference/index.md).
-
----
-
-## Repository Structure
-
-```text
-learn-harness-engineering/
-├── docs/                          # VitePress documentation site
-│   ├── lectures/                  # 12 lectures (index.md + code/ examples)
-│   │   ├── lecture-01-*/
-│   │   ├── lecture-02-*/
-│   │   └── ... (12 total)
-│   ├── projects/                  # 6 project descriptions
-│   │   ├── project-01-*/
-│   │   └── ... (6 total)
-│   └── resources/                 # Multilingual templates & references
-│       ├── en/                    # English templates, checklists, guides
-│       ├── zh/                    # Chinese templates, checklists, guides
-│       ├── ru/                    # Russian templates, checklists, guides
-│       └── vi/                    # Vietnamese templates, checklists, guides
-├── projects/
-│   ├── shared/                    # Shared Electron + TypeScript + React foundation
-│   └── project-NN/               # Per-project starter/ and solution/ directories
-├── skills/                        # Reusable AI agent skills
-│   └── harness-creator/           # Harness engineering skill
-├── package.json                   # VitePress + dev tooling
-└── CLAUDE.md                      # Claude Code instructions for this repo
-```
-
----
-
-## How the Course Is Organized
-
-- Each lecture focuses on one question
-- The course includes 6 projects
-- Every project requires the agent to do real work
-- Every project compares weak vs. strong harness results
-- What matters is the measured difference, not how many docs were written
-
----
-
-## Skills
-
-This repository also includes reusable AI agent skills that you can install directly into your IDE or agent workspace.
-
-- [**harness-creator**](./skills/harness-creator/): A skill that helps you scaffold a production-grade harness for your own project in minutes.
-
----
-
-## Other Courses
-
-Our team has also created other courses! Check them out:
-
-[![Hands-on Modern RL](https://img.shields.io/badge/HANDS--ON_MODERN_RL-0052cc?style=for-the-badge)](https://github.com/walkinglabs/hands-on-modern-rl)
-
-**Hands-on Modern RL**: An open-source, hands-on curriculum bridging the gap from basic RL concepts to LLM alignment, RLVR, and advanced Agentic systems.
-
----
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=walkinglabs/learn-harness-engineering&type=date&legend=top-left)](https://www.star-history.com/#walkinglabs/learn-harness-engineering&type=date&legend=top-left)
-
----
-
-## Acknowledgments
-
-This course was inspired by and draws ideas from [learn-claude-code](https://github.com/shareAI-lab/learn-claude-code) — a progressive guide to building an agent from scratch, from a single loop to isolated autonomous execution.
