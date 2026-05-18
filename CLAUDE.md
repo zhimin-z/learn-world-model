@@ -87,15 +87,20 @@ Each lecture lives in `docs/en/lectures/<slug>/index.md` and `docs/zh/lectures/<
 | L02 | `lecture-02-observation-encoder` | Observation Encoder | VAE, CNN encoder, latent compression, ELBO loss | `tutorial/03-observation-encoder/` |
 | L03 | `lecture-03-latent-dynamics` | Latent Dynamics Models | GRU, MDN-RNN, RSSM (deterministic + stochastic), $s_{t+1} = \mathcal{T}(s_t, a_t, h_t)$ | `tutorial/04-latent-dynamics/` |
 | L04 | `lecture-04-architecture-patterns` | Architecture Patterns | RNN vs Transformer vs Diffusion vs JEPA — tradeoffs table | `references.md` §2 |
-| L05 | `lecture-05-learning-paradigms` | Learning Paradigms | Observation-only (Sora), Interaction-based (Dreamer), Counterfactual (MuZero) | `references.md` §2 |
+| L05 | `lecture-05-learning-paradigms` | Learning Paradigms |  Interaction-based (Dreamer), Counterfactual (MuZero) TD-MPC、Genie| `references.md` §2 |
 | L06 | `lecture-06-planning-and-control` | Planning & Control | MPC, CEM shooting, policy learning in latent space, actor-critic | `tutorial/05-policy-learning/`, `tutorial/06-mpc-control/` |
 | L07 | `lecture-07-trajectory-evaluation` | Trajectory Evaluation | Horizon drift, safety violations, physics consistency, control utility | `references.md` conclusion |
 
+## L02和L03合并（介绍 Dreamer 的时候，提下这个 encoder）
+## L06合并到L05
+## L07要针对不同的 world model 来说明对应的 metric
 ---
 
 ### Projects (Hands-on Implementation)
 
 Each project builds on the previous. Source code lives in `external/world-model-tutorial/src/`.
+
+## Dreamer（RNN）、TD-MPC、STORM（Transformer）
 
 | # | Title | Deliverable | Key Skills |
 |---|-------|-------------|------------|
