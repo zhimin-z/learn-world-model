@@ -1,131 +1,110 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code when working in this repository.
 
 ## Project Overview
 
-Learn Harness Engineering is a project-based course on building reliable coding environments for AI agents. The repo contains a VitePress documentation site plus hands-on project code.
+A VitePress documentation site for a World Models curriculum — 6 lectures + 5 projects teaching world models in AI/ML from first principles to full Dreamer/TD-MPC/STORM pipelines.
 
 ## Commands
 
 ```sh
-# Documentation site
 npm install
-npm run docs:dev        # Dev server with hot reload (VitePress)
+npm run docs:dev        # Dev server with hot reload
 npm run docs:build      # Production build
 npm run docs:preview    # Preview built site
-
-# Run lecture code examples
-npx tsx docs/lectures/<lecture-dir>/code/<file>.ts
-
-# Project Electron apps (from each project directory)
-cd projects/project-NN/starter  # or solution/
-npm install
-npm run dev              # Build + launch Electron (via scripts/dev.js)
-npm run check            # Type-check both tsconfig.json and tsconfig.node.json
-npm run test             # Vitest run (single run)
-npm run test:watch       # Vitest watch mode
 ```
 
 ## Repository Structure
 
-- `docs/` — VitePress documentation site (lectures, projects, resources)
-- `docs/.vitepress/config.mts` — Nav/sidebar config for both EN and ZH locales
-- `docs/lectures/` — 12 lectures, each with `index.md` + `code/` examples
-- `docs/projects/` — 6 project descriptions
-- `docs/resources/` — Bilingual (en/zh) templates, references, OpenAI advanced pack
+- `docs/` — VitePress site
+- `docs/.vitepress/config.mts` — Nav/sidebar config (EN + ZH locales)
+- `docs/zh/lectures/` — 6 Chinese lecture pages
+- `docs/en/lectures/` — 6 English lecture pages (keep in sync with ZH)
+- `docs/zh/projects/` / `docs/en/projects/` — 5 project pages
+- `external/world-model-tutorial/` — PyTorch source code referenced by projects
+- `external/world-model-tutorial/references.md` — 4-era history + architecture survey
 
-## Architecture
+## Writing Style
 
-The course revolves around an Electron knowledge-base desktop app that evolves across 6 projects:
-- **Main process** (`src/main/`): Window management, IPC handlers, service initialization
-- **Preload** (`src/preload/`): contextBridge exposing typed API to renderer
-- **Renderer** (`src/renderer/`): React UI with document list, Q&A panel, status bar
-- **Services** (`src/services/`): DocumentService, IndexingService, QaService, PersistenceService
-- **Shared types** (`src/shared/types.ts`): Cross-boundary interfaces and IPC channel constants
+These rules apply to all lecture and project markdown files:
 
-Each project's starter/solution is a complete copy of the Electron app at that evolutionary stage. P(N+1) starter is derived from P(N) solution. The shared foundation is in `projects/shared/`.
-
-## Key Patterns
-
-- IPC channels defined as constants in `src/shared/types.ts` (IPC_CHANNELS) — single source of truth
-- All data stored locally as JSON/text files (no database)
-- Mock Q&A returns structured answers with citations (no real LLM API)
-- Harness files in project roots: AGENTS.md, CLAUDE.md, feature_list.json, init.sh, claude-progress.md
-- Progressive disclosure: short AGENTS.md entrypoint linking to focused docs
-- Each project has two tsconfigs: `tsconfig.json` (renderer) and `tsconfig.node.json` (main/preload)
-
-## Bilingual Content
-
-All content exists in both English and Chinese. Documentation lives in shared `docs/lectures/` and `docs/projects/` dirs (content is bilingual within each file). Resources have separate `docs/resources/en/` and `docs/resources/zh/` directories. Keep both in sync.
+- **No AI flavor**: avoid "接下来我们…", "用大白话理解", "理解了X，我们可以更清楚地回答Y" — cut these transition phrases entirely
+- **No `💡 直觉` callout boxes**: inline the content into surrounding prose instead
+- **No "认知负荷：高/中/低" labels**: replace with one concrete sentence about what the reader needs before starting
+- **No "下一讲预告" as a section title**: use "下一讲" and lead with the concrete problem the next lecture solves
+- **Analogies**: avoid overused ones (飞行模拟器之于飞行员, 婴儿学走路, 撒网捕鱼, 雕塑家). Use engineering language or drop the analogy
+- **`📖` definition callouts**: keep these — they define terms for deep-learning-only readers. Don't remove them
+- **"读者思考" sections**: rename to "留给你" or similar; don't pad with three numbered questions if two suffice
+- **Paragraph rhythm**: vary sentence length. If every paragraph is ~4 sentences, something is off
 
 ---
 
 ## World Models Curriculum
 
-A code-first, project-driven curriculum teaching World Models in AI/ML. Based on `external/world-model-tutorial/` (hands-on PyTorch pipeline) and `external/world-model-tutorial/references.md` (historical + architectural survey).
-
 ### Learning Objectives
 
 By the end of this curriculum, students will be able to:
-1. Explain what a world model is and why it reduces sample complexity
-2. Implement a VAE observation encoder and train it on image observations
-3. Build and compare latent dynamics models (GRU, MDN-RNN, RSSM)
-4. Understand 4 architectural families (RNN, Transformer, Diffusion, JEPA) and their tradeoffs
-5. Apply MPC planning over a learned latent model
-6. Evaluate trajectory quality for horizon drift, safety, and control utility
+1. Explain what a world model is and why it reduces sample complexity — grounded in history and intuition (L01)
+2. Implement a VAE encoder and chain it into an RSSM latent dynamics model (L02, P01, P02)
+3. Compare 4 architectural families — using their own RSSM as the RNN baseline — and select the right one for a task (L03)
+4. Describe three learning paradigms, implement CEM-MPC and latent actor-critic, and assemble a complete Dreamer pipeline (L04, P03, P04)
+5. Select model-appropriate evaluation metrics, benchmark Dreamer vs TD-MPC vs STORM, and diagnose latent drift (L05, P05)
 
 ---
 
-### Lectures (Theory + Code Walkthrough)
+### Lectures
 
 Each lecture lives in `docs/en/lectures/<slug>/index.md` and `docs/zh/lectures/<slug>/index.md`.
 
 | # | Slug | Title | Core Concepts | Source |
 |---|------|-------|---------------|--------|
-| L01 | `lecture-01-internal-simulation` | Internal Simulation & Historical Context | Craik's mental models, predictive coding, 4 eras of WM evolution (1950s→2026) | `references.md` §1 |
-| L02 | `lecture-02-observation-encoder` | Observation Encoder | VAE, CNN encoder, latent compression, ELBO loss | `tutorial/03-observation-encoder/` |
-| L03 | `lecture-03-latent-dynamics` | Latent Dynamics Models | GRU, MDN-RNN, RSSM (deterministic + stochastic), $s_{t+1} = \mathcal{T}(s_t, a_t, h_t)$ | `tutorial/04-latent-dynamics/` |
-| L04 | `lecture-04-architecture-patterns` | Architecture Patterns | RNN vs Transformer vs Diffusion vs JEPA — tradeoffs table | `references.md` §2 |
-| L05 | `lecture-05-learning-paradigms` | Learning Paradigms |  Interaction-based (Dreamer), Counterfactual (MuZero) TD-MPC、Genie| `references.md` §2 |
-| L06 | `lecture-06-planning-and-control` | Planning & Control | MPC, CEM shooting, policy learning in latent space, actor-critic | `tutorial/05-policy-learning/`, `tutorial/06-mpc-control/` |
-| L07 | `lecture-07-trajectory-evaluation` | Trajectory Evaluation | Horizon drift, safety violations, physics consistency, control utility | `references.md` conclusion |
+| L01 | `lecture-01-internal-simulation` | Internal Simulation & Historical Context | Craik's mental models, predictive coding, 4 eras of WM evolution (1950s RNN → 2018 Ha&Schmidhuber → 2019 Dreamer → 2023 JEPA/Sora) | `references.md` §1 |
+| L02 | `lecture-02-encode-and-dynamics` | Observation Encoding & Latent Dynamics | VAE → CNN encoder → ELBO. GRU → MDN-RNN → RSSM (deterministic + stochastic). Encoder as the bridge into Dreamer. | `tutorial/03-observation-encoder/`, `tutorial/04-latent-dynamics/` |
+| L03 | `lecture-03-architecture-patterns` | Architecture Patterns & Tradeoffs | Student's RSSM as RNN baseline. Transformer (STORM/IRIS) → Diffusion (Diamond/Sora) → JEPA. Tradeoffs table. RWM + WAM as frontier. | `references.md` §2 |
+| L04 | `lecture-04-learning-paradigms-and-planning` | Learning Paradigms & Planning | Part A: Observation-only / Interaction-based / Counterfactual paradigms. Part B: CEM-MPC → latent Actor-Critic → TD-MPC as bridge. | `references.md` §2, `tutorial/05-policy-learning/`, `tutorial/06-mpc-control/` |
+| L05 | `lecture-05-evaluation-by-model` | Evaluation Metrics by World Model | Per-model metrics: Dreamer (FID, reward correlation), MuZero (value accuracy, visit entropy), TD-MPC (consistency loss, plan efficiency), STORM (token loss, PSNR), Diffusion (physics consistency). Horizon drift as universal failure mode. | `references.md` conclusion |
+| L06 | `lecture-06-frontier-debates` | Frontier Debates: Language, Vision & the Boundary of the World | 5 open debates anchored in Xie Saining / LeCun / Sutton viewpoints. No answers given. | Xie Saining interview, LeCun 2022, Sutton Bitter Lesson |
 
-## L02和L03合并（介绍 Dreamer 的时候，提下这个 encoder）
-## L06合并到L05
-## L07要针对不同的 world model 来说明对应的 metric
 ---
 
-### Projects (Hands-on Implementation)
+### Projects
 
-Each project builds on the previous. Source code lives in `external/world-model-tutorial/src/`.
+Source code in `external/world-model-tutorial/src/`. Reference chain: **Dreamer (RSSM)** → **TD-MPC** → **STORM**.
 
-## Dreamer（RNN）、TD-MPC、STORM（Transformer）
-
-| # | Title | Deliverable | Key Skills |
-|---|-------|-------------|------------|
-| P01 | **Train a VAE Encoder** | Working VAE that compresses 64×64 images to latent `z`; reconstruction loss curve | `src/vae_model.py`, `demos/vae-visualizer.html` |
-| P02 | **Build a Latent Dynamics Model** | GRU or MDN-RNN predicting next latent from $(z_t, a_t)$; compare prediction error | `src/` dynamics module |
-| P03 | **Implement MPC Planning** | CEM-based MPC controller over the trained latent model; toy environment rollout | `src/mpc_controller.py`, `demos/mpc-controller.html` |
-| P04 | **Full World Model Pipeline** | End-to-end: encode → predict → plan → act loop; training with `src/train.py` | `python -m src.train --demo` |
-| P05 | **Architecture Comparison** | Benchmark RNN vs Transformer dynamics head on the same dataset; ablation table | Custom experiment |
-| P06 | **Trajectory Evaluation Dashboard** | Visualize latent rollout drift, flag safety violations, score control utility | `demos/latent-dynamics.html` + custom metrics |
+| # | Title | Prereq | Deliverable |
+|---|-------|--------|-------------|
+| P01 | Train a VAE Encoder | L01, L02 Part A | VAE compressing 64×64 → latent `z`; reconstruction loss curve; latent slider demo |
+| P02 | Build a Latent Dynamics Model | P01, L02 Part B | GRU → RSSM predicting next latent; 1-step vs 5-step prediction error plot |
+| P03 | Full Dreamer Pipeline | P02, L04 Part A | End-to-end: encode → RSSM → latent Actor-Critic → act; reward curve + FID/ρ/entropy self-eval |
+| P04 | Implement TD-MPC Planning | P03, L04 Part B | CEM-MPC + latent consistency loss; compare vs Dreamer reward curve |
+| P05 | STORM + Three-Model Evaluation Dashboard | P03, P04, L03, L05 | Swap GRU → Transformer (STORM-style); side-by-side dashboard for Dreamer/TD-MPC/STORM |
 
 ---
 
 ### Curriculum Flow
 
 ```
-L01 (Why WMs?) → L02 (Encode) → P01 (Build VAE)
-                                      ↓
-L03 (Dynamics) → P02 (Train Dynamics)
-                      ↓
-L04 (Architectures) → L05 (Paradigms) → P03 (MPC) → P04 (Full Pipeline)
-                                                           ↓
-L06 (Planning) → L07 (Evaluation) → P05 (Ablation) → P06 (Dashboard)
+L01 (History + Intuition)
+        ↓
+L02 Part A (VAE Encoder) → P01 (Build & visualize VAE)
+        ↓
+L02 Part B (GRU → RSSM)  → P02 (Train dynamics, measure drift)
+        ↓
+L03 (Architecture Patterns — anchored to P02 RSSM baseline)
+        ↓
+L04 Part A (Paradigms: why)
+        ↓
+L04 Part B (Planning: how) → P03 (Full Dreamer pipeline)
+                                    ↓
+                             P04 (TD-MPC — compare vs P03)
+                                    ↓
+L05 (Evaluation vocabulary) → P05 (STORM + Three-Model Dashboard)
+                                    ↓
+                             L06 (Frontier Debates — no code)
 ```
 
-**Suggested path for newcomers**: L01 → L02 → P01 → L03 → P02 → L06 → P03 → P04
+**Suggested path**: L01 → L02 → P01 → P02 → L03 → L04 → P03 → P04 → L05 → P05 → L06
 
 ---
 
@@ -135,10 +114,10 @@ L06 (Planning) → L07 (Evaluation) → P05 (Ablation) → P06 (Dashboard)
 - Project pages: `docs/en/projects/project-0N-<slug>/index.md` + `docs/zh/projects/project-0N-<slug>/index.md`
 - World model landing: `docs/en/world-model/index.md` + `docs/zh/world-model/index.md`
 - Sidebar group: `enWorldModelItems` / `zhWorldModelItems` arrays in `docs/.vitepress/config.mts`
-- Nav item: "World Models" → `/en/world-model/` and "世界模型" → `/zh/world-model/`
 
 ### Reference Sources
 
 - `external/world-model-tutorial/README.md` — tutorial structure, installation, demos
 - `external/world-model-tutorial/references.md` — 4-era history, architecture taxonomy, application domains
+- [liyang.page/wm-tutorial](https://liyang.page/wm-tutorial/) — primary external reference
 - Pioneer papers: Ha & Schmidhuber 2018, Dreamer V1 (Hafner 2019), MuZero (DeepMind 2020), JEPA (LeCun 2023)
