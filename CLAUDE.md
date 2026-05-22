@@ -4,7 +4,7 @@ This file provides guidance to Claude Code when working in this repository.
 
 ## Project Overview
 
-A VitePress documentation site for a World Models curriculum — 5 lectures + 5 projects teaching world models in AI/ML from first principles to full Dreamer/TD-MPC/STORM pipelines.
+A VitePress documentation site for a World Models curriculum: 5 lectures + 5 projects teaching world models in AI/ML from first principles to full Dreamer/TD-MPC/STORM pipelines.
 
 ## Commands
 
@@ -17,26 +17,27 @@ npm run docs:preview    # Preview built site
 
 ## Repository Structure
 
-- `docs/` — VitePress site
-- `docs/.vitepress/config.mts` — Nav/sidebar config (EN + ZH locales)
-- `docs/zh/lectures/` — 5 Chinese lecture pages
-- `docs/en/lectures/` — 5 English lecture pages (keep in sync with ZH)
-- `docs/zh/projects/` / `docs/en/projects/` — 5 project pages
-- `external/world-model-tutorial/` — PyTorch source code referenced by projects
-- `external/world-model-tutorial/references.md` — 4-era history + architecture survey
+- `docs/` -- VitePress site
+- `docs/.vitepress/config.mts` -- Nav/sidebar config (EN + ZH locales)
+- `docs/zh/lectures/` -- 5 Chinese lecture pages
+- `docs/en/lectures/` -- 5 English lecture pages (keep in sync with ZH)
+- `docs/zh/projects/` / `docs/en/projects/` -- 5 project pages
+- `external/world-model-tutorial/` -- PyTorch source code referenced by projects
+- `external/world-model-tutorial/references.md` -- 4-era history + architecture survey
 
 ## Writing Style
 
 These rules apply to all lecture and project markdown files:
 
-- **No AI flavor**: avoid "接下来我们…", "用大白话理解", "理解了X，我们可以更清楚地回答Y" — cut these transition phrases entirely
+- **No AI flavor**: avoid "接下来我们…", "用大白话理解", "理解了X，我们可以更清楚地回答Y" -- cut these transition phrases entirely
 - **No `💡 直觉` callout boxes**: inline the content into surrounding prose instead
 - **No "认知负荷：高/中/低" labels**: replace with one concrete sentence about what the reader needs before starting
 - **No "下一讲预告" as a section title**: use "下一讲" and lead with the concrete problem the next lecture solves
 - **Analogies**: avoid overused ones (飞行模拟器之于飞行员, 婴儿学走路, 撒网捕鱼, 雕塑家). Use engineering language or drop the analogy
-- **`📖` definition callouts**: keep these — they define terms for deep-learning-only readers. Don't remove them
+- **`📖` definition callouts**: keep these (they define terms for deep-learning-only readers). Don't remove them
 - **"读者思考" sections**: rename to "留给你" or similar; don't pad with three numbered questions if two suffice
 - **Paragraph rhythm**: vary sentence length. If every paragraph is ~4 sentences, something is off
+- **No em dashes**: never use "—" anywhere in the tutorial. Use a colon, comma, or rewrite the sentence instead
 
 ---
 
@@ -45,7 +46,7 @@ These rules apply to all lecture and project markdown files:
 ### Learning Objectives
 
 By the end of this curriculum, students will be able to:
-1. Explain what a world model is and why it reduces sample complexity — grounded in history and intuition (L01)
+1. Explain what a world model is and why it reduces sample complexity, grounded in history and intuition (L01)
 2. Implement a VAE encoder and chain it into an RSSM latent dynamics model (L02, P01, P02)
 3. Compare 6 architectural families, describe three learning paradigms, implement CEM-MPC and latent actor-critic, and assemble a complete Dreamer pipeline (L03, P03, P04)
 4. Select model-appropriate evaluation metrics, benchmark Dreamer vs TD-MPC vs STORM, and diagnose latent drift (L04, P05)
@@ -90,15 +91,15 @@ L02 Part A (VAE Encoder) → P01 (Build & visualize VAE)
         ↓
 L02 Part B (GRU → RSSM)  → P02 (Train dynamics, measure drift)
         ↓
-L03 Part A (Architecture Patterns + Learning Paradigms — anchored to P02 RSSM baseline)
+L03 Part A (Architecture Patterns + Learning Paradigms, anchored to P02 RSSM baseline)
         ↓
 L03 Part B (Planning: CEM-MPC → Actor-Critic → TD-MPC) → P03 (Full Dreamer pipeline)
                                                                 ↓
-                                                         P04 (TD-MPC — compare vs P03)
+                                                         P04 (TD-MPC, compare vs P03)
                                                                 ↓
 L04 (Evaluation vocabulary) → P05 (STORM + Three-Model Dashboard)
                                     ↓
-                             L05 (Frontier Debates — no code)
+                             L05 (Frontier Debates, no code)
 ```
 
 **Suggested path**: L01 → L02 → P01 → P02 → L03 → P03 → P04 → L04 → P05 → L05
@@ -114,7 +115,7 @@ L04 (Evaluation vocabulary) → P05 (STORM + Three-Model Dashboard)
 
 ### Reference Sources
 
-- `external/world-model-tutorial/README.md` — tutorial structure, installation, demos
-- `external/world-model-tutorial/references.md` — 4-era history, architecture taxonomy, application domains
-- [liyang.page/wm-tutorial](https://liyang.page/wm-tutorial/) — primary external reference
+- `external/world-model-tutorial/README.md` -- tutorial structure, installation, demos
+- `external/world-model-tutorial/references.md` -- 4-era history, architecture taxonomy, application domains
+- [liyang.page/wm-tutorial](https://liyang.page/wm-tutorial/) -- primary external reference
 - Pioneer papers: Ha & Schmidhuber 2018, Dreamer V1 (Hafner 2019), MuZero (DeepMind 2020), JEPA (LeCun 2023)
