@@ -1,6 +1,6 @@
 ---
 title: Metrics for Dreamer, MuZero, and TD-MPC
-description: Dedicated evaluation metrics and diagnostic rules for the three architectures — RNN/RSSM, implicit world model, and latent MPC.
+description: Dedicated evaluation metrics and diagnostic rules for the three architectures: RNN/RSSM, implicit world model, and latent MPC.
 lecture: 4
 ---
 

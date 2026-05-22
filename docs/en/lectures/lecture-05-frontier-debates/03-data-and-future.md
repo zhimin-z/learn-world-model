@@ -1,6 +1,6 @@
 ---
 title: "Debate 5: Where the Data Comes From, and Closing Remarks"
-description: '"The era of downloading humanity" — the data acquisition challenge for the physical world, AMI Labs'' data strategy, and the bet of those who are not believed.'
+description: '"The era of downloading humanity": the data acquisition challenge for the physical world, AMI Labs'' data strategy, and the bet of those who are not believed.'
 lecture: 5
 ---
 

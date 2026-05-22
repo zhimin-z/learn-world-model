@@ -9,7 +9,7 @@ difficulty: Discursive
 
 > "Silicon Valley has been hypnotized by LLMs — completely hypnotized."
 >
-> — Saining Xie
+> -- Saining Xie
 
 This is a technical judgment — about the fundamental dispute between two definitions of "intelligence," a debate that will shape AI research for the next decade.
 

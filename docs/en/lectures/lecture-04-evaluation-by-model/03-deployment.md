@@ -127,16 +127,16 @@ The world model enters the MPC rollout or imagined rollout, used directly for on
 
 Four lectures, each solving a specific problem:
 
-**L01 — Internal Simulation and Historical Context**
-From Craik's "mental models" (1943), through the 1950s RNN beginnings, Ha & Schmidhuber's World Models paper (2018), Dreamer's end-to-end maturity (2019), to JEPA as the modern paradigm (2023) — building the historical intuition of how world models evolved.
+**L01: Internal Simulation and Historical Context**
+From Craik's "mental models" (1943), through the 1950s RNN beginnings, Ha & Schmidhuber's World Models paper (2018), Dreamer's end-to-end maturity (2019), to JEPA as the modern paradigm (2023), building the historical intuition of how world models evolved.
 
-**L02 — Observation Encoding and Latent Dynamics**
-Part A built the VAE encoder: a CNN compresses 64×64 images into a latent vector `z`, and the ELBO loss (reconstruction + KL) constrains the latent space. Part B moved from GRU through MDN-RNN to RSSM — the dual deterministic-state `h_t` + stochastic-state `z_t` architecture that is the foundation of Dreamer.
+**L02: Observation Encoding and Latent Dynamics**
+Part A built the VAE encoder: a CNN compresses 64×64 images into a latent vector `z`, and the ELBO loss (reconstruction + KL) constrains the latent space. Part B moved from GRU through MDN-RNN to RSSM, the dual deterministic-state `h_t` + stochastic-state `z_t` architecture that is the foundation of Dreamer.
 
-**L03 — Architecture Patterns, Learning Paradigms, and Planning**
+**L03: Architecture Patterns, Learning Paradigms, and Planning**
 Using the RSSM you built in P02 as the RNN baseline, we compared six architecture families (RNN/RSSM, Transformer, Diffusion, JEPA, RWM, WAM), clarified three learning paradigms (observational, interactive, counterfactual), and walked the planning chain CEM-MPC → latent Actor-Critic → TD-MPC.
 
-**L04 — Evaluation by Model (this lecture)**
+**L04: Evaluation by Model (this lecture)**
 Evaluation isn't "scoring" but "diagnosing." Each architecture has its dedicated failure modes that require matching metrics. Horizon drift is the universal long-horizon enemy all world models face; mitigating it requires short-horizon training, target networks, and continued real-data refresh.
 
 ### From Theory to Deployment: Outlook
