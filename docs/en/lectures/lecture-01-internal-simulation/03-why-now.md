@@ -112,7 +112,7 @@ flowchart TD
     L02 --> L03["L03 Architecture patterns\nRNN / Transformer / Diffusion / JEPA"]
     L03 --> L04["L04 Learning paradigms and planning\nDreamer / TD-MPC / CEM"]
     L04 --> L05["L05 Evaluation metrics"]
-    L05 --> P03["P03–P06 Full Dreamer pipeline\n→ TD-MPC → STORM → evaluation dashboard"]
+    L05 --> P03["P03–P06 Full Dreamer pipeline\nTD-MPC, STORM, evaluation dashboard"]
 ```
 
 Each step has a matching code project. You don't need to read all the theory before starting — **learn and build at the same time; come back to the next lecture with questions, and it goes faster**.

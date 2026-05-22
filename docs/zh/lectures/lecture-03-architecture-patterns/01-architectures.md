@@ -80,7 +80,7 @@ IRIS 的关键操作是 **VQ-VAE 量化**，把连续的图像帧变成离散 to
 
 ```mermaid
 flowchart TD
-    A["原始帧（64×64 像素）"] -->|"VQ-VAE 编码器"| B["图像块 → 词表索引序列\n[42, 7, 183, 56, …]（像句子一样）"]
+    A["原始帧（像素图像）"] -->|"VQ-VAE 编码器"| B["图像块量化为词表索引序列\n[42, 7, 183, 56, …]（像句子一样）"]
     B -->|"Transformer"| C["预测下一帧的 token 序列\n[91, 12, 204, …]"]
     C -->|"VQ-VAE 解码器"| D["重建图像"]
 ```
@@ -207,9 +207,9 @@ $$\text{policy 奖励} = \text{任务奖励} - \lambda \times \text{uncertainty}
 
 | 范式 | 输入 | 输出 |
 |------|------|------|
-| World Model | observation + action | future observation / state |
-| VLA | observation + language | action |
-| WAM | observation + language | future observation + action |
+| 世界模型 | 观测 + 动作 | 未来观测或状态 |
+| VLA | 观测 + 语言指令 | 动作 |
+| WAM | 观测 + 语言指令 | 未来观测 + 动作 |
 
 传统的 World Model 以动作为输入、预测未来状态，是 policy 旁边的一个 simulator。VLA 绕过了世界模型，直接从视觉和语言指令预测动作，是一个端到端的 reactive policy。WAM 试图同时做两件事：预测世界的未来状态，同时预测应该采取的动作。世界的视觉演化成为动作学习的 dense supervision，而不只是一个辅助任务。
 
@@ -221,8 +221,8 @@ $$\text{policy 奖励} = \text{任务奖励} - \lambda \times \text{uncertainty}
 
 | 范式 | 监督信号 | 损失 |
 |------|---------|------|
-| VLA | observation → [action₁, …, actionT] | 只有动作 loss |
-| WAM | observation → [future_frame₁, …] + [action₁, …] | 视频 loss + 动作 loss，相互增强 |
+| VLA | 观测序列 → 动作序列 | 仅动作损失 |
+| WAM | 观测序列 → 未来帧序列 + 动作序列 | 视频重建损失 + 动作损失，相互增强 |
 
 **学习范式**：第四范式，联合学习。视频和动作是同一个物理过程的两个侧面。WAM 利用视频的 dense physical supervision，让 policy 学习物理运动和动作后果，而不只是做 action regression。
 

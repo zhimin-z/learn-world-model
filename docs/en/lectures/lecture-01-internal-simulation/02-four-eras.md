@@ -20,7 +20,7 @@ They unified these scattered threads with an elegant three-module framework:
 
 ```mermaid
 flowchart LR
-    V["Vision V\nCNN encoder\nimage to latent z"] --> M["Memory M\nRNN dynamics\nz+h to next z"] --> C["Controller C\nsmall linear ctrl\nh,z to action"]
+    V["Vision module\nCNN visual encoder\ncompresses image to semantic representation"] --> M["Memory module\nRNN dynamics\npredicts next state from history"] --> C["Controller\nsmall linear controller\noutputs action"]
 ```
 
 The most striking experiment: they placed the Controller inside the **virtual environment** hallucinated by M, never interacting with the real game during training — then transferred the trained policy back to the real game, where it still performed well.

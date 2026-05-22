@@ -135,16 +135,16 @@ TD 学习用 Bellman 方程，以"当前奖励 + 下一步 Q 值估计"代替完
 
 ---
 
-*参考资料：*
+## 延伸阅读
 
-- *Ha & Schmidhuber 2018 — World Models*
-- *Hafner et al. 2019–2023 — Dreamer V1/V2/V3*
-- *Hansen et al. 2022/2024 — TD-MPC / TD-MPC2*
-- *Wu et al. 2022 — DayDreamer*
-- *Schrittwieser et al. 2020 — MuZero*
-- *Bruce et al. 2024 — Genie / Genie 2*
-- *Chen et al. 2023 — STORM*
-- *Micheli et al. 2022 — IRIS*
-- *Assran et al. 2023 — I-JEPA*
-- *Bardes et al. 2024/2025 — V-JEPA / V-JEPA 2*
-- *DreamZero 2025 / Motus 2025 / DreamDojo 2026*
+本讲涉及的关键论文，按出现顺序排列：
+
+- [Ha & Schmidhuber (2018) — World Models](https://arxiv.org/abs/1803.10122)：V/M/C 三模块框架与梦中训练的原始论文
+- [Hafner et al. (2019) — Dreamer V1](https://arxiv.org/abs/1912.01603)、[V2 (2020)](https://arxiv.org/abs/2010.02193)、[V3 (2023)](https://arxiv.org/abs/2301.04104)：RSSM 与潜在 Actor-Critic 系列
+- [Schrittwieser et al. (2020) — MuZero](https://arxiv.org/abs/1911.08265)：隐式世界模型 + MCTS，围棋与 Atari 超人水平
+- [Hansen et al. (2022) — TD-MPC](https://arxiv.org/abs/2203.04955)、[TD-MPC2 (2024)](https://arxiv.org/abs/2310.16828)：CEM + TD 混合规划
+- [Wu et al. (2022) — DayDreamer](https://arxiv.org/abs/2206.14176)：Dreamer 在真实机器人上的部署
+- [Micheli et al. (2022) — IRIS](https://arxiv.org/abs/2209.14430)：VQ-VAE 离散化 + Transformer 自回归世界模型
+- [Chen et al. (2023) — STORM](https://arxiv.org/abs/2310.09615)：随机 Transformer 世界模型，保留 RSSM 随机路径
+- [Assran et al. (2023) — I-JEPA](https://arxiv.org/abs/2301.08243)、[Bardes et al. (2024) — V-JEPA](https://arxiv.org/abs/2404.08471)、[V-JEPA 2 (2025)](https://arxiv.org/abs/2506.09985)：语义空间预测架构系列
+- [Bruce et al. (2024) — Genie](https://arxiv.org/abs/2402.15391)：可控交互式世界模型，从视频中学习潜在动作

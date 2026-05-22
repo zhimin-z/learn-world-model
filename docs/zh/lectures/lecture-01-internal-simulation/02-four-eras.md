@@ -20,7 +20,7 @@ lecture: 1
 
 ```mermaid
 flowchart LR
-    V["Vision V\nCNN 视觉编码\n图像到潜在 z"] --> M["Memory M\nRNN 动态记忆\nz+h 预测下一 z"] --> C["Controller C\n小型线性控制器\nh,z 输出动作"]
+    V["视觉模块\nCNN 视觉编码\n图像压缩为语义表示"] --> M["记忆模块\nRNN 动态记忆\n融合历史预测下一状态"] --> C["控制器\n小型线性控制器\n输出动作"]
 ```
 
 最令人着迷的是他们的实验：把 Controller 放进 M 模型幻想出的**虚拟环境**里训练，完全不与真实游戏交互，然后把训练好的策略迁移到真实游戏，照样能玩得很好。

@@ -80,7 +80,7 @@ IRIS's key trick is **VQ-VAE quantization** — turn continuous image frames int
 
 ```mermaid
 flowchart TD
-    A["Raw frame (64×64 pixels)"] -->|"VQ-VAE encoder"| B["Patches → vocabulary indices\n[42, 7, 183, 56, …] (like a sentence)"]
+    A["Raw frame (pixel image)"] -->|"VQ-VAE encoder"| B["Patches quantized to vocabulary indices\n[42, 7, 183, 56, …] (like a sentence)"]
     B -->|"Transformer"| C["Predict next-frame token sequence\n[91, 12, 204, …]"]
     C -->|"VQ-VAE decoder"| D["Reconstructed image"]
 ```

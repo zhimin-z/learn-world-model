@@ -112,7 +112,7 @@ flowchart TD
     L02 --> L03["L03 架构模式对比\nRNN / Transformer / 扩散模型 / JEPA"]
     L03 --> L04["L04 学习范式与规划\nDreamer / TD-MPC / CEM"]
     L04 --> L05["L05 评估指标体系"]
-    L05 --> P03["P03–P06 完整 Dreamer 流水线\n→ TD-MPC → STORM → 评估仪表盘"]
+    L05 --> P03["P03–P06 完整 Dreamer 流水线\nTD-MPC、STORM、评估仪表盘"]
 ```
 
 每一步都有配套的代码项目。不需要先把所有理论读完再动手，**边学边做，带着问题回来看下一讲，效果反而更好**。
