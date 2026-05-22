@@ -1,8 +1,8 @@
 {
-  "name": "learn-harness-engineering",
+  "name": "learn-world-model",
   "private": true,
   "version": "0.1.0",
-  "description": "Course docs for Learn Harness Engineering powered by VitePress.",
+  "description": "Course docs for Learn World Models powered by VitePress.",
   "scripts": {
     "dev": "vitepress dev docs",
     "build": "vitepress build docs",
@@ -16,6 +16,7 @@
     "pdf:build": "npm run docs:build && npm run pdf:export"
   },
   "devDependencies": {
+    "markdown-it-mathjax3": "^4.3.2",
     "mermaid": "^11.14.0",
     "pdf-lib": "^1.17.1",
     "playwright": "^1.59.1",

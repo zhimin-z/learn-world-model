@@ -2,260 +2,138 @@
 import { defineConfig } from "vitepress";
 import { withMermaid } from "vitepress-plugin-mermaid";
 
-const docsBase = "/learn-harness-engineering/";
+const docsBase = "/learn-world-model/";
 const brandLogo = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23D95C41" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12.1" y1="11.9" x2="18.9" y2="8.2" /><line x1="12.1" y1="12.1" x2="20.3" y2="12.9" /><line x1="12.2" y1="12.4" x2="16.6" y2="19.1" /><line x1="11.8" y1="12.4" x2="7.3" y2="19.2" /><line x1="11.9" y1="12.1" x2="3.7" y2="13.3" /><line x1="11.8" y1="11.7" x2="7.8" y2="4.4" /></svg>';
-const githubRepoTreeLink = "https://github.com/walkinglabs/learn-harness-engineering/tree/main";
+const githubRepoTreeLink = "https://github.com/zhimin-z/learn-world-model/tree/main";
 
 const zhWorldModelItems = [
   { text: "欢迎", link: "/zh/world-model/" },
-  { text: "第一讲：内部仿真", link: "/zh/lectures/lecture-01-internal-simulation/" },
-  { text: "第二讲：观测编码器", link: "/zh/lectures/lecture-02-observation-encoder/" },
-  { text: "第三讲：潜在动力学", link: "/zh/lectures/lecture-03-latent-dynamics/" },
-  { text: "第四讲：架构模式", link: "/zh/lectures/lecture-04-architecture-patterns/" },
-  { text: "第五讲：学习范式", link: "/zh/lectures/lecture-05-learning-paradigms/" },
-  { text: "第六讲：规划与控制", link: "/zh/lectures/lecture-06-planning-and-control/" },
-  { text: "第七讲：轨迹评估", link: "/zh/lectures/lecture-07-trajectory-evaluation/" }
-];
-
-const zhLectureItems = [
-  { text: "欢迎", link: "/zh/" },
-  { text: "模型能力强，不等于执行可靠", link: "/zh/lectures/lecture-01-why-capable-agents-still-fail/" },
-  { text: "Harness 的定义", link: "/zh/lectures/lecture-02-what-a-harness-actually-is/" },
-  { text: "让代码仓库成为唯一的事实来源", link: "/zh/lectures/lecture-03-why-the-repository-must-become-the-system-of-record/" },
-  { text: "把指令拆分到不同文件里", link: "/zh/lectures/lecture-04-why-one-giant-instruction-file-fails/" },
-  { text: "让跨会话的任务保持上下文连续", link: "/zh/lectures/lecture-05-why-long-running-tasks-lose-continuity/" },
-  { text: "让 agent 每次工作前先初始化", link: "/zh/lectures/lecture-06-why-initialization-needs-its-own-phase/" },
-  { text: "给 agent 划清每次任务的边界", link: "/zh/lectures/lecture-07-why-agents-overreach-and-under-finish/" },
-  { text: "用功能清单约束 agent 该做什么", link: "/zh/lectures/lecture-08-why-feature-lists-are-harness-primitives/" },
-  { text: "防止 agent 提前宣告完成", link: "/zh/lectures/lecture-09-why-agents-declare-victory-too-early/" },
-  { text: "跑通完整流程才算真正验证", link: "/zh/lectures/lecture-10-why-end-to-end-testing-changes-results/" },
-  { text: "让 agent 的运行过程可观测", link: "/zh/lectures/lecture-11-why-observability-belongs-inside-the-harness/" },
-  { text: "每次会话结束前都做好交接", link: "/zh/lectures/lecture-12-why-every-session-must-leave-a-clean-state/" }
+  {
+    text: "第一讲：内部仿真与历史脉络",
+    collapsed: false,
+    items: [
+      { text: "导读", link: "/zh/lectures/lecture-01-internal-simulation/" },
+      { text: "思想基石", link: "/zh/lectures/lecture-01-internal-simulation/01-foundations" },
+      { text: "四个时代", link: "/zh/lectures/lecture-01-internal-simulation/02-four-eras" },
+      { text: "为什么是现在", link: "/zh/lectures/lecture-01-internal-simulation/03-why-now" },
+    ]
+  },
+  {
+    text: "第二讲：观测编码与潜在动力学",
+    collapsed: false,
+    items: [
+      { text: "导读", link: "/zh/lectures/lecture-02-encode-and-dynamics/" },
+      { text: "Part A：观测编码", link: "/zh/lectures/lecture-02-encode-and-dynamics/01-encoding" },
+      { text: "Part B：潜在动力学", link: "/zh/lectures/lecture-02-encode-and-dynamics/02-dynamics" },
+    ]
+  },
+  {
+    text: "第三讲：架构模式、学习范式与规划",
+    collapsed: false,
+    items: [
+      { text: "导读", link: "/zh/lectures/lecture-03-architecture-patterns/" },
+      { text: "Part A：六大架构族", link: "/zh/lectures/lecture-03-architecture-patterns/01-architectures" },
+      { text: "Part B：规划机制", link: "/zh/lectures/lecture-03-architecture-patterns/02-planning" },
+    ]
+  },
+  {
+    text: "第四讲：按模型评估",
+    collapsed: false,
+    items: [
+      { text: "导读", link: "/zh/lectures/lecture-04-evaluation-by-model/" },
+      { text: "Dreamer、MuZero 与 TD-MPC", link: "/zh/lectures/lecture-04-evaluation-by-model/01-model-metrics" },
+      { text: "STORM、扩散世界模型与漂移", link: "/zh/lectures/lecture-04-evaluation-by-model/02-storm-diffusion-drift" },
+      { text: "真实部署与课程总结", link: "/zh/lectures/lecture-04-evaluation-by-model/03-deployment" },
+    ]
+  },
+  {
+    text: "第五讲：前沿思辨",
+    collapsed: false,
+    items: [
+      { text: "导读", link: "/zh/lectures/lecture-05-frontier-debates/" },
+      { text: "语言是鸦片与 Bitter Lesson", link: "/zh/lectures/lecture-05-frontier-debates/01-language-and-bitter-lesson" },
+      { text: "AGI 与两条路的收敛", link: "/zh/lectures/lecture-05-frontier-debates/02-agi-and-convergence" },
+      { text: "数据从哪里来与结语", link: "/zh/lectures/lecture-05-frontier-debates/03-data-and-future" },
+    ]
+  },
 ];
 
 const zhProjectItems = [
   { text: "欢迎", link: "/zh/projects/" },
-  { text: "提示词驱动 vs 规则驱动", link: "/zh/projects/project-01-baseline-vs-minimal-harness/" },
-  { text: "让项目可读并接住上次工作", link: "/zh/projects/project-02-agent-readable-workspace/" },
-  { text: "跨会话工作连续性", link: "/zh/projects/project-03-multi-session-continuity/" },
-  { text: "运行反馈与行为修正", link: "/zh/projects/project-04-incremental-indexing/" },
-  { text: "工作评审与自我验证", link: "/zh/projects/project-05-grounded-qa-verification/" },
-  { text: "综合 Agent 工作环境", link: "/zh/projects/project-06-runtime-observability-and-debugging/" }
-];
-
-const zhResourceItems = [
-  { text: "资料库总览", link: "/zh/resources/" },
-  { text: "中文模板", link: "/zh/resources/templates/" },
-  { text: "中文参考", link: "/zh/resources/reference/" },
-  { text: "高级资源包", link: "/zh/resources/openai-advanced/" }
-];
-
-const zhSkillItems = [
-  { text: "技能总览", link: "/zh/skills/" }
+  { text: "P01：训练 VAE 编码器", link: "/zh/projects/project-01-vae-encoder/" },
+  { text: "P02：构建潜在动力学模型", link: "/zh/projects/project-02-latent-dynamics/" },
+  { text: "P03：完整 Dreamer 流水线", link: "/zh/projects/project-03-dreamer-pipeline/" },
+  { text: "P04：实现 TD-MPC 规划", link: "/zh/projects/project-04-td-mpc/" },
+  { text: "P05：STORM + 三模型评估仪表盘", link: "/zh/projects/project-05-storm-dashboard/" },
 ];
 
 const enWorldModelItems = [
   { text: "Welcome", link: "/en/world-model/" },
-  { text: "Lecture 01: Internal Simulation", link: "/en/lectures/lecture-01-internal-simulation/" },
-  { text: "Lecture 02: Observation Encoder", link: "/en/lectures/lecture-02-observation-encoder/" },
-  { text: "Lecture 03: Latent Dynamics", link: "/en/lectures/lecture-03-latent-dynamics/" },
-  { text: "Lecture 04: Architecture Patterns", link: "/en/lectures/lecture-04-architecture-patterns/" },
-  { text: "Lecture 05: Learning Paradigms", link: "/en/lectures/lecture-05-learning-paradigms/" },
-  { text: "Lecture 06: Planning and Control", link: "/en/lectures/lecture-06-planning-and-control/" },
-  { text: "Lecture 07: Trajectory Evaluation", link: "/en/lectures/lecture-07-trajectory-evaluation/" }
-];
-
-const enLectureItems = [
-  { text: "Welcome", link: "/en/" },
-  { text: "Why Capable Agents Still Fail", link: "/en/lectures/lecture-01-why-capable-agents-still-fail/" },
-  { text: "What a Harness Actually Is", link: "/en/lectures/lecture-02-what-a-harness-actually-is/" },
-  { text: "Why the Repository Must Become the System of Record", link: "/en/lectures/lecture-03-why-the-repository-must-become-the-system-of-record/" },
-  { text: "Why One Giant Instruction File Fails", link: "/en/lectures/lecture-04-why-one-giant-instruction-file-fails/" },
-  { text: "Why Long-Running Tasks Lose Continuity", link: "/en/lectures/lecture-05-why-long-running-tasks-lose-continuity/" },
-  { text: "Why Initialization Needs Its Own Phase", link: "/en/lectures/lecture-06-why-initialization-needs-its-own-phase/" },
-  { text: "Why Agents Overreach and Under-Finish", link: "/en/lectures/lecture-07-why-agents-overreach-and-under-finish/" },
-  { text: "Why Feature Lists Are Harness Primitives", link: "/en/lectures/lecture-08-why-feature-lists-are-harness-primitives/" },
-  { text: "Why Agents Declare Victory Too Early", link: "/en/lectures/lecture-09-why-agents-declare-victory-too-early/" },
-  { text: "Why End-to-End Testing Changes Results", link: "/en/lectures/lecture-10-why-end-to-end-testing-changes-results/" },
-  { text: "Why Observability Belongs Inside the Harness", link: "/en/lectures/lecture-11-why-observability-belongs-inside-the-harness/" },
-  { text: "Why Every Session Must Leave a Clean State", link: "/en/lectures/lecture-12-why-every-session-must-leave-a-clean-state/" }
+  {
+    text: "Lecture 01: Internal Simulation",
+    collapsed: false,
+    items: [
+      { text: "Overview", link: "/en/lectures/lecture-01-internal-simulation/" },
+      { text: "Foundations", link: "/en/lectures/lecture-01-internal-simulation/01-foundations" },
+      { text: "Four Eras", link: "/en/lectures/lecture-01-internal-simulation/02-four-eras" },
+      { text: "Why Now", link: "/en/lectures/lecture-01-internal-simulation/03-why-now" },
+    ]
+  },
+  {
+    text: "Lecture 02: Encoding & Latent Dynamics",
+    collapsed: false,
+    items: [
+      { text: "Overview", link: "/en/lectures/lecture-02-encode-and-dynamics/" },
+      { text: "Part A: Observation Encoding", link: "/en/lectures/lecture-02-encode-and-dynamics/01-encoding" },
+      { text: "Part B: Latent Dynamics", link: "/en/lectures/lecture-02-encode-and-dynamics/02-dynamics" },
+    ]
+  },
+  {
+    text: "Lecture 03: Architecture, Paradigms & Planning",
+    collapsed: false,
+    items: [
+      { text: "Overview", link: "/en/lectures/lecture-03-architecture-patterns/" },
+      { text: "Part A: Six Architecture Families", link: "/en/lectures/lecture-03-architecture-patterns/01-architectures" },
+      { text: "Part B: Planning Mechanisms", link: "/en/lectures/lecture-03-architecture-patterns/02-planning" },
+    ]
+  },
+  {
+    text: "Lecture 04: Evaluation by Model",
+    collapsed: false,
+    items: [
+      { text: "Overview", link: "/en/lectures/lecture-04-evaluation-by-model/" },
+      { text: "Dreamer, MuZero & TD-MPC", link: "/en/lectures/lecture-04-evaluation-by-model/01-model-metrics" },
+      { text: "STORM, Diffusion & Drift", link: "/en/lectures/lecture-04-evaluation-by-model/02-storm-diffusion-drift" },
+      { text: "Deployment & Summary", link: "/en/lectures/lecture-04-evaluation-by-model/03-deployment" },
+    ]
+  },
+  {
+    text: "Lecture 05: Frontier Debates",
+    collapsed: false,
+    items: [
+      { text: "Overview", link: "/en/lectures/lecture-05-frontier-debates/" },
+      { text: "Language as Opium & Bitter Lesson", link: "/en/lectures/lecture-05-frontier-debates/01-language-and-bitter-lesson" },
+      { text: "AGI & Convergence", link: "/en/lectures/lecture-05-frontier-debates/02-agi-and-convergence" },
+      { text: "Data & Future", link: "/en/lectures/lecture-05-frontier-debates/03-data-and-future" },
+    ]
+  },
 ];
 
 const enProjectItems = [
   { text: "Welcome", link: "/en/projects/" },
-  { text: "Prompt-Only vs. Rules-First", link: "/en/projects/project-01-baseline-vs-minimal-harness/" },
-  { text: "Agent-Readable Workspace", link: "/en/projects/project-02-agent-readable-workspace/" },
-  { text: "Multi-Session Continuity", link: "/en/projects/project-03-multi-session-continuity/" },
-  { text: "Runtime Feedback and Scope Control", link: "/en/projects/project-04-incremental-indexing/" },
-  { text: "Self-Verification and Role Separation", link: "/en/projects/project-05-grounded-qa-verification/" },
-  { text: "Complete Harness (Capstone)", link: "/en/projects/project-06-runtime-observability-and-debugging/" }
-];
-
-const enResourceItems = [
-  { text: "Overview", link: "/en/resources/" },
-  { text: "English Templates", link: "/en/resources/templates/" },
-  { text: "English Reference", link: "/en/resources/reference/" },
-  { text: "Advanced Pack", link: "/en/resources/openai-advanced/" }
-];
-
-const enSkillItems = [
-  { text: "Skills Overview", link: "/en/skills/" }
-];
-
-const viLectureItems = [
-  { text: "Chào mừng", link: "/vi/" },
-  { text: "Tại sao các Agent mạnh vẫn thất bại", link: "/vi/lectures/lecture-01-why-capable-agents-still-fail/" },
-  { text: "Harness thực sự là gì", link: "/vi/lectures/lecture-02-what-a-harness-actually-is/" },
-  { text: "Tại sao Repository phải trở thành Nguồn sự thật", link: "/vi/lectures/lecture-03-why-the-repository-must-become-the-system-of-record/" },
-  { text: "Tại sao một file hướng dẫn khổng lồ lại thất bại", link: "/vi/lectures/lecture-04-why-one-giant-instruction-file-fails/" },
-  { text: "Tại sao các tác vụ dài hạn lại mất tính liên tục", link: "/vi/lectures/lecture-05-why-long-running-tasks-lose-continuity/" },
-  { text: "Tại sao quá trình khởi tạo cần một giai đoạn riêng", link: "/vi/lectures/lecture-06-why-initialization-needs-its-own-phase/" },
-  { text: "Tại sao Agent làm quá giới hạn và chưa hoàn thành", link: "/vi/lectures/lecture-07-why-agents-overreach-and-under-finish/" },
-  { text: "Tại sao Feature List là nguyên lý cốt lõi của Harness", link: "/vi/lectures/lecture-08-why-feature-lists-are-harness-primitives/" },
-  { text: "Tại sao Agent tuyên bố thành công quá sớm", link: "/vi/lectures/lecture-09-why-agents-declare-victory-too-early/" },
-  { text: "Tại sao kiểm thử End-to-End thay đổi kết quả", link: "/vi/lectures/lecture-10-why-end-to-end-testing-changes-results/" },
-  { text: "Tại sao tính quan sát thuộc về bên trong Harness", link: "/vi/lectures/lecture-11-why-observability-belongs-inside-the-harness/" },
-  { text: "Tại sao mỗi phiên làm việc phải để lại trạng thái sạch", link: "/vi/lectures/lecture-12-why-every-session-must-leave-a-clean-state/" }
-];
-
-const viProjectItems = [
-  { text: "Chào mừng", link: "/vi/projects/" },
-  { text: "Chỉ Prompt vs. Ưu tiên Quy tắc", link: "/vi/projects/project-01-baseline-vs-minimal-harness/" },
-  { text: "Không gian làm việc Agent đọc được", link: "/vi/projects/project-02-agent-readable-workspace/" },
-  { text: "Tính liên tục đa phiên", link: "/vi/projects/project-03-multi-session-continuity/" },
-  { text: "Phản hồi Runtime và Kiểm soát Phạm vi", link: "/vi/projects/project-04-incremental-indexing/" },
-  { text: "Tự xác minh và Phân tách Vai trò", link: "/vi/projects/project-05-grounded-qa-verification/" },
-  { text: "Harness Hoàn chỉnh", link: "/vi/projects/project-06-runtime-observability-and-debugging/" }
-];
-
-const viResourceItems = [
-  { text: "Tổng quan", link: "/vi/resources/" },
-  { text: "Mẫu tiếng Anh", link: "/vi/resources/templates/" },
-  { text: "Tài liệu tham khảo tiếng Anh", link: "/vi/resources/reference/" },
-  { text: "Gói Nâng cao", link: "/vi/resources/openai-advanced/" }
-];
-
-const viSkillItems = [
-  { text: "Tổng quan về Kỹ năng", link: "/vi/skills/" }
-];
-
-const ruLectureItems = [
-  { text: "Добро пожаловать", link: "/ru/" },
-  { text: "Сильная модель ≠ надёжное исполнение", link: "/ru/lectures/lecture-01-why-capable-agents-still-fail/" },
-  { text: "Что такое harness на самом деле", link: "/ru/lectures/lecture-02-what-a-harness-actually-is/" },
-  { text: "Репозиторий как единый источник правды", link: "/ru/lectures/lecture-03-why-the-repository-must-become-the-system-of-record/" },
-  { text: "Почему один большой файл инструкций не работает", link: "/ru/lectures/lecture-04-why-one-giant-instruction-file-fails/" },
-  { text: "Как сохранять контекст между сессиями", link: "/ru/lectures/lecture-05-why-long-running-tasks-lose-continuity/" },
-  { text: "Зачем инициализация — отдельная фаза", link: "/ru/lectures/lecture-06-why-initialization-needs-its-own-phase/" },
-  { text: "Почему агенты делают слишком много или слишком мало", link: "/ru/lectures/lecture-07-why-agents-overreach-and-under-finish/" },
-  { text: "Списки фич как примитивы harness", link: "/ru/lectures/lecture-08-why-feature-lists-are-harness-primitives/" },
-  { text: "Почему агенты слишком рано объявляют успех", link: "/ru/lectures/lecture-09-why-agents-declare-victory-too-early/" },
-  { text: "Только сквозной прогон — настоящая проверка", link: "/ru/lectures/lecture-10-why-end-to-end-testing-changes-results/" },
-  { text: "Наблюдаемость — часть harness", link: "/ru/lectures/lecture-11-why-observability-belongs-inside-the-harness/" },
-  { text: "Каждая сессия должна оставлять чистое состояние", link: "/ru/lectures/lecture-12-why-every-session-must-leave-a-clean-state/" }
-];
-
-const ruProjectItems = [
-  { text: "Добро пожаловать", link: "/ru/projects/" },
-  { text: "Только промпты vs правила", link: "/ru/projects/project-01-baseline-vs-minimal-harness/" },
-  { text: "Рабочее пространство для агента", link: "/ru/projects/project-02-agent-readable-workspace/" },
-  { text: "Непрерывность между сессиями", link: "/ru/projects/project-03-multi-session-continuity/" },
-  { text: "Обратная связь и контроль скоупа", link: "/ru/projects/project-04-incremental-indexing/" },
-  { text: "Самопроверка и обоснованные ответы", link: "/ru/projects/project-05-grounded-qa-verification/" },
-  { text: "Полный harness (капстоун)", link: "/ru/projects/project-06-runtime-observability-and-debugging/" }
-];
-
-const ruResourceItems = [
-  { text: "Обзор", link: "/ru/resources/" },
-  { text: "Шаблоны", link: "/ru/resources/templates/" },
-  { text: "Справочник", link: "/ru/resources/reference/" },
-  { text: "Расширенный пакет", link: "/ru/resources/openai-advanced/" }
-];
-
-const ruSkillItems = [
-  { text: "Обзор скиллов", link: "/ru/skills/" }
-];
-
-const uzLectureItems = [
-  { text: "Xush kelibsiz", link: "/uz/" },
-  { text: "Kuchli agentlar nega hali ham yiqiladi", link: "/uz/lectures/lecture-01-why-capable-agents-still-fail/" },
-  { text: "Harness aslida nima", link: "/uz/lectures/lecture-02-what-a-harness-actually-is/" },
-  { text: "Repozitoriy nega yagona haqiqat manbai boʻlishi kerak", link: "/uz/lectures/lecture-03-why-the-repository-must-become-the-system-of-record/" },
-  { text: "Bitta katta yoʻriqnoma fayli nega ishlamaydi", link: "/uz/lectures/lecture-04-why-one-giant-instruction-file-fails/" },
-  { text: "Uzoq vazifalar nega kontekstni yoʻqotadi", link: "/uz/lectures/lecture-05-why-long-running-tasks-lose-continuity/" },
-  { text: "Inisializatsiya nega alohida bosqich boʻlishi kerak", link: "/uz/lectures/lecture-06-why-initialization-needs-its-own-phase/" },
-  { text: "Agentlar nega haddan oshib, oxirigacha yetmaydi", link: "/uz/lectures/lecture-07-why-agents-overreach-and-under-finish/" },
-  { text: "Funksiyalar roʻyxati nega harness primitivi", link: "/uz/lectures/lecture-08-why-feature-lists-are-harness-primitives/" },
-  { text: "Agentlar nega vaqtidan oldin gʻalabani eʼlon qiladi", link: "/uz/lectures/lecture-09-why-agents-declare-victory-too-early/" },
-  { text: "End-to-end testlar nega natijani oʻzgartiradi", link: "/uz/lectures/lecture-10-why-end-to-end-testing-changes-results/" },
-  { text: "Kuzatuvchanlik nega harness ichida boʻlishi kerak", link: "/uz/lectures/lecture-11-why-observability-belongs-inside-the-harness/" },
-  { text: "Har bir sessiya nega toza holat qoldirishi kerak", link: "/uz/lectures/lecture-12-why-every-session-must-leave-a-clean-state/" }
-];
-
-const uzProjectItems = [
-  { text: "Xush kelibsiz", link: "/uz/projects/" },
-  { text: "Faqat prompt vs. qoidalar ustuvor", link: "/uz/projects/project-01-baseline-vs-minimal-harness/" },
-  { text: "Agent oʻqiy oladigan ish maydoni", link: "/uz/projects/project-02-agent-readable-workspace/" },
-  { text: "Koʻp sessiyali davomiylik", link: "/uz/projects/project-03-multi-session-continuity/" },
-  { text: "Runtime fikr-mulohaza va skoup nazorati", link: "/uz/projects/project-04-incremental-indexing/" },
-  { text: "Oʻz-oʻzini tekshirish va rollarni ajratish", link: "/uz/projects/project-05-grounded-qa-verification/" },
-  { text: "Toʻliq harness (yakuniy loyiha)", link: "/uz/projects/project-06-runtime-observability-and-debugging/" }
-];
-
-const uzResourceItems = [
-  { text: "Umumiy koʻrinish", link: "/uz/resources/" },
-  { text: "Shablonlar", link: "/uz/resources/templates/" },
-  { text: "Maʼlumotnoma", link: "/uz/resources/reference/" },
-  { text: "Kengaytirilgan paket", link: "/uz/resources/openai-advanced/" }
-];
-
-const uzSkillItems = [
-  { text: "Malakalar umumiy koʻrinishi", link: "/uz/skills/" }
-];
-
-const koLectureItems = [
-  { text: "환영합니다", link: "/ko/" },
-  { text: "유능한 에이전트가 여전히 실패하는 이유", link: "/ko/lectures/lecture-01-why-capable-agents-still-fail/" },
-  { text: "하네스란 무엇인가", link: "/ko/lectures/lecture-02-what-a-harness-actually-is/" },
-  { text: "저장소가 시스템 오브 레코드(SoR)가 되어야 하는 이유", link: "/ko/lectures/lecture-03-why-the-repository-must-become-the-system-of-record/" },
-  { text: "거대한 단일 지시 파일이 실패하는 이유", link: "/ko/lectures/lecture-04-why-one-giant-instruction-file-fails/" },
-  { text: "장기 작업이 연속성을 잃는 이유", link: "/ko/lectures/lecture-05-why-long-running-tasks-lose-continuity/" },
-  { text: "초기화가 별도 단계여야 하는 이유", link: "/ko/lectures/lecture-06-why-initialization-needs-its-own-phase/" },
-  { text: "에이전트가 과도하게 손대고 끝맺지 못하는 이유", link: "/ko/lectures/lecture-07-why-agents-overreach-and-under-finish/" },
-  { text: "기능 목록이 하네스의 기본 단위인 이유", link: "/ko/lectures/lecture-08-why-feature-lists-are-harness-primitives/" },
-  { text: "에이전트가 너무 일찍 완료를 선언하는 이유", link: "/ko/lectures/lecture-09-why-agents-declare-victory-too-early/" },
-  { text: "엔드투엔드 테스트가 결과를 바꾸는 이유", link: "/ko/lectures/lecture-10-why-end-to-end-testing-changes-results/" },
-  { text: "관측 가능성이 하네스 안에 있어야 하는 이유", link: "/ko/lectures/lecture-11-why-observability-belongs-inside-the-harness/" },
-  { text: "모든 세션이 클린 상태로 끝나야 하는 이유", link: "/ko/lectures/lecture-12-why-every-session-must-leave-a-clean-state/" }
-];
-
-const koProjectItems = [
-  { text: "환영합니다", link: "/ko/projects/" },
-  { text: "프롬프트 단독 vs 규칙 우선", link: "/ko/projects/project-01-baseline-vs-minimal-harness/" },
-  { text: "에이전트가 읽을 수 있는 작업 공간", link: "/ko/projects/project-02-agent-readable-workspace/" },
-  { text: "다중 세션 연속성", link: "/ko/projects/project-03-multi-session-continuity/" },
-  { text: "런타임 피드백과 범위 제어", link: "/ko/projects/project-04-incremental-indexing/" },
-  { text: "자기 검증과 역할 분리", link: "/ko/projects/project-05-grounded-qa-verification/" },
-  { text: "완성형 하네스(캡스톤)", link: "/ko/projects/project-06-runtime-observability-and-debugging/" }
-];
-
-const koResourceItems = [
-  { text: "리소스 모음 개요", link: "/ko/resources/" },
-  { text: "한국어 템플릿", link: "/ko/resources/templates/" },
-  { text: "한국어 레퍼런스", link: "/ko/resources/reference/" },
-  { text: "고급 리소스 팩", link: "/ko/resources/openai-advanced/" }
-];
-
-const koSkillItems = [
-  { text: "스킬 개요", link: "/ko/skills/" }
+  { text: "P01: Train a VAE Encoder", link: "/en/projects/project-01-vae-encoder/" },
+  { text: "P02: Build a Latent Dynamics Model", link: "/en/projects/project-02-latent-dynamics/" },
+  { text: "P03: Full Dreamer Pipeline", link: "/en/projects/project-03-dreamer-pipeline/" },
+  { text: "P04: Implement TD-MPC Planning", link: "/en/projects/project-04-td-mpc/" },
+  { text: "P05: STORM + Three-Model Dashboard", link: "/en/projects/project-05-storm-dashboard/" },
 ];
 
 export default withMermaid(
   defineConfig({
     base: docsBase,
-    title: "Learn Harness Engineering",
+    title: "Learn World Models",
     description:
-      "A project-based course on designing the environments, state, verification, and control systems that make Codex and Claude Code reliable.",
+      "A project-based curriculum on world models — from VAE encoders and latent dynamics to Dreamer, TD-MPC, STORM, and frontier debates on language vs physical grounding.",
     cleanUrls: true,
     srcExclude: ["temp/**"],
     ignoreDeadLinks: true,
@@ -273,7 +151,8 @@ export default withMermaid(
       theme: {
         light: 'github-light',
         dark: 'github-dark'
-      }
+      },
+      math: true
     },
     mermaid: {
       theme: 'base',
@@ -293,9 +172,9 @@ export default withMermaid(
     },
     locales: {
       root: {
-        label: "English",
-        lang: "en",
-        link: "/en/"
+        label: "简体中文",
+        lang: "zh-CN",
+        link: "/zh/"
       },
       en: {
         label: "English",
@@ -303,26 +182,17 @@ export default withMermaid(
         link: "/en/",
         themeConfig: {
           nav: [
-            { text: "Harness Engineering", link: enLectureItems[1].link, activeMatch: '^/en/(lectures/.*)?$' },
-            { text: "World Models", link: "/en/world-model/", activeMatch: '^/en/world-model/' },
+            { text: "Lectures", link: "/en/world-model/", activeMatch: '^/en/(lectures/|world-model/)' },
             { text: "Projects", link: enProjectItems[0].link, activeMatch: '^/en/projects/' },
-            { text: "Library", link: "/en/resources/", activeMatch: '^/en/resources/' },
-            { text: "Skills", link: "/en/skills/", activeMatch: '^/en/skills/' },
-            { text: "Try Harness ↗", link: "https://github.com/walkinglabs/learn-harness-engineering/blob/main/docs/en/resources/templates/index.md", target: "_blank", rel: "noopener noreferrer" }
           ],
           sidebar: {
             '/en/projects/': [{ text: "Projects", items: enProjectItems }],
-            '/en/resources/': [{ text: "Resource Library", items: enResourceItems }],
-            '/en/skills/': [{ text: "Skills", items: enSkillItems }],
             '/en/world-model/': [{ text: "World Models", items: enWorldModelItems }],
             '/en/lectures/lecture-01-internal-simulation/': [{ text: "World Models", items: enWorldModelItems }],
-            '/en/lectures/lecture-02-observation-encoder/': [{ text: "World Models", items: enWorldModelItems }],
-            '/en/lectures/lecture-03-latent-dynamics/': [{ text: "World Models", items: enWorldModelItems }],
-            '/en/lectures/lecture-04-architecture-patterns/': [{ text: "World Models", items: enWorldModelItems }],
-            '/en/lectures/lecture-05-learning-paradigms/': [{ text: "World Models", items: enWorldModelItems }],
-            '/en/lectures/lecture-06-planning-and-control/': [{ text: "World Models", items: enWorldModelItems }],
-            '/en/lectures/lecture-07-trajectory-evaluation/': [{ text: "World Models", items: enWorldModelItems }],
-            '/en/': [{ text: "Lectures", items: enLectureItems }]
+            '/en/lectures/lecture-02-encode-and-dynamics/': [{ text: "World Models", items: enWorldModelItems }],
+            '/en/lectures/lecture-03-architecture-patterns/': [{ text: "World Models", items: enWorldModelItems }],
+            '/en/lectures/lecture-04-evaluation-by-model/': [{ text: "World Models", items: enWorldModelItems }],
+            '/en/lectures/lecture-05-frontier-debates/': [{ text: "World Models", items: enWorldModelItems }],
           },
           socialLinks: [{ icon: "github", link: githubRepoTreeLink }]
         }
@@ -333,26 +203,17 @@ export default withMermaid(
         link: "/zh/",
         themeConfig: {
           nav: [
-            { text: "Harness 工程", link: zhLectureItems[1].link, activeMatch: '^/zh/(lectures/.*)?$' },
-            { text: "世界模型", link: "/zh/world-model/", activeMatch: '^/zh/world-model/' },
+            { text: "讲义", link: "/zh/world-model/", activeMatch: '^/zh/(lectures/|world-model/)' },
             { text: "项目", link: zhProjectItems[0].link, activeMatch: '^/zh/projects/' },
-            { text: "资料库", link: "/zh/resources/", activeMatch: '^/zh/resources/' },
-            { text: "技能", link: "/zh/skills/", activeMatch: '^/zh/skills/' },
-            { text: "Try Harness ↗", link: "https://github.com/walkinglabs/learn-harness-engineering/blob/main/docs/zh/resources/templates/index.md", target: "_blank", rel: "noopener noreferrer" }
           ],
           sidebar: {
             '/zh/projects/': [{ text: "项目", items: zhProjectItems }],
-            '/zh/resources/': [{ text: "资料库", items: zhResourceItems }],
-            '/zh/skills/': [{ text: "技能", items: zhSkillItems }],
             '/zh/world-model/': [{ text: "世界模型", items: zhWorldModelItems }],
             '/zh/lectures/lecture-01-internal-simulation/': [{ text: "世界模型", items: zhWorldModelItems }],
-            '/zh/lectures/lecture-02-observation-encoder/': [{ text: "世界模型", items: zhWorldModelItems }],
-            '/zh/lectures/lecture-03-latent-dynamics/': [{ text: "世界模型", items: zhWorldModelItems }],
-            '/zh/lectures/lecture-04-architecture-patterns/': [{ text: "世界模型", items: zhWorldModelItems }],
-            '/zh/lectures/lecture-05-learning-paradigms/': [{ text: "世界模型", items: zhWorldModelItems }],
-            '/zh/lectures/lecture-06-planning-and-control/': [{ text: "世界模型", items: zhWorldModelItems }],
-            '/zh/lectures/lecture-07-trajectory-evaluation/': [{ text: "世界模型", items: zhWorldModelItems }],
-            '/zh/': [{ text: "讲义", items: zhLectureItems }]
+            '/zh/lectures/lecture-02-encode-and-dynamics/': [{ text: "世界模型", items: zhWorldModelItems }],
+            '/zh/lectures/lecture-03-architecture-patterns/': [{ text: "世界模型", items: zhWorldModelItems }],
+            '/zh/lectures/lecture-04-evaluation-by-model/': [{ text: "世界模型", items: zhWorldModelItems }],
+            '/zh/lectures/lecture-05-frontier-debates/': [{ text: "世界模型", items: zhWorldModelItems }],
           },
           outline: {
             level: [2, 3]
@@ -369,153 +230,6 @@ export default withMermaid(
           darkModeSwitchLabel: "主题",
           lightModeSwitchTitle: "切换到浅色模式",
           darkModeSwitchTitle: "切换到深色模式",
-          socialLinks: [{ icon: "github", link: githubRepoTreeLink }]
-        }
-      },
-      vi: {
-        label: "Tiếng Việt",
-        lang: "vi-VN",
-        link: "/vi/",
-        themeConfig: {
-          nav: [
-            { text: "Bài giảng", link: viLectureItems[1].link, activeMatch: '^/vi/(lectures/.*)?$' },
-            { text: "Dự án", link: viProjectItems[0].link, activeMatch: '^/vi/projects/' },
-            { text: "Tài nguyên", link: "/vi/resources/", activeMatch: '^/vi/resources/' },
-            { text: "Kỹ năng", link: "/vi/skills/", activeMatch: '^/vi/skills/' },
-            { text: "Try Harness ↗", link: "https://github.com/walkinglabs/learn-harness-engineering/blob/main/docs/vi/resources/templates/index.md", target: "_blank", rel: "noopener noreferrer" }
-          ],
-          sidebar: {
-            '/vi/projects/': [{ text: "Dự án", items: viProjectItems }],
-            '/vi/resources/': [{ text: "Thư viện Tài nguyên", items: viResourceItems }],
-            '/vi/skills/': [{ text: "Kỹ năng", items: viSkillItems }],
-            '/vi/': [{ text: "Bài giảng", items: viLectureItems }]
-          },
-          outline: {
-            level: [2, 3]
-          },
-          docFooter: {
-            prev: "Trang trước",
-            next: "Trang sau"
-          },
-          lastUpdated: {
-            text: "Cập nhật lần cuối"
-          },
-          returnToTopLabel: "Trở lên trên cùng",
-          sidebarMenuLabel: "Menu",
-          darkModeSwitchLabel: "Giao diện",
-          lightModeSwitchTitle: "Chuyển sang chế độ sáng",
-          darkModeSwitchTitle: "Chuyển sang chế độ tối",
-          socialLinks: [{ icon: "github", link: githubRepoTreeLink }]
-        }
-      },
-      ko: {
-        label: "한국어",
-        lang: "ko",
-        link: "/ko/",
-        themeConfig: {
-          nav: [
-            { text: "강의", link: koLectureItems[1].link, activeMatch: '^/ko/(lectures/.*)?$' },
-            { text: "프로젝트", link: koProjectItems[0].link, activeMatch: '^/ko/projects/' },
-            { text: "리소스 모음", link: "/ko/resources/", activeMatch: '^/ko/resources/' },
-            { text: "스킬", link: "/ko/skills/", activeMatch: '^/ko/skills/' },
-            { text: "Try Harness ↗", link: "https://github.com/walkinglabs/learn-harness-engineering/blob/main/docs/ko/resources/templates/index.md", target: "_blank", rel: "noopener noreferrer" }
-          ],
-          sidebar: {
-            '/ko/projects/': [{ text: "프로젝트", items: koProjectItems }],
-            '/ko/resources/': [{ text: "리소스 모음", items: koResourceItems }],
-            '/ko/skills/': [{ text: "스킬", items: koSkillItems }],
-            '/ko/': [{ text: "강의", items: koLectureItems }]
-          },
-          outline: {
-            level: [2, 3],
-            label: "이 페이지에서"
-          },
-          docFooter: {
-            prev: "이전",
-            next: "다음"
-          },
-          lastUpdated: {
-            text: "마지막 업데이트"
-          },
-          returnToTopLabel: "맨 위로",
-          sidebarMenuLabel: "메뉴",
-          darkModeSwitchLabel: "테마",
-          lightModeSwitchTitle: "라이트 모드로 전환",
-          darkModeSwitchTitle: "다크 모드로 전환",
-          socialLinks: [{ icon: "github", link: githubRepoTreeLink }]
-        }
-      },
-      uz: {
-        label: "Oʻzbek",
-        lang: "uz",
-        link: "/uz/",
-        themeConfig: {
-          nav: [
-            { text: "Maʼruzalar", link: uzLectureItems[1].link, activeMatch: '^/uz/(lectures/.*)?$' },
-            { text: "Loyihalar", link: uzProjectItems[0].link, activeMatch: '^/uz/projects/' },
-            { text: "Kutubxona", link: "/uz/resources/", activeMatch: '^/uz/resources/' },
-            { text: "Malakalar", link: "/uz/skills/", activeMatch: '^/uz/skills/' },
-            { text: "Harness'ni sinash ↗", link: "https://github.com/walkinglabs/learn-harness-engineering/blob/main/docs/uz/resources/templates/index.md", target: "_blank", rel: "noopener noreferrer" }
-          ],
-          sidebar: {
-            '/uz/projects/': [{ text: "Loyihalar", items: uzProjectItems }],
-            '/uz/resources/': [{ text: "Resurslar kutubxonasi", items: uzResourceItems }],
-            '/uz/skills/': [{ text: "Malakalar", items: uzSkillItems }],
-            '/uz/': [{ text: "Maʼruzalar", items: uzLectureItems }]
-          },
-          outline: {
-            level: [2, 3],
-            label: "Ushbu sahifada"
-          },
-          docFooter: {
-            prev: "Oldingi",
-            next: "Keyingi"
-          },
-          lastUpdated: {
-            text: "Oxirgi yangilanish"
-          },
-          returnToTopLabel: "Yuqoriga qaytish",
-          sidebarMenuLabel: "Menyu",
-          darkModeSwitchLabel: "Mavzu",
-          lightModeSwitchTitle: "Yorugʻ rejimga oʻtish",
-          darkModeSwitchTitle: "Qorongʻi rejimga oʻtish",
-          socialLinks: [{ icon: "github", link: githubRepoTreeLink }]
-        }
-      },
-      ru: {
-        label: "Русский",
-        lang: "ru",
-        link: "/ru/",
-        themeConfig: {
-          nav: [
-            { text: "Лекции", link: ruLectureItems[1].link, activeMatch: '^/ru/(lectures/.*)?$' },
-            { text: "Проекты", link: ruProjectItems[0].link, activeMatch: '^/ru/projects/' },
-            { text: "Материалы", link: "/ru/resources/", activeMatch: '^/ru/resources/' },
-            { text: "Скиллы", link: "/ru/skills/", activeMatch: '^/ru/skills/' },
-            { text: "Try Harness ↗", link: "https://github.com/walkinglabs/learn-harness-engineering/blob/main/docs/ru/resources/templates/index.md", target: "_blank", rel: "noopener noreferrer" }
-          ],
-          sidebar: {
-            '/ru/projects/': [{ text: "Проекты", items: ruProjectItems }],
-            '/ru/resources/': [{ text: "Материалы", items: ruResourceItems }],
-            '/ru/skills/': [{ text: "Скиллы", items: ruSkillItems }],
-            '/ru/': [{ text: "Лекции", items: ruLectureItems }]
-          },
-          outline: {
-            level: [2, 3],
-            label: "На этой странице"
-          },
-          docFooter: {
-            prev: "Предыдущая",
-            next: "Следующая"
-          },
-          lastUpdated: {
-            text: "Последнее обновление"
-          },
-          returnToTopLabel: "Наверх",
-          sidebarMenuLabel: "Меню",
-          darkModeSwitchLabel: "Тема",
-          lightModeSwitchTitle: "Включить светлую тему",
-          darkModeSwitchTitle: "Включить тёмную тему",
           socialLinks: [{ icon: "github", link: githubRepoTreeLink }]
         }
       }

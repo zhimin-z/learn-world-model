@@ -6,7 +6,7 @@ layout: page
 if (typeof window !== 'undefined') {
   const base = import.meta.env.BASE_URL || '/'
   const lang = navigator.language || navigator.languages?.[0] || ''
-  let locale = 'en/'
+  let locale = 'zh/'
   if (lang.startsWith('ko')) locale = 'ko/'
   else if (lang.startsWith('zh')) locale = 'zh/'
   else if (lang.startsWith('ru')) locale = 'ru/'
