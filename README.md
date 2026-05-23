@@ -104,7 +104,3 @@ learn-world-model/
 ├── scripts/                               # build utilities (screenshots, PDF)
 └── package.json
 ```
-
-[![Learn Harness Engineering](https://img.shields.io/badge/LEARN_HARNESS_ENGINEERING-0052cc?style=for-the-badge)](https://github.com/walkinglabs/learn-harness-engineering)
-
-**Learn Harness Engineering** — a project-based course on making coding agents reliable through environment design, state tracking, and verification.
