@@ -1,4 +1,6 @@
 <div align="center">
+  <img src="./docs/public/preface.png" width="100%" alt="Learn World Models Banner">
+  <br>
 
 [English](./README.md) · [中文](./README-CN.md)
 
