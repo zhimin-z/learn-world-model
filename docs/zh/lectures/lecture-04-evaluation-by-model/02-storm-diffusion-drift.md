@@ -93,7 +93,7 @@ $$\text{FVD} = \|\mu_{\text{real}} - \mu_{\text{gen}}\|^2 + \text{Tr}\!\left(\Si
 
 给定动作序列（如"向右移动 2 米"），生成视频中对应的像素运动向量是否符合预期？
 
-> **📖 光流（optical flow）**：描述图像中每个像素在相邻两帧之间的运动向量场，即"这个像素从帧 $t$ 移动到帧 $t+1$ 的位移是多少（$\Delta x, \Delta y$）"。光流可以用 RAFT、FlowFormer 等算法自动计算。在世界模型评估中，用光流代替逐像素比较，可以抽象掉纹理细节，专注于"运动是否正确"这一核心问题。
+> **📖 光流**（optical flow）：描述图像中每个像素在相邻两帧之间的运动向量场，即"这个像素从帧 $t$ 移动到帧 $t+1$ 的位移是多少（$\Delta x, \Delta y$）"。光流可以用 RAFT、FlowFormer 等算法自动计算。在世界模型评估中，用光流代替逐像素比较，可以抽象掉纹理细节，专注于"运动是否正确"这一核心问题。
 
 $$\text{ActionFidelity} = 1 - \frac{\|\text{flow}_{\text{generated}} - \text{flow}_{\text{expected}}\|_1}{\|\text{flow}_{\text{expected}}\|_1}$$
 
