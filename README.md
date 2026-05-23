@@ -105,14 +105,6 @@ learn-world-model/
 └── package.json
 ```
 
----
-
-## Related courses
-
-[![Hands-on Modern RL](https://img.shields.io/badge/HANDS--ON_MODERN_RL-0052cc?style=for-the-badge)](https://github.com/walkinglabs/hands-on-modern-rl)
-
-**Hands-on Modern RL** — an open-source curriculum bridging basic RL concepts to LLM alignment, RLVR, and advanced agentic systems.
-
 [![Learn Harness Engineering](https://img.shields.io/badge/LEARN_HARNESS_ENGINEERING-0052cc?style=for-the-badge)](https://github.com/walkinglabs/learn-harness-engineering)
 
 **Learn Harness Engineering** — a project-based course on making coding agents reliable through environment design, state tracking, and verification.
