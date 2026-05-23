@@ -117,4 +117,4 @@ learn-world-model/
 | Name | Role | Affiliation | GitHub |
 | ---- | ---- | ----------- | ------ |
 | Zhimin Zhao | Project Lead | Queen's University | [@zhimin-z](https://github.com/zhimin-z) |
-| Qi Wang | Project Lead | University of Chinese Academy of Sciences | [@qiwang067](https://github.com/qiwang067) |
+| Qi Wang | Project Lead | Shanghai Jiao Tong University | [@qiwang067](https://github.com/qiwang067) |

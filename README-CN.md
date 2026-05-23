@@ -117,4 +117,4 @@ learn-world-model/
 | 姓名 | 职责 | 简介 | GitHub |
 | ---- | ---- | ---- | ------ |
 | 赵志民 | 项目负责人 | 皇后大学 | [@zhimin-z](https://github.com/zhimin-z) |
-| 王琦 | 项目负责人 | 中国科学院大学 | [@qiwang067](https://github.com/qiwang067) |
+| 王琦 | 项目负责人 | 上海交通大学 | [@qiwang067](https://github.com/qiwang067) |
