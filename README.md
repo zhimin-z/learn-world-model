@@ -8,6 +8,9 @@
 
 </div>
 
+> [!CAUTION]
+> ⚠️ **Alpha Preview**: This is an early build. Content is still being completed and revised — sections, examples, and wording may continue to change. Feedback via Issues is welcome.
+
 ---
 
 ## ✨ Preview
