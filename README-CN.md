@@ -2,7 +2,7 @@
 
 [English](./README.md) · [中文](./README-CN.md)
 
-# Learn World Models
+# Learn World Models（⚠️ Alpha 内测版）
 
 > **通过动手构建掌握世界模型：从潜在动力学的直觉，到可运行的仿真、规划与评估系统。**
 

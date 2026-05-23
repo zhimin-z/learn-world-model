@@ -2,7 +2,7 @@
 
 [English](./README.md) · [中文](./README-CN.md)
 
-# Learn World Models
+# Learn World Models（⚠️ Alpha Preview）
 
 > **Learn world models by building them: from the intuition behind latent dynamics to a working simulation, planning, and evaluation system.**
 
