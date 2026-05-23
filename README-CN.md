@@ -104,15 +104,3 @@ learn-world-model/
 ├── scripts/                               # 构建工具（截图、PDF）
 └── package.json
 ```
-
----
-
-## 其他课程
-
-[![Hands-on Modern RL](https://img.shields.io/badge/HANDS--ON_MODERN_RL-0052cc?style=for-the-badge)](https://github.com/walkinglabs/hands-on-modern-rl)
-
-**Hands-on Modern RL** — 从基础 RL 概念到 LLM 对齐、RLVR 和高级 Agent 系统的开源课程。
-
-[![Learn Harness Engineering](https://img.shields.io/badge/LEARN_HARNESS_ENGINEERING-0052cc?style=for-the-badge)](https://github.com/walkinglabs/learn-harness-engineering)
-
-**Learn Harness Engineering** — 通过环境设计、状态追踪与验证机制让 Coding Agent 更可靠的项目制课程。
