@@ -19,8 +19,8 @@ npm run docs:preview    # Preview built site
 
 - `docs/` -- VitePress site
 - `docs/.vitepress/config.mts` -- Nav/sidebar config (EN + ZH locales)
-- `docs/zh/lectures/` -- 5 Chinese lecture pages
-- `docs/en/lectures/` -- 5 English lecture pages (keep in sync with ZH)
+- `docs/zh/lectures/` -- 5 Chinese lectures, each split into sub-pages (`index.md` overview + numbered `.md` files)
+- `docs/en/lectures/` -- 5 English lectures, same structure (keep in sync with ZH)
 - `docs/zh/projects/` / `docs/en/projects/` -- 5 project pages
 - `external/world-model-tutorial/` -- PyTorch source code referenced by projects
 - `external/world-model-tutorial/references.md` -- 4-era history + architecture survey
@@ -56,15 +56,15 @@ By the end of this curriculum, students will be able to:
 
 ### Lectures
 
-Each lecture lives in `docs/en/lectures/<slug>/index.md` and `docs/zh/lectures/<slug>/index.md`.
+Each lecture lives under `docs/en/lectures/<slug>/` and `docs/zh/lectures/<slug>/`, with an `index.md` overview and numbered sub-pages.
 
-| # | Slug | Title | Core Concepts | Source |
-|---|------|-------|---------------|--------|
-| L01 | `lecture-01-internal-simulation` | Internal Simulation & Historical Context | Craik's mental models, predictive coding, 4 eras of WM evolution (1950s RNN → 2018 Ha&Schmidhuber → 2019 Dreamer → 2023 JEPA) | `references.md` §1 |
-| L02 | `lecture-02-encode-and-dynamics` | Observation Encoding & Latent Dynamics | VAE → CNN encoder → ELBO. GRU → MDN-RNN → RSSM (deterministic + stochastic). Encoder as the bridge into Dreamer. | `tutorial/03-observation-encoder/`, `tutorial/04-latent-dynamics/` |
-| L03 | `lecture-03-architecture-patterns` | Architecture Patterns, Learning Paradigms & Planning | Part A: 6 architecture families (RNN/RSSM, Transformer, Diffusion, JEPA, RWM, WAM) with learning paradigm for each. Part B: CEM-MPC → latent Actor-Critic → TD-MPC as bridge. | `references.md` §2, `tutorial/05-policy-learning/`, `tutorial/06-mpc-control/` |
-| L04 | `lecture-04-evaluation-by-model` | Evaluation Metrics by World Model | Per-model metrics: Dreamer (FID, reward correlation), MuZero (value accuracy, visit entropy), TD-MPC (consistency loss, plan efficiency), STORM (token loss, PSNR), Diffusion (physics consistency). Horizon drift as universal failure mode. | `references.md` conclusion |
-| L05 | `lecture-05-frontier-debates` | Frontier Debates: Language, Vision & the Boundary of the World | 5 open debates anchored in Xie Saining / LeCun / Sutton viewpoints. No answers given. | Xie Saining interview, LeCun 2022, Sutton Bitter Lesson |
+| # | Slug | Sub-pages | Core Concepts | Source |
+|---|------|-----------|---------------|--------|
+| L01 | `lecture-01-internal-simulation` | `index`, `01-foundations`, `02-four-eras`, `03-why-now` | Craik's mental models, predictive coding, 4 eras of WM evolution (1950s RNN → 2018 Ha&Schmidhuber → 2019 Dreamer → 2023 JEPA) | `references.md` §1 |
+| L02 | `lecture-02-encode-and-dynamics` | `index`, `01-encoding`, `02-dynamics` | VAE → CNN encoder → ELBO. GRU → MDN-RNN → RSSM (deterministic + stochastic). Encoder as the bridge into Dreamer. Dreamer V1–V4 progression. | `tutorial/03-observation-encoder/`, `tutorial/04-latent-dynamics/` |
+| L03 | `lecture-03-architecture-patterns` | `index`, `01-architectures`, `02-planning` | Part A: 6 architecture families (RNN/RSSM, Transformer, Diffusion, JEPA, RWM, WAM) with learning paradigm for each. Part B: CEM-MPC → latent Actor-Critic → TD-MPC as bridge. | `references.md` §2, `tutorial/05-policy-learning/`, `tutorial/06-mpc-control/` |
+| L04 | `lecture-04-evaluation-by-model` | `index`, `01-model-metrics`, `02-storm-diffusion-drift`, `03-deployment` | Per-model metrics: Dreamer (FID, reward correlation), MuZero (value accuracy, visit entropy), TD-MPC (consistency loss, plan efficiency), STORM (token loss, PSNR), Diffusion (physics consistency). Horizon drift as universal failure mode. Real-world deployment pitfalls. | `references.md` conclusion |
+| L05 | `lecture-05-frontier-debates` | `index`, `01-language-and-bitter-lesson`, `02-agi-and-convergence`, `03-data-and-future` | 5 open debates anchored in Xie Saining / LeCun / Sutton viewpoints. No answers given. Architecture bets framed as philosophical stakes, not selection guide. | Xie Saining interview, LeCun 2022, Sutton Bitter Lesson |
 
 ---
 
@@ -108,7 +108,7 @@ L04 (Evaluation vocabulary) → P05 (STORM + Three-Model Dashboard)
 
 ### Content Placement in VitePress
 
-- Lecture pages: `docs/en/lectures/lecture-0N-<slug>/index.md` + `docs/zh/lectures/lecture-0N-<slug>/index.md`
+- Lecture pages: `docs/en/lectures/lecture-0N-<slug>/index.md` (overview) + numbered sub-pages `01-*.md`, `02-*.md`, etc. Same structure for `docs/zh/`
 - Project pages: `docs/en/projects/project-0N-<slug>/index.md` + `docs/zh/projects/project-0N-<slug>/index.md`
 - World model landing: `docs/en/world-model/index.md` + `docs/zh/world-model/index.md`
 - Sidebar group: `enWorldModelItems` / `zhWorldModelItems` arrays in `docs/.vitepress/config.mts`
