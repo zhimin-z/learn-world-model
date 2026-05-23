@@ -109,3 +109,12 @@ learn-world-model/
 ├── scripts/                               # build utilities (screenshots, PDF)
 └── package.json
 ```
+
+---
+
+## Contributors (Tutorial)
+
+| Name | Role | Affiliation | GitHub |
+| ---- | ---- | ----------- | ------ |
+| Zhimin Zhao | Project Lead | Queen's University | [@zhimin-z](https://github.com/zhimin-z) |
+| Qi Wang | Project Lead | University of Chinese Academy of Sciences | [@qiwang067](https://github.com/qiwang067) |

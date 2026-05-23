@@ -109,3 +109,12 @@ learn-world-model/
 ├── scripts/                               # 构建工具（截图、PDF）
 └── package.json
 ```
+
+---
+
+## 贡献者名单（教程部分）
+
+| 姓名 | 职责 | 简介 | GitHub |
+| ---- | ---- | ---- | ------ |
+| 赵志民 | 项目负责人 | 皇后大学 | [@zhimin-z](https://github.com/zhimin-z) |
+| 王琦 | 项目负责人 | 中国科学院大学 | [@qiwang067](https://github.com/qiwang067) |
