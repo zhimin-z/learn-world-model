@@ -106,8 +106,8 @@ LeCun 的乐观更宏大一些，但方向一致：
 
 [1] Sutton, R. *The Bitter Lesson*. 2019. http://www.incompleteideas.net/IncIdeas/BitterLesson.html
 
-[2] LeCun, Y. *A Path Towards Autonomous Machine Intelligence* — [见 L01 参考文献 [4]]
+[2] LeCun, Y. *A Path Towards Autonomous Machine Intelligence*（见 L01 参考文献 [4]）
 
-[3] Ha & Schmidhuber (2018) — [见 L01 参考文献 [2]]
+[3] Ha & Schmidhuber (2018)（见 L01 参考文献 [2]）
 
 [4] 谢赛宁 (Saining Xie) 访谈《商业访谈录》(张小珺, 2024). YouTube: https://www.youtube.com/watch?v=rIwgZWzUKm8

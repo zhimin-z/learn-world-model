@@ -69,28 +69,59 @@ TD 学习用 Bellman 方程，以"当前奖励 + 下一步 Q 值估计"代替完
 
 本讲涉及的关键论文，按出现顺序排列：
 
-- [Ha & Schmidhuber (2018) — World Models](https://arxiv.org/abs/1803.10122)：V/M/C 三模块框架与梦中训练的原始论文
-- [Hafner et al. (2019) — Dreamer V1](https://arxiv.org/abs/1912.01603)、[V2 (2020)](https://arxiv.org/abs/2010.02193)、[V3 (2023)](https://arxiv.org/abs/2301.04104)：RSSM 与潜在 Actor-Critic 系列
-- [Schrittwieser et al. (2020) — MuZero](https://arxiv.org/abs/1911.08265)：隐式世界模型 + MCTS，围棋与 Atari 超人水平
-- [Hansen et al. (2022) — TD-MPC](https://arxiv.org/abs/2203.04955)、[TD-MPC2 (2024)](https://arxiv.org/abs/2310.16828)：CEM + TD 混合规划
-- [Wu et al. (2022) — DayDreamer](https://arxiv.org/abs/2206.14176)：Dreamer 在真实机器人上的部署
-- [Micheli et al. (2022) — IRIS](https://arxiv.org/abs/2209.14430)：VQ-VAE 离散化 + Transformer 自回归世界模型
-- [Chen et al. (2023) — STORM](https://arxiv.org/abs/2310.09615)：随机 Transformer 世界模型，保留 RSSM 随机路径
-- [Assran et al. (2023) — I-JEPA](https://arxiv.org/abs/2301.08243)、[Bardes et al. (2024) — V-JEPA](https://arxiv.org/abs/2404.08471)、[V-JEPA 2 (2025)](https://arxiv.org/abs/2506.09985)：语义空间预测架构系列
-- [Bruce et al. (2024) — Genie](https://arxiv.org/abs/2402.15391)：可控交互式世界模型，从视频中学习潜在动作
+**基础架构**
+- [Ha & Schmidhuber (2018): World Models](https://arxiv.org/abs/1803.10122)：V/M/C 三模块框架与梦中训练的原始论文
+- [Hafner et al. (2019): PlaNet / RSSM](https://arxiv.org/abs/1811.04551)：确定性+随机双路径潜在动力学模型
+- [Hafner et al. (2019/2020/2023): Dreamer V1/V2/V3](https://arxiv.org/abs/1912.01603)：RSSM 与潜在 Actor-Critic 系列
+
+**Transformer 架构**
+- [Micheli et al. (2022): IRIS](https://arxiv.org/abs/2209.00588)：VQ-VAE 离散化 + GPT 自回归世界模型，Atari 100k 1.046 HNS
+- [Zhang et al. (2023): STORM](https://arxiv.org/abs/2310.09615)：分类 VAE + 单 token Transformer，126.7% HNS，4.3h 训练
+
+**Diffusion 架构**
+- [Alonso et al. (2024): Diamond](https://arxiv.org/abs/2405.12399)：扩散世界模型，首次在 Atari 上 FVD 低于真实游戏帧
+
+**规划机制**
+- [Schrittwieser et al. (2020): MuZero](https://arxiv.org/abs/1911.08265)：隐式世界模型 + MCTS，围棋与 Atari 超人水平
+- [Hansen et al. (2022): TD-MPC](https://arxiv.org/abs/2203.04955)、[TD-MPC2 (2024)](https://arxiv.org/abs/2310.16828)：CEM + TD 混合规划
+
+**JEPA 系列**
+- [Assran et al. (2023): I-JEPA](https://arxiv.org/abs/2301.08243)、[Bardes et al. (2024): V-JEPA](https://arxiv.org/abs/2404.08471)：语义空间预测，无像素重建
+
+**Genie / 可交互生成**
+- [Bruce et al. (2024): Genie](https://arxiv.org/abs/2402.15391)：从无标注视频自动发现 latent action，11B 参数
+- [Hafner et al. (2025): Scalable World Models](https://arxiv.org/abs/2512.13030)：shortcut forcing + 高效 Transformer，首次从离线数据在 Minecraft 获得钻石
+
+**RWM / 机器人部署**
+- [Li et al. (2026): RWM-U](https://arxiv.org/abs/2504.16680)：离线 MBRL + 集成不确定性，四足/仿人机器人验证
+- [NeurIPS 2025: Self-Forcing](https://arxiv.org/abs/2602.15922)：训练时引入自预测反馈，缓解 teacher forcing 差距
+
+**WAM / 联合学习**
+- [Bi et al. (2026): Motus](https://arxiv.org/abs/2602.06949)：统一 latent action，跨具身迁移，CVPR 2026
+- [NVIDIA (2026): WAM](https://arxiv.org/abs/2509.20328)：预训练视频模型作为 zero-shot policy
+- [NVIDIA (2025): Cosmos](https://arxiv.org/abs/2501.03575)：通用物理 AI 世界基础模型，开源开权重
+- [Hu et al. (2023): GAIA-1](https://arxiv.org/abs/2309.17080)：自动驾驶生成世界模型，视频+文本+动作联合建模
 
 ---
 
 ## 参考文献
 
-[1] Robine, J., Harter, M., Karwowski, J., & Tresp, V. [Transformer-based World Models Are Happy With 100k Interactions](https://arxiv.org/abs/2310.09615) (STORM). ICLR, 2023.
+[1] Zhang, W., Wang, G., Sun, J., Yuan, Y., & Huang, G. [STORM: Efficient Stochastic Transformer based World Models for Reinforcement Learning](https://arxiv.org/abs/2310.09615). NeurIPS, 2023.
 
-[2] Micheli, V., Alonso, E., & Fleuret, F. [Transformers are Sample Efficient World Models](https://arxiv.org/abs/2209.14430) (IRIS). ICLR, 2023.
+[2] Micheli, V., Alonso, E., & Fleuret, F. [Transformers are Sample-Efficient World Models](https://arxiv.org/abs/2209.00588) (IRIS). ICLR, 2023.
 
-[3] LeCun, Y. *A Path Towards Autonomous Machine Intelligence* — [见 L01 参考文献 [4]]
+[3] LeCun, Y. *A Path Towards Autonomous Machine Intelligence*（见 L01 参考文献 [4]）
 
 [4] Hansen, N., Su, H., & Wang, X. [TD-MPC: Temporal Difference Learning for Model Predictive Control](https://arxiv.org/abs/2203.04955). ICLR, 2022.
 
 [5] Schrittwieser, J., Antonoglou, I., Hubert, T., Simonyan, K., Sifre, L., Schmitt, S., Guez, A., Lockhart, E., Hassabis, D., Graepel, T., Lillicrap, T., & Silver, D. [Mastering Atari, Go, Chess and Shogi by Planning with a Learned Model](https://arxiv.org/abs/1911.08265) (MuZero). Nature, 2020.
 
-[6] Ho, J., Jain, A., & Abbeel, P. [Denoising Diffusion Probabilistic Models](https://arxiv.org/abs/2006.11239). NeurIPS, 2020.
+[6] Alonso, E., Micheli, V., & Fleuret, F. [Diffusion for World Modeling: Visual Details Matter in Atari](https://arxiv.org/abs/2405.12399) (Diamond). NeurIPS, 2024.
+
+[7] Bruce, J., Dennis, M., Edwards, A., Parker-Holder, J., Shi, Y., Hughes, E., … de Freitas, N. [Genie: Generative Interactive Environments](https://arxiv.org/abs/2402.15391). ICML, 2024.
+
+[8] Hu, A., Russell, L., Yeo, H., Murez, Z., Fedoseev, G., Kendall, A., Shotton, J., & Corrado, G. [GAIA-1: A Generative World Model for Autonomous Driving](https://arxiv.org/abs/2309.17080). arXiv, 2023.
+
+[9] NVIDIA. [Cosmos World Foundation Model Platform for Physical AI](https://arxiv.org/abs/2501.03575). arXiv, 2025.
+
+[10] Hafner, D., Yan, W., & Lillicrap, T. [Training Agents Inside of Scalable World Models](https://arxiv.org/abs/2512.13030). arXiv, 2025.

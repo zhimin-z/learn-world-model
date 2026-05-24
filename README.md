@@ -42,7 +42,7 @@ Five lectures and five projects that take you from the intuition behind world mo
 |---|------|-------|-------------|
 | L01 | Lecture | Internal Simulation & Historical Context | Craik's mental models, predictive coding, four eras of world model evolution |
 | L02 | Lecture | Observation Encoding & Latent Dynamics | VAE, CNN encoder, ELBO, GRU → MDN-RNN → RSSM |
-| L03 | Lecture | Architecture Patterns, Learning Paradigms & Planning | Six architecture families, CEM-MPC, latent Actor-Critic, TD-MPC |
+| L03 | Lecture | Architecture Patterns, Learning Paradigms & Planning | Seven architecture families, CEM-MPC, latent Actor-Critic, TD-MPC |
 | L04 | Lecture | Evaluation Metrics by World Model | FID, reward correlation, consistency loss, PSNR, horizon drift |
 | L05 | Lecture | Frontier Debates | Language vs physical grounding, Bitter Lesson, AGI as a research target |
 | P01 | Project | Train a VAE Encoder | Compress 64×64 pixels to latent z; reconstruction loss curve |

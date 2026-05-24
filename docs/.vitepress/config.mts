@@ -7,7 +7,7 @@ const brandLogo = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/sv
 const githubRepoTreeLink = "https://github.com/zhimin-z/learn-world-model/tree/main";
 
 const zhWorldModelItems = [
-  { text: "欢迎", link: "/zh/world-model/" },
+  { text: "欢迎", link: "/zh/" },
   {
     text: "第一讲：内部仿真与历史脉络",
     collapsed: false,
@@ -15,7 +15,8 @@ const zhWorldModelItems = [
       { text: "导读", link: "/zh/lectures/lecture-01-internal-simulation/" },
       { text: "思想基石", link: "/zh/lectures/lecture-01-internal-simulation/01-foundations" },
       { text: "四个时代", link: "/zh/lectures/lecture-01-internal-simulation/02-four-eras" },
-      { text: "为什么是现在", link: "/zh/lectures/lecture-01-internal-simulation/03-why-now" },
+      { text: "世界模型的价值与时代背景", link: "/zh/lectures/lecture-01-internal-simulation/03-why-now" },
+      { text: "课程路线图", link: "/zh/lectures/lecture-01-internal-simulation/04-roadmap" },
     ]
   },
   {
@@ -34,7 +35,8 @@ const zhWorldModelItems = [
     items: [
       { text: "导读", link: "/zh/lectures/lecture-03-architecture-patterns/" },
       { text: "Part A：RNN、Transformer、Diffusion", link: "/zh/lectures/lecture-03-architecture-patterns/01-architectures-rnn-transformer-diffusion" },
-      { text: "Part A（续）：JEPA、RWM、WAM", link: "/zh/lectures/lecture-03-architecture-patterns/02-architectures-jepa-rwm-wam" },
+      { text: "Part A（续）：JEPA 与 RWM", link: "/zh/lectures/lecture-03-architecture-patterns/02-architectures-jepa-rwm-wam" },
+      { text: "Part A（续二）：Genie、WAM 与选型", link: "/zh/lectures/lecture-03-architecture-patterns/03-architectures-genie-wam" },
       { text: "Part B：CEM-MPC 与 Actor-Critic", link: "/zh/lectures/lecture-03-architecture-patterns/03-planning-cem-ac" },
       { text: "Part B（续）：TD-MPC 与规划对比", link: "/zh/lectures/lecture-03-architecture-patterns/04-planning-tdmpc" },
     ]
@@ -44,9 +46,14 @@ const zhWorldModelItems = [
     collapsed: false,
     items: [
       { text: "导读", link: "/zh/lectures/lecture-04-evaluation-by-model/" },
-      { text: "Dreamer 与 MuZero 指标", link: "/zh/lectures/lecture-04-evaluation-by-model/01-model-metrics-dreamer-muzero" },
+      { text: "Dreamer 指标", link: "/zh/lectures/lecture-04-evaluation-by-model/01-model-metrics-dreamer-muzero" },
+      { text: "MuZero 指标", link: "/zh/lectures/lecture-04-evaluation-by-model/02-model-metrics-muzero" },
       { text: "TD-MPC 指标", link: "/zh/lectures/lecture-04-evaluation-by-model/02-model-metrics-tdmpc" },
-      { text: "STORM、扩散世界模型与漂移", link: "/zh/lectures/lecture-04-evaluation-by-model/03-storm-diffusion-drift" },
+      { text: "STORM 指标", link: "/zh/lectures/lecture-04-evaluation-by-model/03-storm-diffusion-drift" },
+      { text: "扩散模型与时程漂移", link: "/zh/lectures/lecture-04-evaluation-by-model/04-diffusion-drift" },
+      { text: "真实部署评测", link: "/zh/lectures/lecture-04-evaluation-by-model/04-deployment-metrics" },
+      { text: "七个常见坑与落地策略", link: "/zh/lectures/lecture-04-evaluation-by-model/05-deployment-pitfalls" },
+      { text: "总结、落地策略与展望", link: "/zh/lectures/lecture-04-evaluation-by-model/06-summary" },
     ]
   },
   {
@@ -209,12 +216,12 @@ export default withMermaid(
         link: "/zh/",
         themeConfig: {
           nav: [
-            { text: "讲义", link: "/zh/world-model/", activeMatch: '^/zh/(lectures/|world-model/)' },
+            { text: "讲义", link: "/zh/", activeMatch: '^/zh/(|lectures/)' },
             { text: "项目", link: zhProjectItems[0].link, activeMatch: '^/zh/projects/' },
           ],
           sidebar: {
             '/zh/projects/': [{ text: "项目", items: zhProjectItems }],
-            '/zh/world-model/': [{ text: "世界模型", items: zhWorldModelItems }],
+            '/zh/': [{ text: "世界模型", items: zhWorldModelItems }],
             '/zh/lectures/lecture-01-internal-simulation/': [{ text: "世界模型", items: zhWorldModelItems }],
             '/zh/lectures/lecture-02-encode-and-dynamics/': [{ text: "世界模型", items: zhWorldModelItems }],
             '/zh/lectures/lecture-03-architecture-patterns/': [{ text: "世界模型", items: zhWorldModelItems }],

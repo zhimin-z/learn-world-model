@@ -28,7 +28,7 @@
 ![讲义页面](./docs/public/screenshots/readme/en-lecture-01.png)
 
 ### 🗂️ 架构深度解析
-> 六大架构族、三种规划机制、逐维对比表格。
+> 七大架构族、三种规划机制、逐维对比表格。
 
 ![架构讲义](./docs/public/screenshots/readme/en-lecture-03.png)
 
@@ -42,7 +42,7 @@
 |---|------|------|---------|
 | L01 | 讲义 | 内部仿真与历史背景 | Craik 的心智模型、预测编码、世界模型演化的四个时代 |
 | L02 | 讲义 | 观测编码与潜在动力学 | VAE、CNN 编码器、ELBO，GRU → MDN-RNN → RSSM |
-| L03 | 讲义 | 架构模式、学习范式与规划 | 六大架构族、CEM-MPC、潜在 Actor-Critic、TD-MPC |
+| L03 | 讲义 | 架构模式、学习范式与规划 | 七大架构族、CEM-MPC、潜在 Actor-Critic、TD-MPC |
 | L04 | 讲义 | 按模型划分的评估指标 | FID、奖励相关性、一致性损失、PSNR、视野漂移 |
 | L05 | 讲义 | 前沿争论 | 语言 vs 物理接地、Bitter Lesson、AGI 作为研究目标 |
 | P01 | 项目 | 训练 VAE 编码器 | 64×64 像素图像压缩为潜在向量；重建损失曲线 |
