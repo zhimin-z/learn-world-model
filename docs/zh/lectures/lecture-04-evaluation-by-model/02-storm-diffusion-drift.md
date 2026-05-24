@@ -6,7 +6,7 @@ lecture: 4
 
 # STORM、扩散世界模型与通用失效模式
 
-## STORM（Transformer 动力学）
+## STORM（Transformer 动力学）[见 L03 参考文献 [1]]
 
 *你在 P05 把 P03 Dreamer 的 GRU 动力学头替换成了 Transformer，并做了消融对比实验。*
 
@@ -55,7 +55,7 @@ $$\text{PSNR} = 10 \cdot \log_{10}\!\left(\frac{\text{MAX}^2}{\text{MSE}}\right)
 
 ---
 
-## 扩散世界模型（Diamond）
+## 扩散世界模型（Diamond）[5]
 
 扩散世界模型直接在像素空间生成视频帧，具有极高的视觉保真度。但这类模型有独特的失效模式：物理世界的内在规律很难仅从生成概率中涌现出来。
 

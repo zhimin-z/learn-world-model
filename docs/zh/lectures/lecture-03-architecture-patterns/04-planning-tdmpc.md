@@ -1,84 +1,14 @@
 ---
-title: Part B：规划机制
-description: CEM-MPC 随机搜索、Dreamer 潜在 Actor-Critic、TD-MPC 混合方案，三种规划机制的原理、对比与取舍。
+title: Part B（续）：TD-MPC 与规划机制对比
+description: TD-MPC 的时序差分混合规划方案、与 DreamerV3 的对比，以及三种规划机制的综合总结。
 lecture: 3
 ---
 
-# Part B：规划机制
-
-有了世界模型，智能体如何用它来选择动作？这一部分是 P03 和 P04 的直接前置，介绍三种规划机制：从最直觉的随机搜索，到 Dreamer 的想象训练，再到 TD-MPC 的混合方案。
-
-还有一类任务把反事实推理做到极致：**反事实型范式**，不预测像素，只在抽象的价值或奖励层面做出正确预测。MuZero（围棋、国际象棋、Atari 超人水平）的隐式世界模型维护三个预测头：
-
-| 预测头 | 预测目标 | 作用 |
-|--------|----------|------|
-| reward head | 即时奖励 $r_t$ | 评估当前步的好坏 |
-| value head | 未来累计价值 $V(s_t)$ | 引导 MCTS 搜索方向 |
-| policy prior | 动作概率分布 $\pi(a \mid s_t)$ | 减少 MCTS 需要搜索的分支数 |
-
-只要这三个预测头准确，潜在状态 $s_t$ 长什么样并不重要，**对 agent 来说，"真实还原世界"不一定是最优目标**。
-
-> **📖 MCTS**（Monte Carlo Tree Search）：从当前状态出发，反复进行四个步骤：①**选择**：沿树向下，选择 UCB 分数最高的节点；②**扩展**：在叶节点尝试一个新动作；③**模拟/评估**：用神经网络估计新节点的价值（MuZero 直接用 value head）；④**反向传播**：将价值估计沿路径向上更新。重复数百次后，访问次数最多的动作就是"经过充分搜索认为最优的动作"。
-
----
-
-## 机制一：CEM 射击法 MPC
-
-> **📖 MPC**（Model Predictive Control）：在每个时间步，用模型向前预测未来 $H$ 步，选出最优的动作序列，只执行第一个动作，然后在下一步重新规划。即使模型不完美，频繁重规划可以及时纠正误差，不会让错误无限累积。
-
-**一句话描述**：随机采样一批动作序列，在模型中"想象"执行，选出预期回报最高的序列，只执行第一步，然后重复。
-
-**算法步骤**：
-
-```
-CEM-MPC 规划循环（每步执行一次）
-
-输入：当前状态 s_t，世界模型 f，奖励模型 r，规划步数 H，精化轮数 K
-
-1. 初始化动作分布：μ ← 0, σ ← 1
-
-2. FOR k = 1 to K（精化轮）：
-   a. 从 N(μ, σ²) 采样 N 条动作序列：{a^(i)_{t:t+H}}
-   b. FOR 每条序列 i：
-        展开想象轨迹：s^(i)_{t+1} = f(s_t, a^(i)_t), ..., s^(i)_{t+H}
-        计算累计奖励：R^(i) = Σ_{h=0}^{H-1} γ^h · r(s^(i)_{t+h}, a^(i)_{t+h})
-   c. 选出 Top-K 条序列（按 R^(i) 降序）
-   d. 用 Top-K 序列重新拟合：μ ← mean(Top-K), σ ← std(Top-K)
-
-3. 执行 μ 的第一个动作：a_t ← μ[0]
-```
-
-第一轮采样覆盖范围广但精度低，找到"高回报区域大概在哪里"；后续几轮用精英序列重新拟合分布，让采样范围逐渐向高回报区域收缩。
-
-**局限**：在高维连续动作空间（如机械臂同时控制 7 个关节）随机搜索效率极低。这是 TD-MPC 要解决的核心问题：用 Q 函数引导搜索，而不是盲目采样。
-
-**优点**：简单、无梯度、易于实现，对世界模型的可微分性没有要求。
-
----
-
-## 机制二：潜在空间中的 Actor-Critic（Dreamer 的做法）
-
-> **📖 Actor-Critic 架构**：由两个网络组成，**Actor**（策略网络 $\pi_\theta(a|s)$）负责"决策"，**Critic**（价值网络 $V_\phi(s)$）负责"评估"。Critic 提供的基准（baseline）大幅降低了梯度估计的方差，使训练更稳定。
-
-Dreamer 的核心洞察：与其在真实环境里收集大量数据训练策略，不如在**世界模型的想象轨迹**中训练，速度快、无风险、可微分。
-
-**训练流程**：
-1. **想象展开**：从当前潜在状态 $z_t$ 出发，用 Actor 采样动作，RSSM 滚动预测 $H$ 步
-2. **Critic 估值**：对每个想象状态计算 $V(z_h)$，用 $\lambda$-return 构造训练目标
-3. **Actor 优化**：Actor 通过反向传播（跨越整条想象轨迹）最大化 Critic 预测的累计价值
-4. **世界模型更新**：用真实环境数据（重建损失 + KL）更新 RSSM 和编码器
-
-**λ-return 的直觉**：纯蒙特卡洛需要等 episode 结束才能得到真实回报，方差高；纯 TD 只看一步，偏差大。λ-return 是两者的插值，用"前 $k$ 步真实奖励 + 第 $k+1$ 步 Critic 估值"构造 $k$ 步回报，再对所有 $k$ 加权平均。$\lambda \to 1$ 信任真实 rollout，$\lambda \to 0$ 信任 Critic。
-
-**为什么可微分很重要**：Actor 的梯度直接从 RSSM 的可微分动力学中流过，比蒙特卡洛采样估计策略梯度精确得多。
-
-**模型漏洞（Model Exploitation）问题**：Policy 可能找到模型里高奖励但真实世界不成立的动作，用高频抖动动作在世界模型里获得高分，但这个动作在真机上只会损坏电机。Dreamer 系列的解决思路是定期用真实环境数据更新世界模型，同时限制想象展开的步数，但这个问题并没有被根本解决。
-
----
+# Part B（续）：TD-MPC 与规划机制对比
 
 ## 机制三：TD-MPC，两者的桥梁
 
-TD-MPC（Temporal Difference Model Predictive Control）同时拥有 MPC 的前瞻规划能力和 Actor-Critic 的时序差分学习效率。
+TD-MPC（Temporal Difference Model Predictive Control）[4] 同时拥有 MPC 的前瞻规划能力和 Actor-Critic 的时序差分学习效率。
 
 **核心设计**：
 
@@ -148,3 +78,19 @@ TD 学习用 Bellman 方程，以"当前奖励 + 下一步 Q 值估计"代替完
 - [Chen et al. (2023) — STORM](https://arxiv.org/abs/2310.09615)：随机 Transformer 世界模型，保留 RSSM 随机路径
 - [Assran et al. (2023) — I-JEPA](https://arxiv.org/abs/2301.08243)、[Bardes et al. (2024) — V-JEPA](https://arxiv.org/abs/2404.08471)、[V-JEPA 2 (2025)](https://arxiv.org/abs/2506.09985)：语义空间预测架构系列
 - [Bruce et al. (2024) — Genie](https://arxiv.org/abs/2402.15391)：可控交互式世界模型，从视频中学习潜在动作
+
+---
+
+## 参考文献
+
+[1] Robine, J., Harter, M., Karwowski, J., & Tresp, V. [Transformer-based World Models Are Happy With 100k Interactions](https://arxiv.org/abs/2310.09615) (STORM). ICLR, 2023.
+
+[2] Micheli, V., Alonso, E., & Fleuret, F. [Transformers are Sample Efficient World Models](https://arxiv.org/abs/2209.14430) (IRIS). ICLR, 2023.
+
+[3] LeCun, Y. *A Path Towards Autonomous Machine Intelligence* — [见 L01 参考文献 [4]]
+
+[4] Hansen, N., Su, H., & Wang, X. [TD-MPC: Temporal Difference Learning for Model Predictive Control](https://arxiv.org/abs/2203.04955). ICLR, 2022.
+
+[5] Schrittwieser, J., Antonoglou, I., Hubert, T., Simonyan, K., Sifre, L., Schmitt, S., Guez, A., Lockhart, E., Hassabis, D., Graepel, T., Lillicrap, T., & Silver, D. [Mastering Atari, Go, Chess and Shogi by Planning with a Learned Model](https://arxiv.org/abs/1911.08265) (MuZero). Nature, 2020.
+
+[6] Ho, J., Jain, A., & Abbeel, P. [Denoising Diffusion Probabilistic Models](https://arxiv.org/abs/2006.11239). NeurIPS, 2020.

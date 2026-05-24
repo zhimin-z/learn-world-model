@@ -24,7 +24,8 @@ const zhWorldModelItems = [
     items: [
       { text: "导读", link: "/zh/lectures/lecture-02-encode-and-dynamics/" },
       { text: "Part A：观测编码", link: "/zh/lectures/lecture-02-encode-and-dynamics/01-encoding" },
-      { text: "Part B：潜在动力学", link: "/zh/lectures/lecture-02-encode-and-dynamics/02-dynamics" },
+      { text: "Part B：GRU、MDN-RNN、RSSM", link: "/zh/lectures/lecture-02-encode-and-dynamics/02-dynamics" },
+      { text: "Part B（续）：Dreamer 系列迭代", link: "/zh/lectures/lecture-02-encode-and-dynamics/03-dynamics-dreamer-series" },
     ]
   },
   {
@@ -32,8 +33,10 @@ const zhWorldModelItems = [
     collapsed: false,
     items: [
       { text: "导读", link: "/zh/lectures/lecture-03-architecture-patterns/" },
-      { text: "Part A：六大架构族", link: "/zh/lectures/lecture-03-architecture-patterns/01-architectures" },
-      { text: "Part B：规划机制", link: "/zh/lectures/lecture-03-architecture-patterns/02-planning" },
+      { text: "Part A：RNN、Transformer、Diffusion", link: "/zh/lectures/lecture-03-architecture-patterns/01-architectures-rnn-transformer-diffusion" },
+      { text: "Part A（续）：JEPA、RWM、WAM", link: "/zh/lectures/lecture-03-architecture-patterns/02-architectures-jepa-rwm-wam" },
+      { text: "Part B：CEM-MPC 与 Actor-Critic", link: "/zh/lectures/lecture-03-architecture-patterns/03-planning-cem-ac" },
+      { text: "Part B（续）：TD-MPC 与规划对比", link: "/zh/lectures/lecture-03-architecture-patterns/04-planning-tdmpc" },
     ]
   },
   {
@@ -41,9 +44,11 @@ const zhWorldModelItems = [
     collapsed: false,
     items: [
       { text: "导读", link: "/zh/lectures/lecture-04-evaluation-by-model/" },
-      { text: "Dreamer、MuZero 与 TD-MPC", link: "/zh/lectures/lecture-04-evaluation-by-model/01-model-metrics" },
-      { text: "STORM、扩散世界模型与漂移", link: "/zh/lectures/lecture-04-evaluation-by-model/02-storm-diffusion-drift" },
-      { text: "真实部署与课程总结", link: "/zh/lectures/lecture-04-evaluation-by-model/03-deployment" },
+      { text: "Dreamer 与 MuZero 指标", link: "/zh/lectures/lecture-04-evaluation-by-model/01-model-metrics-dreamer-muzero" },
+      { text: "TD-MPC 指标", link: "/zh/lectures/lecture-04-evaluation-by-model/02-model-metrics-tdmpc" },
+      { text: "STORM、扩散世界模型与漂移", link: "/zh/lectures/lecture-04-evaluation-by-model/03-storm-diffusion-drift" },
+      { text: "真实部署评测", link: "/zh/lectures/lecture-04-evaluation-by-model/04-deployment-metrics" },
+      { text: "七个坑、落地策略与课程总结", link: "/zh/lectures/lecture-04-evaluation-by-model/05-deployment-pitfalls" },
     ]
   },
   {
@@ -52,8 +57,8 @@ const zhWorldModelItems = [
     items: [
       { text: "导读", link: "/zh/lectures/lecture-05-frontier-debates/" },
       { text: "语言是鸦片与 Bitter Lesson", link: "/zh/lectures/lecture-05-frontier-debates/01-language-and-bitter-lesson" },
-      { text: "AGI 与两条路的收敛", link: "/zh/lectures/lecture-05-frontier-debates/02-agi-and-convergence" },
-      { text: "数据从哪里来与结语", link: "/zh/lectures/lecture-05-frontier-debates/03-data-and-future" },
+      { text: "世界模型与 LLM 的分工与收敛", link: "/zh/lectures/lecture-05-frontier-debates/02-agi-and-convergence" },
+      { text: "数据从哪里来与各路线赌注", link: "/zh/lectures/lecture-05-frontier-debates/03-data-and-future" },
     ]
   },
 ];
@@ -85,7 +90,8 @@ const enWorldModelItems = [
     items: [
       { text: "Overview", link: "/en/lectures/lecture-02-encode-and-dynamics/" },
       { text: "Part A: Observation Encoding", link: "/en/lectures/lecture-02-encode-and-dynamics/01-encoding" },
-      { text: "Part B: Latent Dynamics", link: "/en/lectures/lecture-02-encode-and-dynamics/02-dynamics" },
+      { text: "Part B: GRU, MDN-RNN & RSSM", link: "/en/lectures/lecture-02-encode-and-dynamics/02-dynamics" },
+      { text: "Part B (cont): Dreamer Series", link: "/en/lectures/lecture-02-encode-and-dynamics/03-dynamics-dreamer-series" },
     ]
   },
   {
@@ -93,8 +99,10 @@ const enWorldModelItems = [
     collapsed: false,
     items: [
       { text: "Overview", link: "/en/lectures/lecture-03-architecture-patterns/" },
-      { text: "Part A: Six Architecture Families", link: "/en/lectures/lecture-03-architecture-patterns/01-architectures" },
-      { text: "Part B: Planning Mechanisms", link: "/en/lectures/lecture-03-architecture-patterns/02-planning" },
+      { text: "Part A: RNN, Transformer & Diffusion", link: "/en/lectures/lecture-03-architecture-patterns/01-architectures-rnn-transformer-diffusion" },
+      { text: "Part A (cont): JEPA, RWM & WAM", link: "/en/lectures/lecture-03-architecture-patterns/02-architectures-jepa-rwm-wam" },
+      { text: "Part B: CEM-MPC & Actor-Critic", link: "/en/lectures/lecture-03-architecture-patterns/03-planning-cem-ac" },
+      { text: "Part B (cont): TD-MPC & Comparison", link: "/en/lectures/lecture-03-architecture-patterns/04-planning-tdmpc" },
     ]
   },
   {
@@ -102,9 +110,11 @@ const enWorldModelItems = [
     collapsed: false,
     items: [
       { text: "Overview", link: "/en/lectures/lecture-04-evaluation-by-model/" },
-      { text: "Dreamer, MuZero & TD-MPC", link: "/en/lectures/lecture-04-evaluation-by-model/01-model-metrics" },
-      { text: "STORM, Diffusion & Drift", link: "/en/lectures/lecture-04-evaluation-by-model/02-storm-diffusion-drift" },
-      { text: "Deployment & Summary", link: "/en/lectures/lecture-04-evaluation-by-model/03-deployment" },
+      { text: "Dreamer & MuZero Metrics", link: "/en/lectures/lecture-04-evaluation-by-model/01-model-metrics-dreamer-muzero" },
+      { text: "TD-MPC Metrics", link: "/en/lectures/lecture-04-evaluation-by-model/02-model-metrics-tdmpc" },
+      { text: "STORM, Diffusion & Drift", link: "/en/lectures/lecture-04-evaluation-by-model/03-storm-diffusion-drift" },
+      { text: "Deployment Metrics", link: "/en/lectures/lecture-04-evaluation-by-model/04-deployment-metrics" },
+      { text: "Pitfalls, Strategies & Summary", link: "/en/lectures/lecture-04-evaluation-by-model/05-deployment-pitfalls" },
     ]
   },
   {

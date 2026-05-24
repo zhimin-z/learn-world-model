@@ -29,7 +29,7 @@ lecture: 1
 
 ## 为什么世界模型现在重新变热？
 
-世界模型不是新概念。Ha & Schmidhuber 的论文发表于 2018 年，更早的基于模型的强化学习（MBRL）在 2000 年代就一直在学习环境动力学。Dreamer 也已经迭代到了第三版。那么，为什么 2024–2026 年间，这个领域突然又成了每个 AI 会议的主角？
+世界模型不是新概念。Ha & Schmidhuber 的论文[2] 发表于 2018 年，更早的基于模型的强化学习（MBRL）在 2000 年代就一直在学习环境动力学。Dreamer 也已经迭代到了第三版。那么，为什么 2024–2026 年间，这个领域突然又成了每个 AI 会议的主角？
 
 答案不是某一篇论文，而是**三条技术线在同一时间窗口内交汇**，形成了一股共振。
 
@@ -115,7 +115,7 @@ flowchart TD
     L05 --> P03["P03–P06 完整 Dreamer 流水线\nTD-MPC、STORM、评估仪表盘"]
 ```
 
-每一步都有配套的代码项目。不需要先把所有理论读完再动手，**边学边做，带着问题回来看下一讲，效果反而更好**。
+每一步都有配套的代码项目。遇到问题时回来翻对应章节，比通读完再动手更有效。
 
 ---
 
@@ -128,3 +128,15 @@ L02 从一个具体问题出发：**如何把 64×64 的像素图像压缩成一
 ---
 
 *本讲无需任何数学或代码基础。如果你对 Craik、Ha & Schmidhuber 或 Dreamer 的原始论文感兴趣，参见 L05 延伸阅读。*
+
+---
+
+## 参考文献
+
+[1] Craik, K.J.W. *The Nature of Explanation*. Cambridge University Press, 1943.
+
+[2] Ha, D. & Schmidhuber, J. [World Models](https://arxiv.org/abs/1803.10122). NeurIPS, 2018.
+
+[3] Hafner, D., Lillicrap, T., Fischer, I., Villegas, R., Ha, D., Lee, H., & Davidson, J. [Dream to Control: Learning Behaviors by Latent Imagination](https://arxiv.org/abs/1912.01603) (Dreamer V1). ICLR, 2020.
+
+[4] LeCun, Y. [A Path Towards Autonomous Machine Intelligence](https://arxiv.org/abs/2306.15364). 2022.

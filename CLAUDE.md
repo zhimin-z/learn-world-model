@@ -48,7 +48,7 @@ These rules apply to all lecture and project markdown files:
 By the end of this curriculum, students will be able to:
 1. Explain what a world model is and why it reduces sample complexity, grounded in history and intuition (L01)
 2. Implement a VAE encoder and chain it into an RSSM latent dynamics model (L02, P01, P02)
-3. Compare 6 architectural families, describe three learning paradigms, implement CEM-MPC and latent actor-critic, and assemble a complete Dreamer pipeline (L03, P03, P04)
+3. Compare 7 architectural families (including Genie's latent action discovery), describe four learning paradigms, implement CEM-MPC and latent actor-critic, and assemble a complete Dreamer pipeline (L03, P03, P04)
 4. Select model-appropriate evaluation metrics, benchmark Dreamer vs TD-MPC vs STORM, and diagnose latent drift (L04, P05)
 5. Engage with open debates on language vs physical grounding, Bitter Lesson, and AGI as a research target (L05)
 
@@ -61,9 +61,9 @@ Each lecture lives under `docs/en/lectures/<slug>/` and `docs/zh/lectures/<slug>
 | # | Slug | Sub-pages | Core Concepts | Source |
 |---|------|-----------|---------------|--------|
 | L01 | `lecture-01-internal-simulation` | `index`, `01-foundations`, `02-four-eras`, `03-why-now` | Craik's mental models, predictive coding, 4 eras of WM evolution (1950s RNN → 2018 Ha&Schmidhuber → 2019 Dreamer → 2023 JEPA) | `references.md` §1 |
-| L02 | `lecture-02-encode-and-dynamics` | `index`, `01-encoding`, `02-dynamics` | VAE → CNN encoder → ELBO. GRU → MDN-RNN → RSSM (deterministic + stochastic). Encoder as the bridge into Dreamer. Dreamer V1–V4 progression. | `tutorial/03-observation-encoder/`, `tutorial/04-latent-dynamics/` |
-| L03 | `lecture-03-architecture-patterns` | `index`, `01-architectures`, `02-planning` | Part A: 6 architecture families (RNN/RSSM, Transformer, Diffusion, JEPA, RWM, WAM) with learning paradigm for each. Part B: CEM-MPC → latent Actor-Critic → TD-MPC as bridge. | `references.md` §2, `tutorial/05-policy-learning/`, `tutorial/06-mpc-control/` |
-| L04 | `lecture-04-evaluation-by-model` | `index`, `01-model-metrics`, `02-storm-diffusion-drift`, `03-deployment` | Per-model metrics: Dreamer (FID, reward correlation), MuZero (value accuracy, visit entropy), TD-MPC (consistency loss, plan efficiency), STORM (token loss, PSNR), Diffusion (physics consistency). Horizon drift as universal failure mode. Real-world deployment pitfalls. | `references.md` conclusion |
+| L02 | `lecture-02-encode-and-dynamics` | `index`, `01-encoding`, `02-dynamics`, `03-dynamics-dreamer-series` | VAE → CNN encoder → ELBO. GRU → MDN-RNN → RSSM (deterministic + stochastic). Dreamer V1-V4 progression. Encoder as the bridge into Dreamer. | `tutorial/03-observation-encoder/`, `tutorial/04-latent-dynamics/` |
+| L03 | `lecture-03-architecture-patterns` | `index`, `01-architectures-rnn-transformer-diffusion`, `02-architectures-jepa-rwm-wam`, `03-planning-cem-ac`, `04-planning-tdmpc` | Part A: 7 architecture families (RNN/RSSM, Transformer, Diffusion, JEPA, RWM, Genie, WAM) with learning paradigm for each. Part B: CEM-MPC → latent Actor-Critic → TD-MPC as bridge. | `references.md` §2, `tutorial/05-policy-learning/`, `tutorial/06-mpc-control/` |
+| L04 | `lecture-04-evaluation-by-model` | `index`, `01-model-metrics-dreamer-muzero`, `02-model-metrics-tdmpc`, `03-storm-diffusion-drift`, `04-deployment-metrics`, `05-deployment-pitfalls` | Per-model metrics: Dreamer (FID, reward correlation), MuZero (value accuracy, visit entropy), TD-MPC (consistency loss, plan efficiency), STORM (token loss, PSNR), Diffusion (physics consistency). Horizon drift as universal failure mode. Real-world deployment pitfalls. | `references.md` conclusion |
 | L05 | `lecture-05-frontier-debates` | `index`, `01-language-and-bitter-lesson`, `02-agi-and-convergence`, `03-data-and-future` | 5 open debates anchored in Xie Saining / LeCun / Sutton viewpoints. No answers given. Architecture bets framed as philosophical stakes, not selection guide. | Xie Saining interview, LeCun 2022, Sutton Bitter Lesson |
 
 ---
