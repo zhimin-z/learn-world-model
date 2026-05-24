@@ -47,8 +47,6 @@ const zhWorldModelItems = [
       { text: "Dreamer 与 MuZero 指标", link: "/zh/lectures/lecture-04-evaluation-by-model/01-model-metrics-dreamer-muzero" },
       { text: "TD-MPC 指标", link: "/zh/lectures/lecture-04-evaluation-by-model/02-model-metrics-tdmpc" },
       { text: "STORM、扩散世界模型与漂移", link: "/zh/lectures/lecture-04-evaluation-by-model/03-storm-diffusion-drift" },
-      { text: "真实部署评测", link: "/zh/lectures/lecture-04-evaluation-by-model/04-deployment-metrics" },
-      { text: "七个坑、落地策略与课程总结", link: "/zh/lectures/lecture-04-evaluation-by-model/05-deployment-pitfalls" },
     ]
   },
   {
@@ -113,8 +111,6 @@ const enWorldModelItems = [
       { text: "Dreamer & MuZero Metrics", link: "/en/lectures/lecture-04-evaluation-by-model/01-model-metrics-dreamer-muzero" },
       { text: "TD-MPC Metrics", link: "/en/lectures/lecture-04-evaluation-by-model/02-model-metrics-tdmpc" },
       { text: "STORM, Diffusion & Drift", link: "/en/lectures/lecture-04-evaluation-by-model/03-storm-diffusion-drift" },
-      { text: "Deployment Metrics", link: "/en/lectures/lecture-04-evaluation-by-model/04-deployment-metrics" },
-      { text: "Pitfalls, Strategies & Summary", link: "/en/lectures/lecture-04-evaluation-by-model/05-deployment-pitfalls" },
     ]
   },
   {
