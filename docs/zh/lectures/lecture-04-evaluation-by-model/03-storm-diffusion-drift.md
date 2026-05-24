@@ -6,7 +6,7 @@ lecture: 4
 
 # STORM（Transformer 动力学）的专属指标
 
-## STORM（Transformer 动力学）[见 L03 参考文献 [1]]
+## STORM（Transformer 动力学）[见 L03 延伸阅读 [1]]
 
 *P05 要求你把 RSSM 的 GRU 替换为 Transformer，实现 STORM 式的动力学模型。*
 
@@ -51,8 +51,7 @@ $$\text{FVD} = \|\mu_r - \mu_g\|^2 + \text{Tr}\!\left(\Sigma_r + \Sigma_g - 2(\S
 
 ---
 
-## 参考文献
+## 延伸阅读
 
-[1] Robine, J., Hölker, M., Glasmachers, T., & Harmeling, S. [Transformer-based World Models Are Happy With 100k Interactions](https://arxiv.org/abs/2303.07109) (STORM). ICLR, 2023.
-
-[2] Carreira, J. & Zisserman, A. [Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset](https://arxiv.org/abs/1705.07750) (I3D). CVPR, 2017.
+- [Robine et al. (2023): STORM](https://arxiv.org/abs/2303.07109)：Transformer 动力学世界模型，100k 交互下的高效训练
+- [Carreira & Zisserman (2017): I3D](https://arxiv.org/abs/1705.07750)：FVD 使用的视频特征提取骨干网络

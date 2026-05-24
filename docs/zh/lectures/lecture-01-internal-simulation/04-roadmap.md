@@ -34,12 +34,9 @@ L02 从一个具体问题出发：**如何把 64×64 的像素图像压缩成一
 
 ---
 
-## 参考文献
+## 延伸阅读
 
-[1] Craik, K.J.W. *The Nature of Explanation*. Cambridge University Press, 1943.
-
-[2] Ha, D. & Schmidhuber, J. [World Models](https://arxiv.org/abs/1803.10122). NeurIPS, 2018.
-
-[3] Hafner, D., Lillicrap, T., Fischer, I., Villegas, R., Ha, D., Lee, H., & Davidson, J. [Dream to Control: Learning Behaviors by Latent Imagination](https://arxiv.org/abs/1912.01603) (Dreamer V1). ICLR, 2020.
-
-[4] LeCun, Y. [A Path Towards Autonomous Machine Intelligence](https://arxiv.org/abs/2306.15364). 2022.
+- Craik, K.J.W. *The Nature of Explanation*. Cambridge University Press, 1943.
+- [Ha & Schmidhuber (2018): World Models](https://arxiv.org/abs/1803.10122)：V/M/C 三模块框架，梦中训练的原始论文
+- [Hafner et al. (2019): Dream to Control (Dreamer V1)](https://arxiv.org/abs/1912.01603)：RSSM 与潜在 Actor-Critic 的首个端到端实现
+- [LeCun (2022): A Path Towards Autonomous Machine Intelligence](https://arxiv.org/abs/2306.15364)：JEPA 框架与世界模型作为认知核心的论点

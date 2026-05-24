@@ -8,7 +8,7 @@ lecture: 3
 
 ## 架构四：JEPA（2023，非生成式）
 
-**代表系统**：I-JEPA (2023)、V-JEPA (2024)、V-JEPA 2 (2025)，由 Yann LeCun 主导提出 [见 L01 参考文献 [4]]
+**代表系统**：I-JEPA (2023)、V-JEPA (2024)、V-JEPA 2 (2025)，由 Yann LeCun 主导提出（[LeCun, 2022](https://arxiv.org/abs/2306.15364)）
 
 ### 核心机制
 

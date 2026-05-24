@@ -26,7 +26,7 @@ lecture: 5
 
 ### 谢赛宁的核心论点
 
-谢赛宁[4] 有一段话，是这场争论里最有张力的表达之一：
+谢赛宁有一段话，是这场争论里最有张力的表达之一：
 
 > "语言其实是一个'毒药'，或者说是一剂'鸦片'，你加多了语言总是会觉得更幸福的，它有用，但它是一个捷径。如果你一直吸鸦片就废了；如果你一直拄着拐杖，你就没办法训练大腿的肌肉。"
 
@@ -69,7 +69,7 @@ lecture: 5
 
 ### Sutton 的原版论证
 
-2019 年，Richard Sutton 发表了一篇短文《The Bitter Lesson》[1]。全文不长，但引发了 AI 领域最持久的争论之一。
+2019 年，Richard Sutton 发表了一篇短文《[The Bitter Lesson](http://www.incompleteideas.net/IncIdeas/BitterLesson.html)》。全文不长，但引发了 AI 领域最持久的争论之一。
 
 核心论点：
 

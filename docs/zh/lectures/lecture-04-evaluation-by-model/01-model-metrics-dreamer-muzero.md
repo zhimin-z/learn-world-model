@@ -52,7 +52,7 @@ $$\rho = \text{Pearson}(r_{\text{imagined}},\, r_{\text{real}})$$
 
 FID 不是 Dreamer 论文的报告指标，Dreamer 的 ELBO 目标包含重建损失，但论文从不用 FID 来衡量策略好坏。FID 在这里是一个**辅助诊断工具**：如果编码器退化，图像重建质量会下降，FID 可以提前捕捉到这个信号，让你在 episode return 崩塌之前介入。
 
-FID 用 **Inception-v3**（一个在 ImageNet 上预训练的图像分类网络）提取真实帧与重建帧的深层特征，计算两个特征分布之间的 **Fréchet 距离**[6]。FID 数值越低越好。
+FID 用 **Inception-v3**（一个在 ImageNet 上预训练的图像分类网络）提取真实帧与重建帧的深层特征，计算两个特征分布之间的 **Fréchet 距离**（[Heusel et al., 2017](https://arxiv.org/abs/1706.08500)）。FID 数值越低越好。
 
 > **📖 FID 的计算逻辑**：①用 Inception-v3 的中间层对大量真实图像和生成图像各提取一个特征向量；②分别拟合两组特征的多元高斯分布（用均值 $\mu$ 和协方差矩阵 $\Sigma$ 描述）；③计算两个高斯分布之间的 Fréchet 距离（又称 Wasserstein-2 距离），这是一种衡量两个分布"有多像"的距离，比直接比像素均方误差更能捕捉感知质量。为什么用 Inception-v3？因为它的特征空间近似人类对图像的感知判断，两张图片在特征空间中接近，意味着人眼看起来也接近。
 

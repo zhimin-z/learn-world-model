@@ -6,7 +6,7 @@ lecture: 4
 
 # TD-MPC 的专属指标
 
-## TD-MPC（潜在 MPC）[见 L03 参考文献 [4]]
+## TD-MPC（潜在 MPC）
 
 *你在 P04 用 CEM 射击法实现了 TD-MPC，并与 P03 的 Dreamer Actor-Critic 做了奖励对比。*
 

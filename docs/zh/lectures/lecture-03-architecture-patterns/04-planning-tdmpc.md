@@ -8,7 +8,7 @@ lecture: 3
 
 ## 机制三：TD-MPC，两者的桥梁
 
-TD-MPC（Temporal Difference Model Predictive Control）[4] 同时拥有 MPC 的前瞻规划能力和 Actor-Critic 的时序差分学习效率。
+TD-MPC（Temporal Difference Model Predictive Control）[Hansen et al., 2022] 同时拥有 MPC 的前瞻规划能力和 Actor-Critic 的时序差分学习效率。
 
 **核心设计**：
 
@@ -51,7 +51,7 @@ TD 学习用 Bellman 方程，以"当前奖励 + 下一步 Q 值估计"代替完
 
 ## 本讲小结
 
-- **六个架构族**代表了突破 GRU 记忆瓶颈的不同方向：RNN/RSSM 计算最轻、Transformer 长程依赖最强、Diffusion 视觉最真实、JEPA 最专注语义、RWM 最专注部署稳定性、WAM 把世界预测和动作规划统一。
+- **七个架构族**代表了突破 GRU 记忆瓶颈的不同方向：RNN/RSSM 计算最轻、Transformer 长程依赖最强、Diffusion 视觉最真实、JEPA 最专注语义、RWM 最专注部署稳定性、Genie 从视频自动发现动作、WAM 把世界预测和动作规划统一。
 - **三种学习范式**决定模型的知识边界：观察型学视觉规律但无法控制，交互型学动作因果但数据昂贵，反事实型学价值推理但可解释性弱。WAM 代表第四范式：视频作为 dense physical supervision 联合训练世界和动作。
 - **三种规划机制**决定模型如何被用于决策：CEM 最直白但在高维空间效率低，Actor-Critic 最优雅但有模型漏洞风险，TD-MPC 最务实地兼顾了两者。
 - Dreamer = 交互型范式 + RSSM + 潜在 Actor-Critic，是本系列课程的核心参考系统。
@@ -101,27 +101,3 @@ TD 学习用 Bellman 方程，以"当前奖励 + 下一步 Q 值估计"代替完
 - [NVIDIA (2026): WAM](https://arxiv.org/abs/2509.20328)：预训练视频模型作为 zero-shot policy
 - [NVIDIA (2025): Cosmos](https://arxiv.org/abs/2501.03575)：通用物理 AI 世界基础模型，开源开权重
 - [Hu et al. (2023): GAIA-1](https://arxiv.org/abs/2309.17080)：自动驾驶生成世界模型，视频+文本+动作联合建模
-
----
-
-## 参考文献
-
-[1] Zhang, W., Wang, G., Sun, J., Yuan, Y., & Huang, G. [STORM: Efficient Stochastic Transformer based World Models for Reinforcement Learning](https://arxiv.org/abs/2310.09615). NeurIPS, 2023.
-
-[2] Micheli, V., Alonso, E., & Fleuret, F. [Transformers are Sample-Efficient World Models](https://arxiv.org/abs/2209.00588) (IRIS). ICLR, 2023.
-
-[3] LeCun, Y. *A Path Towards Autonomous Machine Intelligence*（见 L01 参考文献 [4]）
-
-[4] Hansen, N., Su, H., & Wang, X. [TD-MPC: Temporal Difference Learning for Model Predictive Control](https://arxiv.org/abs/2203.04955). ICLR, 2022.
-
-[5] Schrittwieser, J., Antonoglou, I., Hubert, T., Simonyan, K., Sifre, L., Schmitt, S., Guez, A., Lockhart, E., Hassabis, D., Graepel, T., Lillicrap, T., & Silver, D. [Mastering Atari, Go, Chess and Shogi by Planning with a Learned Model](https://arxiv.org/abs/1911.08265) (MuZero). Nature, 2020.
-
-[6] Alonso, E., Micheli, V., & Fleuret, F. [Diffusion for World Modeling: Visual Details Matter in Atari](https://arxiv.org/abs/2405.12399) (Diamond). NeurIPS, 2024.
-
-[7] Bruce, J., Dennis, M., Edwards, A., Parker-Holder, J., Shi, Y., Hughes, E., … de Freitas, N. [Genie: Generative Interactive Environments](https://arxiv.org/abs/2402.15391). ICML, 2024.
-
-[8] Hu, A., Russell, L., Yeo, H., Murez, Z., Fedoseev, G., Kendall, A., Shotton, J., & Corrado, G. [GAIA-1: A Generative World Model for Autonomous Driving](https://arxiv.org/abs/2309.17080). arXiv, 2023.
-
-[9] NVIDIA. [Cosmos World Foundation Model Platform for Physical AI](https://arxiv.org/abs/2501.03575). arXiv, 2025.
-
-[10] Hafner, D., Yan, W., & Lillicrap, T. [Training Agents Inside of Scalable World Models](https://arxiv.org/abs/2512.13030). arXiv, 2025.
