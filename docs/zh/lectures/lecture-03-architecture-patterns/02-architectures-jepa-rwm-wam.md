@@ -8,7 +8,7 @@ lecture: 3
 
 ## 架构四：JEPA（2023，非生成式）
 
-**代表系统**：I-JEPA (2023)、V-JEPA (2024)、V-JEPA 2 (2025)，由 Yann LeCun 主导提出（[LeCun, 2022](https://arxiv.org/abs/2306.15364)）
+**代表系统**：I-JEPA (2023)、V-JEPA (2024)、V-JEPA 2 (2025)，由 Yann LeCun 主导提出（[LeCun, 2022](https://openreview.net/forum?id=BZ5a1r-kVsf)）
 
 ### 核心机制
 
@@ -64,11 +64,11 @@ Meta 在 2025 年发布 V-JEPA 2 时，明确把它定位为"**迈向 AGI 的世
 
 Policy 会主动寻找并利用模型的错误，发现某些动作序列在世界模型里能产生虚假的高奖励，但在真实环境里这些动作毫无意义甚至有害。
 
-**Self-Forcing**（NeurIPS 2025）的思路是在训练时就"模拟"推理时的误差积累：不总是喂给模型真实状态，而是有时候喂给它自己上一步的预测，并在**多个步骤**上同时计算与真实状态的损失。这是 scheduled sampling 的系统化版本，在扩散世界模型设定下得到完整验证：Self-Forcing 能将 50 步 rollout 的累积误差降低到 teacher forcing 的约 1/3。
+**Self-Forcing**（NeurIPS 2025）的思路是在训练时就"模拟"推理时的误差积累：不总是喂给模型真实状态，而是有时候喂给它自己上一步的预测，并在**多个步骤**上同时计算与真实状态的损失。这是 **scheduled sampling**（计划采样，一种训练技巧：训练初期以高概率使用真实历史帧，随训练进行逐步提高使用模型自身预测帧的概率，使模型逐渐适应推理时的自回归模式）的系统化版本，在扩散世界模型设定下得到完整验证：Self-Forcing 能将 50 步 rollout 的累积误差降低到 teacher forcing 的约 1/3。
 
 **RWM-U**（Uncertainty-Aware Robotic World Model，ICLR 2026，ETH Zurich, Krause, Hutter）专门为**离线 MBRL**（Offline Model-Based RL）设计：不依赖在线环境交互，只从固定的历史数据集中学习世界模型，再在世界模型内部训练 policy。纯离线设置在真实机器人上特别有价值：在线交互代价高昂且存在安全风险。
 
-RWM-U 的核心机制是**集成不确定性估计**：同时训练 $N$ 个独立初始化的自回归世界模型，用预测的**集成方差**量化认知不确定性，并在整个展开轨迹上时序一致地传播这个不确定性。Policy 优化时对高不确定性区域施加惩罚，使用 PPO 而非 off-policy 算法（更稳定）：
+RWM-U 的核心机制是**集成不确定性估计**（ensemble uncertainty estimation，同时训练多个独立的模型，用它们预测结果的分歧程度来量化不确定性：预测一致说明该区域数据充足，分歧大说明数据稀少）：同时训练 $N$ 个独立初始化的自回归世界模型，用预测的**集成方差**（ensemble variance，多个模型对同一输入预测结果的统计方差）量化认知不确定性，并在整个展开轨迹上时序一致地传播这个不确定性。Policy 优化时对高不确定性区域施加惩罚，使用 **PPO**（Proximal Policy Optimization，近端策略优化，一种通过限制每次参数更新幅度来保持训练稳定的在线策略梯度算法）而非 off-policy 算法（更稳定）：
 
 $$\text{policy 奖励} = \text{任务奖励} - \lambda \times \text{uncertainty}$$
 
@@ -80,5 +80,5 @@ $$\text{policy 奖励} = \text{任务奖励} - \lambda \times \text{uncertainty}
 
 **学习范式**：观察型预训练（人类视频，无动作标注）+ 少量目标数据微调；蒸馏阶段引入 Self-Forcing 减少自回归误差积累。
 
-**适用场景**：高频机器人控制（关节空间 MPC、灵巧操作）、对 sim-to-real 迁移要求严格的任务、离线数据充足但在线交互代价高昂的场景。
+**适用场景**：高频机器人控制（关节空间 MPC、灵巧操作）、对 **sim-to-real**（simulation-to-real，仿真到真实迁移，指在仿真器中训练的策略直接部署到真实机器人时的性能保持程度，sim-to-real gap 越小说明仿真与真实的差距越小）迁移要求严格的任务、离线数据充足但在线交互代价高昂的场景。
 
