@@ -10,17 +10,9 @@ lecture: 2
 
 GRU 的核心限制来自它的信息瓶颈：所有历史信息必须压缩进一个固定维度的隐状态 $\mathbf{h}_t$。序列越长，早期信息越难保留，长程依赖越容易丢失。这在短视频游戏帧上问题不大，但在需要记住几十步前事件才能做出正确决策的任务中，GRU 的记忆容量成为硬限制。
 
-Transformer 换了一种思路，不再用单一隐状态汇总历史，而是直接在整个历史潜在序列上做注意力：
+Transformer 换了一种思路，不再用单一隐状态汇总历史，而是直接在整个历史潜在序列上做注意力，每一步的预测可以"回看"任意时刻的历史状态，不存在信息压缩瓶颈。代价是计算量随上下文长度增长，推理时显存占用也更高。Transformer 自注意力机制的完整原理和公式详见 L03 Transformer 架构一节。
 
-$$
-\mathbf{h}_t = \text{Attention}(\mathbf{z}_{1:t},\ \mathbf{a}_{1:t-1})
-$$
-
-每一步的预测可以"回看"任意时刻的历史状态，不存在信息压缩瓶颈。代价是计算量随上下文长度增长，推理时显存占用也更高。
-
-> **📖 自注意力（Self-Attention）**：Transformer 的核心运算。对于序列中每个位置，计算它与所有其他位置的相关性权重（attention score），再用权重对所有位置的值做加权求和。结果是每个位置都能"直接读取"序列任意处的信息，而不像 RNN 那样只能通过隐状态间接传递。计算复杂度是 $O(T^2 \cdot d)$，其中 $T$ 是序列长度，$d$ 是特征维度。
-
-这个差异直接影响世界模型的长程预测质量。STORM（2023）把 RSSM 中的 GRU 骨干替换为 Transformer，在 Atari 长序列任务上的预测精度和策略收益都有可测量的提升。Dreamer V4（2025）同样完成了这一替换，并配合离线策略学习，使长程想象轨迹更加连贯可信。两者在架构选择上殊途同归：在序列够长的任务上，Transformer 的全局注意力比 GRU 的固定隐状态提供了更坚实的动力学基础。L03 会以 RSSM 为基线，横向比较这两类骨干在不同任务约束下的适用范围。
+STORM（2023）把 RSSM 中的 GRU 骨干替换为 Transformer，在 Atari 长序列任务上的预测精度和策略收益都有可测量的提升。Dreamer V4（2025）同样完成了这一替换，并配合离线策略学习，使长程想象轨迹更加连贯可信。L03 会以 RSSM 为基线，横向比较这两类骨干在不同任务约束下的适用范围。
 
 ---
 
@@ -42,6 +34,11 @@ RSSM 是 Dreamer V1 确立的基础架构，此后三个版本在其上逐步演
 | V2 | GRU | 离散 Categorical | 在线 Actor-Critic | 离散潜变量，训练稳定 |
 | V3 | GRU | 离散 Categorical | 在线 Actor-Critic | 跨域单一超参，Minecraft 基准 |
 | V4 | Transformer | 离散 Categorical | 离线策略学习 | 架构质变，长程推理 |
+
+<figure>
+<img src="/planet/rssm-diagnostics.png" alt="PlaNet 消融实验：RSSM 的确定性路径与随机路径各自的贡献" style="width:90%;display:block;margin:0 auto">
+<figcaption>Hafner et al. (2019) 的消融实验对比：纯确定性路径（无随机 z_t）、纯随机路径（无确定性 h_t）、完整 RSSM。六个 DMControl 任务上的结果一致表明，两条路径缺一不可，完整 RSSM 在所有任务上均优于消融版本。</figcaption>
+</figure>
 
 ---
 

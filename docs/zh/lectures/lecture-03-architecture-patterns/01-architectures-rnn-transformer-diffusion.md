@@ -72,7 +72,14 @@ $$e_t = m_\phi(z_t, a_t), \quad h_{1:T} = f_\phi(e_{1:T})$$
 
 Transformer 以因果掩码处理序列，$h_t$ 同时预测当前奖励 $\hat{r}_t$、继续标志 $\hat{c}_t$ 和下一步潜变量分布 $\hat{\mathcal{Z}}_{t+1}$。单 token 设计使序列长度比 IRIS 短 16 倍，训练速度快得多：在单块 RTX 3090 上，用 1.85 小时真实交互训练 4.3 小时，达到 Atari 100k 基准 126.7% 的平均人类标准化分数（无 lookahead 搜索的最高水平）。
 
+> **📖 Teacher Forcing**：训练时，模型在每个时间步都以**真实的历史帧**作为条件输入，而非使用模型自身上一步的预测。这让训练更稳定、收敛更快，但产生了"训练时总有正确历史帧、推理时只有自己的预测帧"的分布差距。对于自回归世界模型，这是最常见的误差累积来源。STORM 的评估指标中，长时域 PSNR 正是为量化这一差距而设计（详见 L04 STORM 指标一节）。
+
 与 DreamerV3 的 GRU-based RSSM 相比，STORM 的 Transformer 序列模型在长序列建模上更强，训练可并行；代价是去掉了 RSSM 的循环隐状态 $h_t$，重建图像时不使用历史隐状态信息，长程语境完全依赖 Transformer 上下文窗口。
+
+<figure>
+<img src="/storm/storm-world-model.png" alt="STORM 的 Transformer 动力学模型架构" style="width:90%;display:block;margin:0 auto">
+<figcaption>Zhang et al. (2023) STORM 架构：分类 VAE 将每帧压缩为单个随机潜变量 z_t，与动作 a_t 融合后送入因果掩码 Transformer。Transformer 同时预测奖励、继续标志和下一步潜变量分布，单 token 设计使序列长度比 IRIS 短 16 倍。</figcaption>
+</figure>
 
 **学习范式**：交互型（带动作条件）。动作 $a_t$ 作为 token 的一部分拼入序列，预测的是动作条件下的未来 latent 分布。
 

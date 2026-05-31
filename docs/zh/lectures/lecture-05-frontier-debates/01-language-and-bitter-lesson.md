@@ -18,6 +18,11 @@ lecture: 5
 
 语言模型预测**下一个 token**。世界模型预测**下一个状态**。
 
+<figure>
+<img src="/vjepa/vjepa-architecture.png" alt="V-JEPA：在语义嵌入空间中预测，而非在像素空间重建" style="width:100%;display:block;margin:0 auto">
+<figcaption>Bardes et al. (2024) V-JEPA 的核心架构：context encoder 对可见区域编码，predictor 在潜在空间预测被遮盖区域的语义表示，target encoder（EMA 更新）提供训练目标。整个过程不产生任何像素，只在语义嵌入空间操作，体现了"理解不等于重建"的世界模型派核心主张。</figcaption>
+</figure>
+
 听起来只换了一个词。但这背后是两种完全不同的智能观，关于什么是"理解"，关于 AI 的终点在哪里。
 
 ---
@@ -57,7 +62,7 @@ lecture: 5
 
 **第三，Scaling Law 在物理理解上也持续有效。** 在 **BIG-Bench Physical Intuition**（Beyond the Imitation Game Benchmark 中的物理直觉子集，一套评估语言模型对日常物理场景推理能力的基准，包含物体运动、重力、碰撞等场景的问答题）等物理推理基准上，更大的模型表现更好。趋势没有停止的迹象。如果语言是"拐杖"，为什么越用越强？
 
-### 留给你
+### 留给你（争论一）
 
 你认为 LLM 真的"理解"物理世界，还是只是在做高级的模式匹配？这两者之间有没有本质区别，或者说，这个区别本身是否重要？
 
@@ -105,7 +110,7 @@ Bitter Lesson 反对的是**手工设计特征和规则**，不是反对**使用
 
 从这个角度看，LLM 恰恰是 Bitter Lesson 精神的最彻底实践：扔掉手工特征，把所有东西变成端到端学习。只不过这次的"端"是语言，而不是像素。
 
-### 留给你
+### 留给你（争论二）
 
 Bitter Lesson 的精神是"相信计算和学习，不相信人工规则"。LLM 是遵循了还是违背了这个精神？
 

@@ -100,3 +100,8 @@ $$p(o_{t+1} \mid o_t, a_t)$$
 | | 理解物理、迁移知识 | JEPA、基础世界模型 |
 
 这门课程聚焦的是**狭义世界模型**，action-conditioned、可以用于规划和 policy 学习的动力学模型。
+
+<figure>
+<img src="/worldmodels/world-model-schematic.png" alt="世界模型三模块示意图：V 视觉编码器、M 动力学预测器、C 控制器" style="width:80%;display:block;margin:0 auto">
+<figcaption>Ha & Schmidhuber (2018) 的世界模型三模块结构：V 将高维像素压缩为低维潜在向量 z，M 以 z 和动作 a 为条件预测下一个 z，C 从 z 和 M 的隐状态直接输出动作。这个框架把感知、预测和决策三个职责清晰分离，后来的 RSSM 和 Dreamer 均以此为基础发展而来。</figcaption>
+</figure>

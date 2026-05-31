@@ -35,6 +35,11 @@ $$\mathcal{L}_{\text{consist}} = \|\text{sg}(h_{t+1}) - f(h_t, a_t)\|^2$$
 
 **诊断规则**：t-SNE 图中，同类状态（如"摆杆直立"状态）散布在各处而非聚集，latent space 几何结构混乱，MPC 在这个空间里做的规划没有物理意义。
 
+<figure>
+<img src="/tdmpc/tdmpc-overview.png" alt="TD-MPC 架构总览：编码器、隐式动力学、Q 函数与 CEM 规划" style="width:90%;display:block;margin:0 auto">
+<figcaption>Hansen et al. (2022) TD-MPC 架构：编码器、隐式动力学函数、Q 函数、CEM 四模块协同工作。潜在一致性损失（sg(z_{t+1}) 与 d(z_t, a_t) 对齐）确保动力学函数与编码器保持一致，防止表示坍缩。这是 TD-MPC 专属指标的诊断起点。</figcaption>
+</figure>
+
 ### 规划效率（Plan Efficiency）
 
 定义为：从随机初始化策略出发，达到某个**目标奖励阈值**（如最优策略的 80%）所需的 MPC 规划步数。步数越少，规划效率越高。

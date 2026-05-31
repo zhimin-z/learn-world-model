@@ -20,6 +20,11 @@ lecture: 4
 | Transformer 动力学（STORM）| teacher forcing 与 free-running 差距，长时域 token 漂移 |
 | 扩散世界模型（Diamond）| 物理一致性崩溃，物体凭空消失 |
 
+<figure>
+<img src="/planet/rssm-diagnostics.png" alt="PlaNet 诊断实验：RSSM 各组件的消融对比" style="width:90%;display:block;margin:0 auto">
+<figcaption>Hafner et al. (2019) 的诊断图展示了 RSSM 不同组件对性能的影响：去掉随机路径（纯确定性）或去掉确定性路径（纯随机）都会导致性能下降，完整 RSSM 在六个任务上均最优。这类消融图是验证"各组件是否真正有效"的标准做法。</figcaption>
+</figure>
+
 ---
 
 ## Dreamer（RNN/RSSM）
@@ -54,15 +59,17 @@ $$\rho = \text{Pearson}(r_{\text{imagined}},\, r_{\text{real}})$$
 
 FID 不是 Dreamer 论文的报告指标，Dreamer 的 ELBO 目标包含重建损失，但论文从不用 FID 来衡量策略好坏。FID 在这里是一个**辅助诊断工具**：如果编码器退化，图像重建质量会下降，FID 可以提前捕捉到这个信号，让你在 episode return 崩塌之前介入。
 
-FID 用 **Inception-v3**（Google 2015 年提出的深度卷积图像分类网络，在 ImageNet 上预训练，其中间层输出的特征向量被广泛用作图像质量的感知度量代理）提取真实帧与重建帧的深层特征，计算两个特征分布之间的 **Fréchet 距离**（[Heusel et al., 2017](https://arxiv.org/abs/1706.08500)）。FID 数值越低越好。
+FID 用 **Inception-v3**（Google 2015 年提出的深度卷积图像分类网络，在 ImageNet 上预训练，其中间层特征向量被广泛用作图像质量的感知度量代理）提取真实帧与重建帧的深层特征，计算两个特征分布之间的 **Fréchet 距离**（[Heusel et al., 2017](https://arxiv.org/abs/1706.08500)）。FID 数值越低越好：FID 高意味着重建帧的特征分布偏离真实帧，编码器表征已退化。
 
-> **📖 FID 的计算逻辑**：①用 Inception-v3 的中间层对大量真实图像和生成图像各提取一个特征向量；②分别拟合两组特征的多元高斯分布（用均值 $\mu$ 和协方差矩阵 $\Sigma$ 描述）；③计算两个高斯分布之间的 Fréchet 距离（又称 **Wasserstein-2 距离**，一种将两个概率分布之间的"运输成本"最小化的距离度量，直觉上是"把一堆沙子从分布A的形状搬运成分布B的形状所需的最小工作量"，比 KL 散度对分布形状的差异更敏感），这比直接比像素均方误差更能捕捉感知质量。为什么用 Inception-v3？因为它的特征空间近似人类对图像的感知判断，两张图片在特征空间中接近，意味着人眼看起来也接近。
+<details>
+<summary>📖 FID 计算细节（展开）</summary>
+
+① 用 Inception-v3 的中间层对大量真实图像和生成图像各提取一个特征向量；② 分别拟合两组特征的多元高斯分布（均值 $\mu$，协方差矩阵 $\Sigma$）；③ 计算两个高斯分布之间的 Fréchet 距离（又称 Wasserstein-2 距离，把一个分布"搬运"成另一个所需的最小工作量，比 KL 散度对形状差异更敏感）：
 
 $$\text{FID} = \|\mu_r - \mu_g\|^2 + \text{Tr}\!\left(\Sigma_r + \Sigma_g - 2(\Sigma_r \Sigma_g)^{1/2}\right)$$
 
-- `μ_r, Σ_r`：真实图像特征的均值向量和协方差矩阵
-- `μ_g, Σ_g`：生成图像特征的均值向量和协方差矩阵
-- `Tr(·)`：矩阵的迹（对角线元素之和）
+其中 `Tr(·)` 是矩阵的迹（对角线元素之和）。选用 Inception-v3 而非像素 MSE，是因为它的特征空间近似人类对图像的感知判断。
+</details>
 
 **诊断规则**：FID 在训练中途突然上升，编码器发生了表示崩塌（representation collapse），卷积权重退化为常数输出。**缓解**：降低编码器学习率，或在编码器后加 LayerNorm。
 

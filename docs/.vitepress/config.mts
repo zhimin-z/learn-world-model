@@ -63,7 +63,8 @@ const zhWorldModelItems = [
       { text: "导读", link: "/zh/lectures/lecture-05-frontier-debates/" },
       { text: "语言是鸦片与 Bitter Lesson", link: "/zh/lectures/lecture-05-frontier-debates/01-language-and-bitter-lesson" },
       { text: "世界模型与 LLM 的分工与收敛", link: "/zh/lectures/lecture-05-frontier-debates/02-agi-and-convergence" },
-      { text: "数据从哪里来与各路线赌注", link: "/zh/lectures/lecture-05-frontier-debates/03-data-and-future" },
+      { text: "数据从哪里来", link: "/zh/lectures/lecture-05-frontier-debates/03-data-and-future" },
+      { text: "各路线核心赌注与收尾问题", link: "/zh/lectures/lecture-05-frontier-debates/04-bets-and-questions" },
     ]
   },
 ];

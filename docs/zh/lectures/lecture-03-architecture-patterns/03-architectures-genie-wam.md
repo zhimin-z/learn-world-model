@@ -16,6 +16,11 @@ lecture: 3
 
 > **📖 latent action**：不是键盘上的"向左"或关节空间的力矩，而是一个纯粹从视频帧差异中归纳出的离散编码。它捕捉的是"相邻帧之间发生了什么类型的变化"，而非具体的物理动作。两段视频如果场景变化模式相似（如"某物体向右移动"），它们的 latent action code 就应该相同，无论实际拍摄的是游戏还是机器人操作。
 
+<figure>
+<img src="/genie/genie-architecture.png" alt="Genie 架构：ST-ViT tokenizer、LAM latent action model 和 MaskGIT dynamics model 三模块" style="width:100%;display:block;margin:0 auto">
+<figcaption>Bruce et al. (2024) Genie 的三模块设计：ST-ViT 将视频帧序列编码为时空离散 token；LAM 从相邻帧对中推断离散 latent action code（无需任何动作标注）；动力学模型以 latent action 为条件，用 MaskGIT 自回归预测下一帧 token 序列。</figcaption>
+</figure>
+
 Genie 在 3 万小时的平台游戏视频上训练（无动作标注），11B 参数，论文以 $\Delta_t\text{PSNR}$（推理时 PSNR 相对于 teacher forcing 基线的下降量）衡量生成质量衰减速度，作为 latent action 对齐程度的代理指标。Genie 的意义在于把"动作标注"这个瓶颈绕开了：互联网上有海量视频，但几乎没有配套的机器人动作标签。Genie 2 进一步扩展到 3D 场景，能在给定单张图像后生成完整的可交互 3D 世界。Bi et al. 于 2025 年发布的 [Motus](https://arxiv.org/abs/2512.13030)（A Unified Latent Action World Model）在具身操作任务上验证了类似思路，通过统一的 latent action 表征从异构视频数据中提取动作知识，再用少量有标注数据对齐到真实控制，实现跨具身迁移。
 
 **学习范式**：介于观察型和交互型之间。训练只用视频（观察型），但推理时支持动作条件生成（交互型）。这个思路直接启发了后来的 WAM 系列。

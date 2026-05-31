@@ -45,3 +45,8 @@ $$\text{Stability} = \mathbb{E}_o\!\left[\cos\_\text{sim}(h(o),\, h(o + \varepsi
 **为什么重要**：如果表示不稳定，MCTS 在物理上几乎相同的相邻局面上会做出截然不同的搜索决策，导致策略在轻微扰动下剧烈变化。对于真实世界的机器人或游戏 AI，这意味着策略对传感器噪声极度敏感，不可信赖。
 
 **诊断规则**：稳定性低于 0.9，representation network 的训练数据中相似局面的多样性不足，或者网络容量过小导致特征在相似输入上产生非线性跳跃。增大网络宽度或使用对比学习损失（如 **SimCLR** 式的正样本对，SimCLR 是一种自监督对比学习框架：对同一图像做两种随机增强得到一对"正样本"，训练编码器让正样本表示相互靠近、负样本远离，从而学到稳健的视觉表征）可以有效改善。
+
+<figure>
+<img src="/muzero/muzero-training-plots.png" alt="MuZero 在 Atari 游戏上的训练曲线" style="width:100%;display:block;margin:0 auto">
+<figcaption>Schrittwieser et al. (2020) 报告的 MuZero 在部分 Atari 游戏上的训练曲线（episode return vs. 训练步数）。三条线分别对应 MuZero、AlphaZero（有规则）和 R2D2（无模型基线）。MuZero 在不给棋规的情况下与 AlphaZero 性能相当，验证了隐式世界模型的有效性。</figcaption>
+</figure>

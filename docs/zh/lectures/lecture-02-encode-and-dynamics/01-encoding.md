@@ -29,6 +29,11 @@ lecture: 2
 
 关键特性：潜在空间是**连续的**。这意味着相邻的 $\mathbf{z}$ 对应相似的图像，可以在潜在空间中平滑插值。
 
+<figure>
+<img src="/worldmodels/vae.png" alt="VAE 架构：编码器将图像压缩为潜在分布，解码器从采样的 z 重建图像" style="width:80%;display:block;margin:0 auto">
+<figcaption>Ha & Schmidhuber (2018) 的 VAE 结构：编码器输出均值 μ 和方差 σ²，通过重参数化采样 z = μ + σ·ε（ε ~ N(0,I)），解码器从 z 重建原始帧。重参数化技巧让梯度可以流过采样操作。</figcaption>
+</figure>
+
 ```mermaid
 flowchart TD
     A[原始图像] --> B[编码器 CNN]
@@ -59,6 +64,8 @@ $$
 | **KL 散度** | 潜在分布要接近标准正态 $\mathcal{N}(0, I)$ | "潜在空间要整齐、连续" |
 
 训练时最大化 ELBO（等价于最小化负 ELBO）。两项共同作用：重建损失让 $\mathbf{z}$ 保留有用信息，KL 散度让潜在空间结构规整，避免"打洞"（不连续区域）。
+
+> **📖 重参数化技巧（Reparameterization Trick）**：编码器输出均值 $\mu$ 和标准差 $\sigma$ 后，需要从分布 $\mathcal{N}(\mu, \sigma^2)$ 中**采样** $\mathbf{z}$。直接采样的问题是：采样操作本身不可微，梯度无法从 $\mathbf{z}$ 流回 $\mu$ 和 $\sigma$，编码器就无法被训练。解决方法是把采样改写为：$\mathbf{z} = \mu + \sigma \cdot \varepsilon$，其中 $\varepsilon \sim \mathcal{N}(0, I)$ 是独立采样的噪声（与网络参数无关）。现在 $\mathbf{z}$ 对 $\mu$ 和 $\sigma$ 是可微的，梯度可以正常流过，编码器可以被端到端训练。
 
 ---
 
