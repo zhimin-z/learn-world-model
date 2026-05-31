@@ -90,14 +90,14 @@ TD 学习用 Bellman 方程，以"当前奖励 + 下一步 Q 值估计"代替完
 
 **Genie / 可交互生成**
 - [Bruce et al. (2024): Genie](https://arxiv.org/abs/2402.15391)：从无标注视频自动发现 latent action，11B 参数
-- [Hafner et al. (2025): Scalable World Models](https://arxiv.org/abs/2512.13030)：shortcut forcing + 高效 Transformer，首次从离线数据在 Minecraft 获得钻石
+- [Hafner et al. (2025): Scalable World Models (Motus)](https://arxiv.org/abs/2512.13030)：shortcut forcing + 高效 Transformer，首次从离线数据在 Minecraft 获得钻石
 
 **RWM / 机器人部署**
 - [Li et al. (2026): RWM-U](https://arxiv.org/abs/2504.16680)：离线 MBRL + 集成不确定性，四足/仿人机器人验证
 - [NeurIPS 2025: Self-Forcing](https://arxiv.org/abs/2506.08009)：训练时引入自预测反馈，缓解 teacher forcing 差距
 
 **WAM / 联合学习**
-- [Bi et al. (2026): Motus](https://arxiv.org/abs/2602.06949)：统一 latent action，跨具身迁移，CVPR 2026
+- [Bi et al. (2026): Motus](https://arxiv.org/abs/2512.13030)：统一 latent action，跨具身迁移，CVPR 2026
 - [NVIDIA (2026): WAM](https://arxiv.org/abs/2509.20328)：预训练视频模型作为 zero-shot policy
 - [NVIDIA (2025): Cosmos](https://arxiv.org/abs/2501.03575)：通用物理 AI 世界基础模型，开源开权重
 - [Hu et al. (2023): GAIA-1](https://arxiv.org/abs/2309.17080)：自动驾驶生成世界模型，视频+文本+动作联合建模

@@ -35,7 +35,7 @@ lecture: 5
 如果用一个矩阵来理解现有的世界模型，横轴是"吃不吃动作信号"，纵轴是"预测什么"：
 
 - **Dreamer**（RSSM + 潜在 Actor-Critic，详见 L02–L03）：吃动作，预测潜在状态，狭义世界模型，主动决策者
-- **STORM**（Stochastic Transformer-based wORld Models，分类 VAE + Transformer 动力学，详见 L03）：不吃动作，预测视频帧（Transformer 主干），观察者
+- **STORM**（Stochastic Transformer-based wORld Models，分类 VAE + Transformer 动力学，详见 L03）：吃动作（动作作为 token 拼入序列），预测下一帧 latent token，交互型
 - **WAM**：吃动作，同时理解语义，两者的统一
 
 这三种范式在 L03 已经从工程角度比较过。这里的问题不同：WAM 押注的是什么假设？**世界模型和策略不应该是两个分离的模块，视频本身就是动作学习的监督信号。** 如果这个假设成立，联合训练会打破模型基础和策略学习之间的分工，产生新的涌现能力。

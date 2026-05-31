@@ -53,5 +53,5 @@ $$\text{FVD} = \|\mu_r - \mu_g\|^2 + \text{Tr}\!\left(\Sigma_r + \Sigma_g - 2(\S
 
 ## 延伸阅读
 
-- [Robine et al. (2023): STORM](https://arxiv.org/abs/2303.07109)：Transformer 动力学世界模型，100k 交互下的高效训练
+- [Zhang et al. (2023): STORM](https://arxiv.org/abs/2310.09615)：Transformer 动力学世界模型，100k 交互下的高效训练
 - [Carreira & Zisserman (2017): I3D](https://arxiv.org/abs/1705.07750)：FVD 使用的视频特征提取骨干网络
