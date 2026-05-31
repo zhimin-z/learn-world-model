@@ -24,12 +24,12 @@ $$\hat{s}_y = f_\theta(s_x,\, \text{context})$$
 
 ```mermaid
 flowchart TD
-    X["输入帧（视频片段）"] --> CE["context 编码器\n训练中正常更新"]
-    X --> TE["target 编码器\nEMA 慢更新，梯度截断"]
-    CE --> SX["context 语义表示"]
-    TE --> SY["target 语义表示\n不参与反向传播"]
-    SX --> P["预测器"]
-    P -->|"最小化预测误差"| SY
+    X[输入帧] --> CE[context 编码器]
+    X --> TE[target 编码器 EMA]
+    CE --> SX[context 语义表示]
+    TE --> SY[target 语义表示]
+    SX --> P[预测器]
+    P -->|最小化预测误差| SY
 ```
 
 训练目标是最小化预测器输出与目标表示之间的 L2 距离：

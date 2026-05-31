@@ -59,9 +59,9 @@ IRIS 的 Transformer 接收的是**帧 token 与动作交错的序列**：每帧
 
 ```mermaid
 flowchart TD
-    A["原始帧（像素图像）"] -->|"VQ-VAE 编码器"| B["图像块量化为词表索引序列\n[42, 7, 183, 56, …]（像句子一样）"]
-    B -->|"Transformer 自回归预测"| C["预测下一帧的 token 序列\n[91, 12, 204, …]"]
-    C -->|"VQ-VAE 解码器"| D["重建图像，供策略观察"]
+    A[原始帧] -->|VQ-VAE 编码| B[离散 token 序列]
+    B -->|Transformer 自回归预测| C[下一帧 token 序列]
+    C -->|VQ-VAE 解码| D[重建图像]
 ```
 
 ### STORM 的核心改进：单 token 随机潜变量
