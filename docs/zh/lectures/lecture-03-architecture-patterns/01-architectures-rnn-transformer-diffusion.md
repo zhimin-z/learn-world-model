@@ -91,7 +91,7 @@ Transformer 以因果掩码处理序列，$h_t$ 同时预测当前奖励 $\hat{r
 
 ## 架构三：Diffusion-based（2023, 2024）
 
-**代表系统**：[Diamond (2024)](https://arxiv.org/abs/2405.12399)、GameNGen (Google, 2024)
+**代表系统**：[Diamond (2024)](https://arxiv.org/abs/2405.12399)、[GameNGen (Google, 2024)](https://arxiv.org/abs/2408.14837)
 
 ### 核心机制
 

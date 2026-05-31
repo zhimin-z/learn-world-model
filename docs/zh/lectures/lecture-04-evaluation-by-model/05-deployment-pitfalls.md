@@ -54,6 +54,6 @@ World model 可以扮演**风险预测**的角色（"如果执行这个动作，
 - Dreamer 系列论文：见 L01 延伸阅读（Dreamer V1）和 L02 延伸阅读（V2/V3/V4）
 - MuZero：见 L03 延伸阅读（Schrittwieser et al., 2020）
 - TD-MPC：见 L03 延伸阅读（Hansen et al., 2022）
-- STORM：见 L04 STORM 指标页延伸阅读（Robine et al., 2023）
+- STORM：见 L04 STORM 指标页延伸阅读（Zhang et al., 2023）
 - [Alonso et al. (2024): Diamond](https://arxiv.org/abs/2405.12399)：扩散世界模型，NeurIPS 2024
 - [Heusel et al. (2017): FID](https://arxiv.org/abs/1706.08500)：Fréchet Inception Distance 原始论文
