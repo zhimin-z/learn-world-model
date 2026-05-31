@@ -6,6 +6,10 @@
 
 # Learn World Models（⚠️ Alpha 内测版）
 
+[![在线阅读](https://img.shields.io/badge/在线阅读-blue?logo=github)](https://datawhalechina.github.io/learn-world-model)
+[![收藏数](https://img.shields.io/github/stars/datawhalechina/learn-world-model?style=flat&logo=github&label=收藏数)](https://github.com/datawhalechina/learn-world-model/stargazers)
+[![许可证](https://img.shields.io/github/license/datawhalechina/learn-world-model?style=flat&label=许可证)](https://github.com/datawhalechina/learn-world-model/blob/main/LICENSE)
+
 > **通过动手构建掌握世界模型：从潜在动力学的直觉，到可运行的仿真、规划与评估系统。**
 
 </div>
@@ -44,7 +48,7 @@
 | L02 | 讲义 | 观测编码与潜在动力学 | VAE、CNN 编码器、ELBO，GRU → MDN-RNN → RSSM |
 | L03 | 讲义 | 架构模式、学习范式与规划 | 七大架构族、CEM-MPC、潜在 Actor-Critic、TD-MPC |
 | L04 | 讲义 | 按模型划分的评估指标 | FID、奖励相关性、一致性损失、PSNR、视野漂移 |
-| L05 | 讲义 | 前沿争论 | 语言 vs 物理接地、Bitter Lesson、AGI 作为研究目标 |
+| L05 | 讲义 | 前沿争论 | 语言 vs 物理 grounding、Bitter Lesson、AGI 作为研究目标 |
 | P01 | 项目 | 训练 VAE 编码器 | 64×64 像素图像压缩为潜在向量；重建损失曲线 |
 | P02 | 项目 | 构建潜在动力学模型 | GRU → RSSM；1 步 vs 5 步预测误差对比 |
 | P03 | 项目 | 完整 Dreamer 流水线 | 编码 → RSSM → 潜在 Actor-Critic → 执行动作 |

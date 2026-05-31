@@ -187,32 +187,6 @@ export default withMermaid(
       root: {
         label: "简体中文",
         lang: "zh-CN",
-        link: "/zh/"
-      },
-      en: {
-        label: "English",
-        lang: "en",
-        link: "/en/",
-        themeConfig: {
-          nav: [
-            { text: "Lectures", link: "/en/world-model/", activeMatch: '^/en/(lectures/|world-model/)' },
-            { text: "Projects", link: enProjectItems[0].link, activeMatch: '^/en/projects/' },
-          ],
-          sidebar: {
-            '/en/projects/': [{ text: "Projects", items: enProjectItems }],
-            '/en/world-model/': [{ text: "World Models", items: enWorldModelItems }],
-            '/en/lectures/lecture-01-internal-simulation/': [{ text: "World Models", items: enWorldModelItems }],
-            '/en/lectures/lecture-02-encode-and-dynamics/': [{ text: "World Models", items: enWorldModelItems }],
-            '/en/lectures/lecture-03-architecture-patterns/': [{ text: "World Models", items: enWorldModelItems }],
-            '/en/lectures/lecture-04-evaluation-by-model/': [{ text: "World Models", items: enWorldModelItems }],
-            '/en/lectures/lecture-05-frontier-debates/': [{ text: "World Models", items: enWorldModelItems }],
-          },
-          socialLinks: [{ icon: "github", link: githubRepoTreeLink }]
-        }
-      },
-      zh: {
-        label: "简体中文",
-        lang: "zh-CN",
         link: "/zh/",
         themeConfig: {
           nav: [
@@ -243,6 +217,27 @@ export default withMermaid(
           darkModeSwitchLabel: "主题",
           lightModeSwitchTitle: "切换到浅色模式",
           darkModeSwitchTitle: "切换到深色模式",
+          socialLinks: [{ icon: "github", link: githubRepoTreeLink }]
+        }
+      },
+      en: {
+        label: "English",
+        lang: "en",
+        link: "/en/",
+        themeConfig: {
+          nav: [
+            { text: "Lectures", link: "/en/world-model/", activeMatch: '^/en/(lectures/|world-model/)' },
+            { text: "Projects", link: enProjectItems[0].link, activeMatch: '^/en/projects/' },
+          ],
+          sidebar: {
+            '/en/projects/': [{ text: "Projects", items: enProjectItems }],
+            '/en/world-model/': [{ text: "World Models", items: enWorldModelItems }],
+            '/en/lectures/lecture-01-internal-simulation/': [{ text: "World Models", items: enWorldModelItems }],
+            '/en/lectures/lecture-02-encode-and-dynamics/': [{ text: "World Models", items: enWorldModelItems }],
+            '/en/lectures/lecture-03-architecture-patterns/': [{ text: "World Models", items: enWorldModelItems }],
+            '/en/lectures/lecture-04-evaluation-by-model/': [{ text: "World Models", items: enWorldModelItems }],
+            '/en/lectures/lecture-05-frontier-debates/': [{ text: "World Models", items: enWorldModelItems }],
+          },
           socialLinks: [{ icon: "github", link: githubRepoTreeLink }]
         }
       }
